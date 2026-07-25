@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f8f5f2" />
+    <meta
+      name="description"
+      content="A private, offline-first personal dictionary for learning English vocabulary."
+    />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <title>Word Garden · Personal Dictionary</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <svg class="icon-sprite" aria-hidden="true">
+      <symbol id="icon-book" viewBox="0 0 24 24">
+        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z" />
+      </symbol>
+      <symbol id="icon-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" /></symbol>
+      <symbol id="icon-search" viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" />
+      </symbol>
+      <symbol id="icon-upload" viewBox="0 0 24 24">
+        <path d="M12 3v12M7 8l5-5 5 5M5 14v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5" />
+      </symbol>
+      <symbol id="icon-download" viewBox="0 0 24 24">
+        <path d="M12 3v12M7 10l5 5 5-5M5 19h14" />
+      </symbol>
+      <symbol id="icon-sparkles" viewBox="0 0 24 24">
+        <path d="m12 3-1.3 3.7L7 8l3.7 1.3L12 13l1.3-3.7L17 8l-3.7-1.3L12 3Z" />
+        <path d="m5 14-.8 2.2L2 17l2.2.8L5 20l.8-2.2L8 17l-2.2-.8L5 14ZM19 13l-.8 2.2-2.2.8 2.2.8L19 19l.8-2.2L22 16l-2.2-.8L19 13Z" />
+      </symbol>
+      <symbol id="icon-database" viewBox="0 0 24 24">
+        <ellipse cx="12" cy="5" rx="8" ry="3" /><path d="M4 5v7c0 1.7 3.6 3 8 3s8-1.3 8-3V5" />
+        <path d="M4 12v7c0 1.7 3.6 3 8 3s8-1.3 8-3v-7" />
+      </symbol>
+      <symbol id="icon-copy" viewBox="0 0 24 24">
+        <rect width="14" height="14" x="8" y="8" rx="2" /><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" />
+      </symbol>
+      <symbol id="icon-volume" viewBox="0 0 24 24">
+        <path d="M11 5 6 9H2v6h4l5 4V5ZM15.5 8.5a5 5 0 0 1 0 7M18 6a8.5 8.5 0 0 1 0 12" />
+      </symbol>
+      <symbol id="icon-trash" viewBox="0 0 24 24">
+        <path d="M3 6h18M8 6V4h8v2M19 6l-1 15H6L5 6M10 11v6M14 11v6" />
+      </symbol>
+      <symbol id="icon-sort-alpha" viewBox="0 0 24 24">
+        <path d="M7 4v16m0 0-3-3m3 3 3-3M14 5h5l-5 7h5M14 19l2.5-5 2.5 5m-4-2h3" />
+      </symbol>
+      <symbol id="icon-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12" /></symbol>
+      <symbol id="icon-check" viewBox="0 0 24 24"><path d="m20 6-11 11-5-5" /></symbol>
+      <symbol id="icon-chevron-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6" /></symbol>
+      <symbol id="icon-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6" /></symbol>
+      <symbol id="icon-eye" viewBox="0 0 24 24">
+        <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" /><circle cx="12" cy="12" r="3" />
+      </symbol>
+      <symbol id="icon-shuffle" viewBox="0 0 24 24">
+        <path d="M16 3h5v5M4 20l5.5-5.5M21 16v5h-5M15 15l6 6M4 4l5.5 5.5M14 10l7-7" />
+      </symbol>
+      <symbol id="icon-keyboard" viewBox="0 0 24 24">
+        <rect x="2" y="5" width="20" height="14" rx="2" /><path d="M6 9h.01M10 9h.01M14 9h.01M18 9h.01M6 13h.01M10 13h.01M14 13h4M7 16h10" />
+      </symbol>
+      <symbol id="icon-arrow-left" viewBox="0 0 24 24"><path d="m19 12H5M12 19l-7-7 7-7" /></symbol>
+      <symbol id="icon-save" viewBox="0 0 24 24">
+        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z" />
+        <path d="M17 21v-8H7v8M7 3v5h8" />
+      </symbol>
+    </svg>
+
+    <main id="dictionaryView" class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#top" aria-label="Word Garden home">
+          <span class="brand-mark">W</span>
+          <span><strong>Word Garden</strong><small>Personal dictionary</small></span>
+        </a>
+        <div class="topbar-actions">
+          <span id="storageStatus" class="storage-status" title="Stored privately in this browser">
+            <svg><use href="#icon-database"></use></svg><span>Saved locally</span>
+          </span>
+          <button id="importButton" class="button button-ghost button-compact" type="button" title="Import JSON backup">
+            <svg><use href="#icon-upload"></use></svg><span>Import</span>
+          </button>
+          <button id="exportButton" class="button button-ghost button-compact" type="button" title="Export JSON backup">
+            <svg><use href="#icon-download"></use></svg><span>Export</span>
+          </button>
+          <button id="reviewButton" class="button button-primary" type="button">
+            <svg><use href="#icon-sparkles"></use></svg><span>Review</span>
+          </button>
+          <input id="importInput" type="file" accept="application/json,.json" hidden />
+        </div>
+      </header>
+
+      <div id="top" class="content-wrap">
+        <section class="page-intro" aria-labelledby="pageTitle">
+          <div>
+            <p class="eyebrow">Your learning space</p>
+            <h1 id="pageTitle">A small place for words worth keeping.</h1>
+            <p class="intro-copy">Capture new English words, refine their meanings, and make them stick.</p>
+          </div>
+          <div class="intro-actions">
+            <div class="word-count"><strong id="totalCount">0</strong><span>words saved</span></div>
+            <button id="toggleAddButton" class="button button-primary" type="button" aria-expanded="false" aria-controls="addPanel">
+              <svg><use href="#icon-plus"></use></svg><span>Add word</span>
+            </button>
+          </div>
+        </section>
+
+        <section id="addPanel" class="add-panel" aria-labelledby="addHeading" hidden>
+          <div class="add-panel-heading">
+            <div>
+              <p class="eyebrow">Quick add</p>
+              <h2 id="addHeading">Add a word to your dictionary</h2>
+            </div>
+            <button id="closeAddButton" class="icon-button" type="button" aria-label="Close add word panel" title="Close">
+              <svg><use href="#icon-x"></use></svg>
+            </button>
+          </div>
+          <form id="addForm" novalidate>
+            <div class="add-form-grid">
+              <label class="field field-word">
+                <span>Vocabulary <b aria-hidden="true">*</b></span>
+                <input id="newVocabulary" name="vocabulary" type="text" placeholder="e.g. resilient" autocomplete="off" />
+                <small class="field-error" data-error-for="vocabulary"></small>
+              </label>
+              <label class="field">
+                <span>Part of speech</span>
+                <select name="partOfSpeech" id="newPartOfSpeech">
+                  <option value="noun">Noun</option><option value="verb">Verb</option>
+                  <option value="adjective">Adjective</option><option value="adverb">Adverb</option>
+                  <option value="pronoun">Pronoun</option><option value="preposition">Preposition</option>
+                  <option value="conjunction">Conjunction</option><option value="interjection">Interjection</option>
+                  <option value="phrase">Phrase</option><option value="other">Other</option>
+                </select>
+              </label>
+              <label class="field field-meaning">
+                <span>Meaning <b aria-hidden="true">*</b></span>
+                <input name="meaning" type="text" placeholder="Vietnamese translation or meaning" autocomplete="off" />
+                <small class="field-error" data-error-for="meaning"></small>
+              </label>
+              <label class="field">
+                <span>Pronunciation</span>
+                <input name="pronunciation" type="text" placeholder="e.g. /rɪˈzɪliənt/" autocomplete="off" />
+              </label>
+              <label class="field field-example">
+                <span>Example</span>
+                <input name="example" type="text" placeholder="Use the word in a sentence" autocomplete="off" />
+              </label>
+            </div>
+            <div class="add-form-footer">
+              <p><svg><use href="#icon-keyboard"></use></svg> Press <kbd>Ctrl</kbd> + <kbd>Enter</kbd> to save and add another.</p>
+              <div>
+                <button id="cancelAddButton" class="button button-ghost" type="button">Cancel</button>
+                <button class="button button-primary" type="submit">
+                  <svg><use href="#icon-plus"></use></svg>Add to dictionary
+                </button>
+              </div>
+            </div>
+          </form>
+        </section>
+
+        <section class="workspace" aria-label="Vocabulary list">
+          <div class="toolbar">
+            <label class="search-box" for="searchInput">
+              <svg><use href="#icon-search"></use></svg>
+              <input id="searchInput" type="search" placeholder="Search vocabulary or meaning…" autocomplete="off" />
+              <button id="clearSearchButton" class="clear-search" type="button" aria-label="Clear search" title="Clear search" hidden>
+                <svg><use href="#icon-x"></use></svg>
+              </button>
+            </label>
+            <div class="toolbar-filters">
+              <label class="compact-field"><span>Part of speech</span>
+                <select id="partFilter">
+                  <option value="all">All parts of speech</option><option value="noun">Noun</option>
+                  <option value="verb">Verb</option><option value="adjective">Adjective</option>
+                  <option value="adverb">Adverb</option><option value="pronoun">Pronoun</option>
+                  <option value="preposition">Preposition</option><option value="conjunction">Conjunction</option>
+                  <option value="interjection">Interjection</option><option value="phrase">Phrase</option><option value="other">Other</option>
+                </select>
+              </label>
+              <label class="compact-field page-size-field"><span>Rows</span>
+                <select id="pageSizeSelect">
+                  <option value="10">10 per page</option><option value="25" selected>25 per page</option>
+                  <option value="50">50 per page</option><option value="100">100 per page</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <div id="bulkBar" class="bulk-bar" hidden>
+            <div><span class="selected-check"><svg><use href="#icon-check"></use></svg></span><strong id="selectedCount">0 selected</strong></div>
+            <div>
+              <button id="clearSelectionButton" class="button button-ghost button-small" type="button">Clear selection</button>
+              <button id="deleteSelectedButton" class="button button-danger button-small" type="button">
+                <svg><use href="#icon-trash"></use></svg>Delete selected
+              </button>
+            </div>
+          </div>
+
+          <div id="tableWrap" class="table-wrap">
+            <table>
+              <caption class="sr-only">Your saved English vocabulary. Edit any field directly in the table.</caption>
+              <thead>
+                <tr>
+                  <th class="select-column">
+                    <input id="selectAllCheckbox" class="checkbox" type="checkbox" aria-label="Select all rows on this page" title="Select all rows on this page" />
+                  </th>
+                  <th class="vocabulary-column">
+                    <button id="vocabularySortButton" class="column-sort" type="button" data-order="a-z" aria-label="Sorted A to Z. Click to sort Z to A." title="Sorted A–Z. Click to sort Z–A.">
+                      <span>Vocabulary</span><svg aria-hidden="true"><use href="#icon-sort-alpha"></use></svg>
+                    </button>
+                  </th>
+                  <th class="part-column">Part of speech</th>
+                  <th class="meaning-column">Meaning</th>
+                  <th class="pronunciation-column">Pronunciation</th>
+                  <th class="example-column">Example</th>
+                  <th class="actions-column">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="wordsTableBody"></tbody>
+            </table>
+          </div>
+
+          <div id="emptyState" class="empty-state" hidden>
+            <div class="empty-illustration"><svg><use href="#icon-book"></use></svg></div>
+            <h2 id="emptyTitle">Your dictionary is ready</h2>
+            <p id="emptyMessage">Add your first unfamiliar word and start building a vocabulary you can revisit.</p>
+            <button id="emptyAddButton" class="button button-primary" type="button">
+              <svg><use href="#icon-plus"></use></svg>Add your first word
+            </button>
+          </div>
+
+          <footer id="pagination" class="pagination" hidden>
+            <p id="rangeLabel">Showing 0 words</p>
+            <nav aria-label="Vocabulary pages">
+              <button id="previousPageButton" class="icon-button pagination-button" type="button" aria-label="Previous page">
+                <svg><use href="#icon-chevron-left"></use></svg>
+              </button>
+              <div id="pageButtons" class="page-buttons"></div>
+              <button id="nextPageButton" class="icon-button pagination-button" type="button" aria-label="Next page">
+                <svg><use href="#icon-chevron-right"></use></svg>
+              </button>
+            </nav>
+          </footer>
+        </section>
+        <p class="privacy-note"><svg><use href="#icon-database"></use></svg>Your dictionary stays in this browser. Export a backup regularly so your learning is never lost.</p>
+      </div>
+    </main>
+
+    <main id="reviewView" class="review-view" hidden>
+      <header class="review-header">
+        <button id="exitReviewButton" class="button button-ghost review-back" type="button">
+          <svg><use href="#icon-arrow-left"></use></svg>Dictionary
+        </button>
+        <div class="review-brand"><span class="brand-mark">W</span><strong>Word Garden</strong></div>
+        <span id="reviewWordCount" class="review-count">0 words</span>
+      </header>
+      <section class="review-content" aria-labelledby="reviewPrompt">
+        <div class="review-toolbar">
+          <div class="mode-switch" aria-label="Review direction">
+            <button class="mode-button active" type="button" data-mode="eng-vie" aria-pressed="true">ENG <span>→</span> VIE</button>
+            <button class="mode-button" type="button" data-mode="vie-eng" aria-pressed="false">VIE <span>→</span> ENG</button>
+          </div>
+          <p><svg><use href="#icon-shuffle"></use></svg>Words appear in random order</p>
+        </div>
+
+        <div id="reviewCard" class="review-card">
+          <div class="review-card-top">
+            <span id="reviewDirectionLabel" class="review-kicker">English → Vietnamese</span>
+            <span id="reviewPart" class="part-badge">Noun</span>
+          </div>
+          <div id="reviewQuestion" class="review-question">
+            <p id="reviewInstruction">What does this word mean?</p>
+            <div class="review-prompt-row">
+              <h1 id="reviewPrompt">—</h1>
+              <button id="reviewSpeakButton" class="speak-button" type="button" aria-label="Play pronunciation" title="Play pronunciation">
+                <svg><use href="#icon-volume"></use></svg>
+              </button>
+            </div>
+            <p id="reviewPronunciation" class="review-pronunciation"></p>
+          </div>
+          <div id="reviewAnswer" class="review-answer" hidden>
+            <span>Answer</span>
+            <h2 id="reviewAnswerText">—</h2>
+            <p id="reviewAnswerMeta"></p>
+            <blockquote id="reviewExample" hidden></blockquote>
+          </div>
+          <div class="review-actions">
+            <button id="showAnswerButton" class="button button-answer" type="button">
+              <svg><use href="#icon-eye"></use></svg>Show Answer
+            </button>
+            <button id="nextWordButton" class="button button-primary button-next" type="button">
+              Next<svg><use href="#icon-chevron-right"></use></svg>
+            </button>
+          </div>
+        </div>
+        <div class="shortcut-guide">
+          <span><kbd>Space</kbd> Show answer</span><span><kbd>→</kbd> Next word</span><span><kbd>Esc</kbd> Exit review</span>
+        </div>
+      </section>
+    </main>
+
+    <dialog id="confirmDialog" class="confirm-dialog">
+      <div class="dialog-icon"><svg><use href="#icon-trash"></use></svg></div>
+      <div>
+        <h2 id="confirmTitle">Delete word?</h2>
+        <p id="confirmMessage">This action cannot be undone.</p>
+      </div>
+      <div class="dialog-actions">
+        <button id="confirmCancelButton" class="button button-ghost" type="button">Cancel</button>
+        <button id="confirmDeleteButton" class="button button-danger" type="button">Delete</button>
+      </div>
+    </dialog>
+
+    <div id="toastRegion" class="toast-region" aria-live="polite" aria-atomic="true"></div>
+    <noscript><p class="noscript">Word Garden needs JavaScript enabled to store and manage your dictionary.</p></noscript>
+
+    <script src="./logic.js"></script>
+    <script src="./storage.js"></script>
+    <script src="./view.js"></script>
+    <script src="./backup.js"></script>
+    <script src="./review.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
