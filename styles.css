@@ -159,7 +159,7 @@ h1, h2, h3, p { text-wrap: pretty; }
 .add-form-footer > p { display: flex; align-items: center; gap: 6px; margin: 0; color: var(--muted); font-size: 11px; }
 .add-form-footer > p svg { width: 15px; height: 15px; }
 .add-form-footer > div { display: flex; gap: 8px; }
-kbd { border: 1px solid var(--border-strong); border-bottom-width: 2px; border-radius: 5px; padding: 1px 5px; background: #fff; color: var(--foreground); font-family: inherit; font-size: 10px; font-weight: 700; }
+kbd { border: 1px solid var(--border-strong); border-bottom-width: 2px; border-radius: 5px; padding: 1px 5px; background: #fff; color: var(--foreground); font-family: inherit; font-size: 10px; font-weight: 700; line-height: 1.2; }
 
 .workspace { overflow: hidden; border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--surface); box-shadow: var(--shadow-sm); }
 .toolbar { display: flex; align-items: flex-end; gap: 14px; border-bottom: 1px solid var(--border); padding: 16px; }
@@ -170,6 +170,8 @@ kbd { border: 1px solid var(--border-strong); border-bottom-width: 2px; border-r
 .clear-search { position: absolute; right: 6px; display: grid; width: 28px; height: 28px; place-items: center; border: 0; border-radius: 7px; background: transparent; color: var(--muted); }
 .clear-search:hover { background: var(--border); color: var(--foreground); }
 .clear-search svg { width: 15px; }
+.search-shortcut { position: absolute; right: 9px; display: flex; align-items: center; pointer-events: none; }
+.clear-search:not([hidden]) + .search-shortcut { display: none; }
 .toolbar-filters { display: flex; gap: 10px; }
 .compact-field { display: flex; min-width: 155px; flex-direction: column; gap: 4px; color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
 .compact-field select { height: 40px; border: 1px solid var(--border); border-radius: 10px; padding: 7px 32px 7px 10px; background: var(--surface); color: var(--foreground); font-size: 12px; font-weight: 600; letter-spacing: 0; text-transform: none; }

@@ -148,7 +148,7 @@
               </label>
             </div>
             <div class="add-form-footer">
-              <p><svg><use href="#icon-keyboard"></use></svg> Press <kbd>Ctrl</kbd> + <kbd>Enter</kbd> to save and add another.</p>
+              <p><svg><use href="#icon-keyboard"></use></svg> Press <kbd data-shortcut-mac="⌘" data-shortcut-windows="Ctrl">⌘</kbd> + <kbd>Enter</kbd> to save and add another.</p>
               <div>
                 <button id="cancelAddButton" class="button button-ghost" type="button">Cancel</button>
                 <button class="button button-primary" type="submit">
@@ -163,10 +163,12 @@
           <div class="toolbar">
             <label class="search-box" for="searchInput">
               <svg><use href="#icon-search"></use></svg>
-              <input id="searchInput" type="search" placeholder="Search vocabulary or meaning…" autocomplete="off" />
+              <input id="searchInput" type="search" placeholder="Search vocabulary or meaning…" autocomplete="off" aria-describedby="searchShortcutDescription" aria-keyshortcuts="Meta+F Control+F" />
               <button id="clearSearchButton" class="clear-search" type="button" aria-label="Clear search" title="Clear search" hidden>
                 <svg><use href="#icon-x"></use></svg>
               </button>
+              <span class="search-shortcut" aria-hidden="true"><kbd data-shortcut-mac="⌘F" data-shortcut-windows="Ctrl F">⌘F</kbd></span>
+              <span id="searchShortcutDescription" class="sr-only">Press Command F to focus search.</span>
             </label>
             <div class="toolbar-filters">
               <label class="compact-field"><span>Part of speech</span>

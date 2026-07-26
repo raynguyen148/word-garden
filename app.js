@@ -32,11 +32,29 @@
   let renderer;
   let review;
 
+  function usesCommandKey() {
+    const platform = navigator.userAgentData && navigator.userAgentData.platform
+      ? navigator.userAgentData.platform
+      : (navigator.platform || navigator.userAgent || "");
+    return /mac|iphone|ipad|ipod/i.test(platform);
+  }
+
+  function updateShortcutHints() {
+    const isMac = usesCommandKey();
+    const shortcutAttribute = isMac ? "data-shortcut-mac" : "data-shortcut-windows";
+    const searchDescription = isMac ? "Press Command F to focus search." : "Press Control F to focus search.";
+
+    document.querySelectorAll("[data-shortcut-mac][data-shortcut-windows]").forEach(function (hint) {
+      hint.textContent = hint.getAttribute(shortcutAttribute);
+    });
+    elements.searchShortcutDescription.textContent = searchDescription;
+  }
+
   function cacheElements() {
     const ids = [
       "dictionaryView", "reviewView", "storageStatus", "importButton", "exportButton", "reviewButton", "importInput",
       "totalCount", "toggleAddButton", "addPanel", "closeAddButton", "cancelAddButton", "addForm", "newVocabulary",
-      "searchInput", "clearSearchButton", "partFilter", "vocabularySortButton", "pageSizeSelect", "bulkBar", "selectedCount",
+      "searchInput", "searchShortcutDescription", "clearSearchButton", "partFilter", "vocabularySortButton", "pageSizeSelect", "bulkBar", "selectedCount",
       "clearSelectionButton", "deleteSelectedButton", "tableWrap", "wordsTableBody", "selectAllCheckbox", "emptyState",
       "emptyTitle", "emptyMessage", "emptyAddButton", "pagination", "rangeLabel", "previousPageButton", "nextPageButton",
       "pageButtons", "exitReviewButton", "reviewWordCount", "reviewCard", "reviewDirectionLabel", "reviewPart",
@@ -59,6 +77,28 @@
     elements.addPanel.hidden = false;
     elements.toggleAddButton.setAttribute("aria-expanded", "true");
     window.requestAnimationFrame(function () { elements.newVocabulary.focus(); });
+  }
+
+  function handleSearchShortcut(event) {
+    if (
+      elements.dictionaryView.hidden ||
+      elements.confirmDialog.open ||
+      event.defaultPrevented ||
+      event.isComposing ||
+      event.repeat ||
+      event.altKey ||
+      event.shiftKey
+    ) return;
+
+    const isMac = usesCommandKey();
+    const usesPrimaryModifier = isMac
+      ? event.metaKey && !event.ctrlKey
+      : event.ctrlKey && !event.metaKey;
+    if (event.key.toLowerCase() === "f" && usesPrimaryModifier) {
+      event.preventDefault();
+      elements.searchInput.focus();
+      elements.searchInput.select();
+    }
   }
 
   function clearFormErrors() {
@@ -416,6 +456,7 @@
     document.querySelectorAll(".mode-button").forEach(function (button) {
       button.addEventListener("click", function () { review.setMode(button.dataset.mode); });
     });
+    document.addEventListener("keydown", handleSearchShortcut);
     document.addEventListener("keydown", function (event) {
       if (elements.reviewView.hidden) return;
       if (event.key === "Escape") review.exit();
@@ -426,6 +467,7 @@
 
   async function initialize() {
     cacheElements();
+    updateShortcutHints();
     renderer = viewModule.createRenderer(elements, state);
     review = window.createLexiloReview({
       elements: elements,
