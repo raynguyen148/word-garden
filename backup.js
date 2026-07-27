@@ -4,15 +4,20 @@
 
   const MAX_IMPORT_BYTES = 10 * 1024 * 1024;
 
-  function exportBackup(words, schemaVersion) {
+  const BACKUP_SCHEMA_VERSION = 2;
+
+  function exportBackup(words) {
     const backup = {
       app: "Word Garden Personal Dictionary",
-      schemaVersion: schemaVersion,
+      schemaVersion: BACKUP_SCHEMA_VERSION,
       exportedAt: new Date().toISOString(),
       words: words.map(function (word) {
         return {
           word: word.vocabulary,
+          // Keep the original single-value field so version 1 backups remain
+          // readable by earlier app builds. New builds use the array below.
           partOfSpeech: word.partOfSpeech,
+          partsOfSpeech: word.partsOfSpeech,
           meaning: word.meaning,
           pronunciation: word.pronunciation || "",
           example: word.example || "",
@@ -47,5 +52,9 @@
     return prepared;
   }
 
-  root.LexiloBackup = { exportBackup: exportBackup, readBackup: readBackup };
+  root.LexiloBackup = {
+    schemaVersion: BACKUP_SCHEMA_VERSION,
+    exportBackup: exportBackup,
+    readBackup: readBackup,
+  };
 })(window);

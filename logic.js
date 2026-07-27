@@ -38,6 +38,29 @@
     return PARTS_OF_SPEECH.includes(normalized) ? normalized : "other";
   }
 
+  // `partOfSpeech` used to be a single string. Keep accepting that shape while
+  // making the plural field the canonical representation for new records.
+  function normalizePartsOfSpeech(value) {
+    const values = Array.isArray(value)
+      ? value
+      : (typeof value === "string" ? value.split(",") : []);
+    const selected = new Set();
+
+    values.forEach(function (part) {
+      const normalized = cleanText(part).toLowerCase();
+      if (PARTS_OF_SPEECH.includes(normalized)) selected.add(normalized);
+    });
+
+    const parts = PARTS_OF_SPEECH.filter(function (part) { return selected.has(part); });
+    return parts.length ? parts : ["other"];
+  }
+
+  function formatPartsOfSpeech(value) {
+    return normalizePartsOfSpeech(value).map(function (part) {
+      return part.charAt(0).toUpperCase() + part.slice(1);
+    }).join(" · ");
+  }
+
   function safeIsoDate(value, fallback) {
     if (typeof value === "string") {
       const date = new Date(value);
@@ -54,10 +77,13 @@
     if (!vocabulary || !meaning) return null;
 
     const now = timestamp || new Date().toISOString();
+    const partsOfSpeech = normalizePartsOfSpeech(raw.partsOfSpeech || raw.partOfSpeech || raw.part_of_speech);
     return {
       vocabulary: vocabulary,
       wordKey: normalizeWord(vocabulary),
-      partOfSpeech: normalizePartOfSpeech(raw.partOfSpeech || raw.part_of_speech),
+      // Keep the singular value for backups made by older versions of the app.
+      partOfSpeech: partsOfSpeech[0],
+      partsOfSpeech: partsOfSpeech,
       meaning: meaning,
       pronunciation: cleanText(raw.pronunciation),
       example: cleanText(raw.example),
@@ -108,7 +134,8 @@
     const selectedPart = cleanText(partOfSpeech).toLowerCase();
 
     const filtered = words.filter(function (word) {
-      const matchesPart = !selectedPart || selectedPart === "all" || word.partOfSpeech === selectedPart;
+      const wordParts = normalizePartsOfSpeech(word.partsOfSpeech || word.partOfSpeech);
+      const matchesPart = !selectedPart || selectedPart === "all" || wordParts.includes(selectedPart);
       if (!matchesPart) return false;
       if (!normalizedQuery) return true;
       return (
@@ -161,6 +188,8 @@
     PARTS_OF_SPEECH: PARTS_OF_SPEECH,
     normalizeWord: normalizeWord,
     normalizePartOfSpeech: normalizePartOfSpeech,
+    normalizePartsOfSpeech: normalizePartsOfSpeech,
+    formatPartsOfSpeech: formatPartsOfSpeech,
     sanitizeImportedWord: sanitizeImportedWord,
     prepareImportedWords: prepareImportedWords,
     validateWordDraft: validateWordDraft,

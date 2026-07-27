@@ -111,6 +111,7 @@
     elements.toggleAddButton.setAttribute("aria-expanded", "false");
     if (reset) {
       elements.addForm.reset();
+      viewModule.syncPartPicker(elements.addForm.querySelector("[data-part-picker]"), ["noun"], "new word");
       clearFormErrors();
     }
   }
@@ -120,7 +121,10 @@
     Object.keys(errors).forEach(function (fieldName) {
       const input = elements.addForm.elements[fieldName];
       const error = elements.addForm.querySelector('[data-error-for="' + fieldName + '"]');
-      if (input) input.closest(".field").classList.add("invalid");
+      const inputElement = input && typeof input.closest === "function"
+        ? input
+        : elements.addForm.querySelector('[name="' + fieldName + '"]');
+      if (inputElement) inputElement.closest(".field").classList.add("invalid");
       if (error) error.textContent = errors[fieldName];
     });
     const firstInvalid = elements.addForm.querySelector(".field.invalid input");
@@ -134,14 +138,20 @@
       return;
     }
     const data = new FormData(elements.addForm);
+    const selectedParts = data.getAll("partsOfSpeech");
+    const partsOfSpeech = logic.normalizePartsOfSpeech(selectedParts);
     const draft = {
       vocabulary: String(data.get("vocabulary") || "").trim(),
-      partOfSpeech: logic.normalizePartOfSpeech(String(data.get("partOfSpeech") || "other")),
+      // Store both fields during the transition: the array is canonical and
+      // the primary value keeps legacy backups compatible.
+      partOfSpeech: partsOfSpeech[0],
+      partsOfSpeech: partsOfSpeech,
       meaning: String(data.get("meaning") || "").trim(),
       pronunciation: String(data.get("pronunciation") || "").trim(),
       example: String(data.get("example") || "").trim(),
     };
     const errors = logic.validateWordDraft(draft);
+    if (!selectedParts.length) errors.partsOfSpeech = "Choose at least one part of speech.";
     const wordKey = logic.normalizeWord(draft.vocabulary);
     if (state.words.some(function (word) { return word.wordKey === wordKey; })) {
       errors.vocabulary = "This word already exists. Edit it directly in the table instead.";
@@ -163,6 +173,7 @@
       renderer.renderApp();
       showToast("Word added", draft.vocabulary + " is now in your dictionary.", "success");
       elements.addForm.reset();
+      viewModule.syncPartPicker(elements.addForm.querySelector("[data-part-picker]"), ["noun"], "new word");
       if (state.keepAdding) elements.newVocabulary.focus();
       else closeAddPanel(false);
       setStatus("saved", "Saved locally");
@@ -179,14 +190,15 @@
     return state.words.find(function (word) { return word.id === id; }) || null;
   }
 
-  async function saveInlineEdit(control) {
+  async function saveInlineEdit(control, valueOverride) {
     const id = control.dataset.id;
     const field = control.dataset.field;
     const index = state.words.findIndex(function (word) { return word.id === id; });
     if (index < 0 || !field) return;
     const previous = state.words[index];
-    let value = control.value.trim();
+    let value = valueOverride === undefined ? control.value.trim() : valueOverride;
     if (field === "partOfSpeech") value = logic.normalizePartOfSpeech(value);
+    if (field === "partsOfSpeech") value = logic.normalizePartsOfSpeech(value);
     if ((field === "vocabulary" || field === "meaning") && !value) {
       control.value = previous[field];
       showToast("A required field is empty", field === "vocabulary" ? "Vocabulary cannot be blank." : "Meaning cannot be blank.", "error");
@@ -195,6 +207,7 @@
 
     const changes = { updatedAt: new Date().toISOString() };
     changes[field] = value;
+    if (field === "partsOfSpeech") changes.partOfSpeech = value[0];
     if (field === "vocabulary") {
       const newKey = logic.normalizeWord(value);
       if (state.words.some(function (word) { return word.id !== id && word.wordKey === newKey; })) {
@@ -296,6 +309,20 @@
   function handleTableClick(event) {
     const button = event.target.closest("button[data-action]");
     if (!button) return;
+    if (button.dataset.action === "cancel-parts") {
+      renderer.renderApp();
+      return;
+    }
+    if (button.dataset.action === "apply-parts") {
+      const picker = button.closest("[data-part-picker]");
+      const selectedParts = Array.from(picker.querySelectorAll('input[type="checkbox"]:checked')).map(function (input) { return input.value; });
+      if (!selectedParts.length) {
+        showToast("Choose a part of speech", "Each word needs at least one category.", "error");
+        return;
+      }
+      saveInlineEdit(button, selectedParts);
+      return;
+    }
     const word = findWord(button.dataset.id);
     if (!word) return;
     if (button.dataset.action === "copy") copyText(word.vocabulary);
@@ -312,6 +339,8 @@
       const row = target.closest("tr");
       if (row) row.classList.toggle("selected", target.checked);
       renderer.renderSelection();
+    } else if (target.dataset.field === "partsOfSpeech") {
+      return;
     } else if (target.matches("[data-field]")) {
       saveInlineEdit(target);
     }
@@ -374,6 +403,14 @@
     });
     elements.wordsTableBody.addEventListener("click", handleTableClick);
     elements.wordsTableBody.addEventListener("change", handleTableChange);
+    elements.wordsTableBody.addEventListener("toggle", function (event) {
+      const picker = event.target;
+      if (!picker.matches || !picker.matches(".inline-part-picker")) return;
+      if (!picker.open) {
+        const word = findWord(picker.dataset.id);
+        if (word) viewModule.syncPartPicker(picker, word.partsOfSpeech || word.partOfSpeech, word.vocabulary);
+      }
+    }, true);
     elements.selectAllCheckbox.addEventListener("change", function () {
       state.currentPageIds.forEach(function (id) {
         if (elements.selectAllCheckbox.checked) state.selectedIds.add(id);
@@ -418,6 +455,11 @@
       const error = field.querySelector(".field-error");
       if (error) error.textContent = "";
     });
+    elements.addForm.addEventListener("change", function (event) {
+      if (event.target.name === "partsOfSpeech") {
+        viewModule.syncPartPicker(event.target.closest("[data-part-picker]"));
+      }
+    });
     elements.emptyAddButton.addEventListener("click", function () {
       if (state.emptyAction === "add") return openAddPanel();
       state.query = "";
@@ -445,7 +487,7 @@
     elements.importButton.addEventListener("click", function () { elements.importInput.click(); });
     elements.importInput.addEventListener("change", importBackup);
     elements.exportButton.addEventListener("click", function () {
-      backupModule.exportBackup(state.words, storageModule.version);
+      backupModule.exportBackup(state.words);
       showToast("Backup exported", state.words.length + (state.words.length === 1 ? " word was" : " words were") + " included.", "success");
     });
     elements.reviewButton.addEventListener("click", review.enter);

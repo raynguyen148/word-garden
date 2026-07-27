@@ -20,7 +20,8 @@
 
       elements.reviewWordCount.textContent = state.words.length + (state.words.length === 1 ? " word" : " words");
       elements.reviewDirectionLabel.textContent = englishFirst ? "English → Vietnamese" : "Vietnamese → English";
-      elements.reviewPart.textContent = word.partOfSpeech;
+      const partsOfSpeech = logic.formatPartsOfSpeech(word.partsOfSpeech || word.partOfSpeech);
+      elements.reviewPart.textContent = partsOfSpeech;
       elements.reviewInstruction.textContent = englishFirst ? "What does this word mean?" : "What is the English word?";
       elements.reviewPrompt.textContent = prompt;
       promptRow.classList.toggle("long-prompt", prompt.length > 28);
@@ -29,8 +30,8 @@
       elements.reviewPronunciation.textContent = word.pronunciation || "";
       elements.reviewAnswerText.textContent = answer;
       elements.reviewAnswerMeta.textContent = englishFirst
-        ? word.partOfSpeech.charAt(0).toUpperCase() + word.partOfSpeech.slice(1)
-        : (word.pronunciation ? word.partOfSpeech + " · " + word.pronunciation : word.partOfSpeech);
+        ? partsOfSpeech
+        : (word.pronunciation ? partsOfSpeech + " · " + word.pronunciation : partsOfSpeech);
       elements.reviewExample.hidden = !word.example;
       elements.reviewExample.textContent = word.example ? "“" + word.example + "”" : "";
       elements.reviewAnswer.hidden = !state.answerShown;

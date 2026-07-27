@@ -29,20 +29,41 @@
     });
   }
 
+  function normalizePartsOfSpeech(record) {
+    const value = record && (record.partsOfSpeech || record.partOfSpeech);
+    if (root.DictionaryLogic && root.DictionaryLogic.normalizePartsOfSpeech) {
+      return root.DictionaryLogic.normalizePartsOfSpeech(value);
+    }
+    const values = Array.isArray(value) ? value : [value];
+    const known = ["noun", "verb", "adjective", "adverb", "pronoun", "preposition", "conjunction", "interjection", "phrase", "other"];
+    const selected = values.filter(function (part) { return known.includes(String(part || "").toLowerCase()); });
+    return selected.length ? Array.from(new Set(selected)) : ["other"];
+  }
+
   // UI modules call the field vocabulary; persisted Word Garden records use word.
   function toAppWord(record) {
     if (!record) return record;
-    return Object.assign({}, record, { vocabulary: record.word || record.vocabulary || "" });
+    const partsOfSpeech = normalizePartsOfSpeech(record);
+    return Object.assign({}, record, {
+      vocabulary: record.word || record.vocabulary || "",
+      // Preserve this compatibility field for old backups and older app builds.
+      partOfSpeech: partsOfSpeech[0],
+      partsOfSpeech: partsOfSpeech,
+    });
   }
 
   function toStoredWord(record, forcedId) {
     const word = String(record.word || record.vocabulary || "").trim();
     const now = new Date().toISOString();
+    const partsOfSpeech = normalizePartsOfSpeech(record);
     return {
       id: forcedId || record.id || createId(),
       word: word,
       wordKey: record.wordKey || word.normalize("NFKC").toLocaleLowerCase("en-US").replace(/\s+/g, " "),
-      partOfSpeech: record.partOfSpeech || "other",
+      // `partsOfSpeech` is canonical. The primary singular value lets
+      // previously exported backups continue to be understood by old builds.
+      partOfSpeech: partsOfSpeech[0],
+      partsOfSpeech: partsOfSpeech,
       meaning: String(record.meaning || "").trim(),
       pronunciation: String(record.pronunciation || "").trim(),
       example: String(record.example || "").trim(),
@@ -142,7 +163,7 @@
             mappedChanges.word = mappedChanges.vocabulary;
             delete mappedChanges.vocabulary;
           }
-          store.put(Object.assign({}, existing, mappedChanges, { id: id }));
+          store.put(toStoredWord(Object.assign({}, existing, mappedChanges, { id: id }), id));
         };
         request.onerror = function () { reject(request.error || new Error("Could not find that word.")); };
         transaction.oncomplete = function () { resolve(); };

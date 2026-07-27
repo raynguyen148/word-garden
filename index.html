@@ -123,16 +123,31 @@
                 <input id="newVocabulary" name="vocabulary" type="text" placeholder="e.g. resilient" autocomplete="off" />
                 <small class="field-error" data-error-for="vocabulary"></small>
               </label>
-              <label class="field">
-                <span>Part of speech</span>
-                <select name="partOfSpeech" id="newPartOfSpeech">
-                  <option value="noun">Noun</option><option value="verb">Verb</option>
-                  <option value="adjective">Adjective</option><option value="adverb">Adverb</option>
-                  <option value="pronoun">Pronoun</option><option value="preposition">Preposition</option>
-                  <option value="conjunction">Conjunction</option><option value="interjection">Interjection</option>
-                  <option value="phrase">Phrase</option><option value="other">Other</option>
-                </select>
-              </label>
+              <fieldset class="field part-of-speech-field">
+                <legend>Parts of speech</legend>
+                <details class="part-picker form-part-picker" data-part-picker>
+                  <summary class="part-picker-trigger" aria-label="Parts of speech: noun. Click to edit.">
+                    <span class="part-picker-tags" data-part-picker-tags><span class="part-tag" title="Noun" aria-label="Noun">(n)</span></span>
+                    <span class="part-picker-edit" aria-hidden="true">Edit</span>
+                  </summary>
+                  <div class="part-picker-menu">
+                    <p>Select one or more types</p>
+                    <div class="part-picker-options">
+                      <label class="part-picker-option"><input name="partsOfSpeech" type="checkbox" value="noun" checked /><span>Noun</span><small>(n)</small></label>
+                      <label class="part-picker-option"><input name="partsOfSpeech" type="checkbox" value="verb" /><span>Verb</span><small>(v)</small></label>
+                      <label class="part-picker-option"><input name="partsOfSpeech" type="checkbox" value="adjective" /><span>Adjective</span><small>(adj)</small></label>
+                      <label class="part-picker-option"><input name="partsOfSpeech" type="checkbox" value="adverb" /><span>Adverb</span><small>(adv)</small></label>
+                      <label class="part-picker-option"><input name="partsOfSpeech" type="checkbox" value="pronoun" /><span>Pronoun</span><small>(pron)</small></label>
+                      <label class="part-picker-option"><input name="partsOfSpeech" type="checkbox" value="preposition" /><span>Preposition</span><small>(prep)</small></label>
+                      <label class="part-picker-option"><input name="partsOfSpeech" type="checkbox" value="conjunction" /><span>Conjunction</span><small>(conj)</small></label>
+                      <label class="part-picker-option"><input name="partsOfSpeech" type="checkbox" value="interjection" /><span>Interjection</span><small>(interj)</small></label>
+                      <label class="part-picker-option"><input name="partsOfSpeech" type="checkbox" value="phrase" /><span>Phrase</span><small>(phr)</small></label>
+                      <label class="part-picker-option"><input name="partsOfSpeech" type="checkbox" value="other" /><span>Other</span><small>(other)</small></label>
+                    </div>
+                  </div>
+                </details>
+                <small class="field-error" data-error-for="partsOfSpeech"></small>
+              </fieldset>
               <label class="field field-meaning">
                 <span>Meaning <b aria-hidden="true">*</b></span>
                 <input name="meaning" type="text" placeholder="Vietnamese translation or meaning" autocomplete="off" />
@@ -212,7 +227,7 @@
                       <span>Vocabulary</span><svg aria-hidden="true"><use href="#icon-sort-alpha"></use></svg>
                     </button>
                   </th>
-                  <th class="part-column">Part of speech</th>
+                  <th class="part-column">Parts of speech</th>
                   <th class="meaning-column">Meaning</th>
                   <th class="pronunciation-column">Pronunciation</th>
                   <th class="example-column">Example</th>

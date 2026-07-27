@@ -28,11 +28,85 @@
     }, 3400);
   }
 
-  function partOptions(selected) {
-    return logic.PARTS_OF_SPEECH.map(function (part) {
-      const label = part.charAt(0).toUpperCase() + part.slice(1);
-      return '<option value="' + part + '"' + (selected === part ? " selected" : "") + ">" + label + "</option>";
+  const PART_ABBREVIATIONS = {
+    noun: "n",
+    verb: "v",
+    adjective: "adj",
+    adverb: "adv",
+    pronoun: "pron",
+    preposition: "prep",
+    conjunction: "conj",
+    interjection: "interj",
+    phrase: "phr",
+    other: "other",
+  };
+
+  function partLabel(part) {
+    return part.charAt(0).toUpperCase() + part.slice(1);
+  }
+
+  function partTags(selectedParts) {
+    const selected = Array.isArray(selectedParts) && selectedParts.length === 0
+      ? []
+      : logic.normalizePartsOfSpeech(selectedParts);
+    if (!selected.length) return '<span class="part-picker-placeholder">Choose type</span>';
+    return selected.map(function (part) {
+      const label = partLabel(part);
+      return '<span class="part-tag" title="' + label + '" aria-label="' + label + '">(' + PART_ABBREVIATIONS[part] + ")</span>";
     }).join("");
+  }
+
+  function partPickerOptions(selectedParts, attributes) {
+    const selected = logic.normalizePartsOfSpeech(selectedParts);
+    return logic.PARTS_OF_SPEECH.map(function (part) {
+      return '<label class="part-picker-option"><input type="checkbox" ' + attributes + ' value="' + part + '"' +
+        (selected.includes(part) ? " checked" : "") + '><span>' + partLabel(part) + '</span><small>(' + PART_ABBREVIATIONS[part] + ")</small></label>";
+    }).join("");
+  }
+
+  function partPickerLabel(selectedParts, vocabulary) {
+    const selected = Array.isArray(selectedParts) && selectedParts.length === 0
+      ? []
+      : logic.normalizePartsOfSpeech(selectedParts);
+    const names = selected.length ? selected.map(partLabel).join(", ") : "no type selected";
+    return "Parts of speech for " + vocabulary + ": " + names + ". Click to edit.";
+  }
+
+  function inlinePartPicker(selectedParts, id, vocabulary) {
+    const selected = logic.normalizePartsOfSpeech(selectedParts);
+    return '<details class="part-picker inline-part-picker" data-part-picker data-id="' + id + '">' +
+      '<summary class="part-picker-trigger" aria-label="' + logic.escapeHtml(partPickerLabel(selected, vocabulary)) + '">' +
+        '<span class="part-picker-tags" data-part-picker-tags>' + partTags(selected) + '</span>' +
+      '</summary>' +
+      '<div class="part-picker-menu">' +
+        '<p>Select one or more types</p>' +
+        '<div class="part-picker-options">' + partPickerOptions(selected, 'data-field="partsOfSpeech" data-id="' + id + '"') + '</div>' +
+        '<div class="part-picker-actions">' +
+          '<button class="part-picker-cancel" type="button" data-action="cancel-parts">Cancel</button>' +
+          '<button class="part-picker-save" type="button" data-action="apply-parts" data-field="partsOfSpeech" data-id="' + id + '">Done</button>' +
+        '</div>' +
+      '</div>' +
+    '</details>';
+  }
+
+  function syncPartPicker(picker, selectedParts, vocabulary) {
+    if (!picker) return;
+    const selected = selectedParts === undefined
+      ? Array.from(picker.querySelectorAll('input[type="checkbox"]:checked')).map(function (input) { return input.value; })
+      : selectedParts;
+    const normalized = Array.isArray(selected) && selected.length === 0
+      ? []
+      : logic.normalizePartsOfSpeech(selected);
+    picker.querySelectorAll('input[type="checkbox"]').forEach(function (input) {
+      input.checked = normalized.includes(input.value);
+    });
+    const tags = picker.querySelector("[data-part-picker-tags]");
+    if (tags) tags.innerHTML = partTags(normalized);
+    const summary = picker.querySelector("summary");
+    if (summary) {
+      const word = vocabulary || picker.closest("tr") && picker.closest("tr").querySelector(".word-input").value || "new word";
+      summary.setAttribute("aria-label", partPickerLabel(normalized, word));
+    }
   }
 
   function createRenderer(elements, state) {
@@ -53,7 +127,7 @@
         return `<tr data-row-id="${id}" class="${selected ? "selected" : ""}">
           <td class="select-column"><input class="checkbox row-checkbox" type="checkbox" data-id="${id}" aria-label="Select ${vocabulary}" ${selected ? "checked" : ""}></td>
           <td><input class="inline-control word-input" data-field="vocabulary" data-id="${id}" value="${vocabulary}" aria-label="Vocabulary: ${vocabulary}"></td>
-          <td><select class="inline-control inline-select" data-field="partOfSpeech" data-id="${id}" aria-label="Part of speech for ${vocabulary}">${partOptions(word.partOfSpeech)}</select></td>
+          <td>${inlinePartPicker(word.partsOfSpeech || word.partOfSpeech, id, word.vocabulary)}</td>
           <td><input class="inline-control meaning-input" data-field="meaning" data-id="${id}" value="${e(word.meaning)}" aria-label="Meaning for ${vocabulary}"></td>
           <td><input class="inline-control" data-field="pronunciation" data-id="${id}" value="${e(word.pronunciation || "")}" placeholder="Add pronunciation" aria-label="Pronunciation for ${vocabulary}"></td>
           <td><textarea class="inline-control" data-field="example" data-id="${id}" placeholder="Add an example" aria-label="Example for ${vocabulary}">${e(word.example || "")}</textarea></td>
@@ -150,5 +224,6 @@
     setStorageStatus: setStorageStatus,
     showToast: showToast,
     createRenderer: createRenderer,
+    syncPartPicker: syncPartPicker,
   };
 })(window);
