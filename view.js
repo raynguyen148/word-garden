@@ -74,17 +74,13 @@
 
   function inlinePartPicker(selectedParts, id, vocabulary) {
     const selected = logic.normalizePartsOfSpeech(selectedParts);
-    return '<details class="part-picker inline-part-picker" data-part-picker data-id="' + id + '">' +
+    return '<details class="part-picker inline-part-picker" data-part-picker data-field="partsOfSpeech" data-id="' + id + '">' +
       '<summary class="part-picker-trigger" aria-label="' + logic.escapeHtml(partPickerLabel(selected, vocabulary)) + '">' +
         '<span class="part-picker-tags" data-part-picker-tags>' + partTags(selected) + '</span>' +
       '</summary>' +
       '<div class="part-picker-menu">' +
         '<p>Select one or more types</p>' +
         '<div class="part-picker-options">' + partPickerOptions(selected, 'data-field="partsOfSpeech" data-id="' + id + '"') + '</div>' +
-        '<div class="part-picker-actions">' +
-          '<button class="part-picker-cancel" type="button" data-action="cancel-parts">Cancel</button>' +
-          '<button class="part-picker-save" type="button" data-action="apply-parts" data-field="partsOfSpeech" data-id="' + id + '">Done</button>' +
-        '</div>' +
       '</div>' +
     '</details>';
   }

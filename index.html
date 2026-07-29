@@ -123,12 +123,16 @@
                 <input id="newVocabulary" name="vocabulary" type="text" placeholder="e.g. resilient" autocomplete="off" />
                 <small class="field-error" data-error-for="vocabulary"></small>
               </label>
+              <label class="field field-meaning">
+                <span>Meaning <b aria-hidden="true">*</b></span>
+                <input name="meaning" type="text" placeholder="Vietnamese translation or meaning" autocomplete="off" />
+                <small class="field-error" data-error-for="meaning"></small>
+              </label>
               <fieldset class="field part-of-speech-field">
                 <legend>Parts of speech</legend>
                 <details class="part-picker form-part-picker" data-part-picker>
                   <summary class="part-picker-trigger" aria-label="Parts of speech: noun. Click to edit.">
                     <span class="part-picker-tags" data-part-picker-tags><span class="part-tag" title="Noun" aria-label="Noun">(n)</span></span>
-                    <span class="part-picker-edit" aria-hidden="true">Edit</span>
                   </summary>
                   <div class="part-picker-menu">
                     <p>Select one or more types</p>
@@ -148,11 +152,6 @@
                 </details>
                 <small class="field-error" data-error-for="partsOfSpeech"></small>
               </fieldset>
-              <label class="field field-meaning">
-                <span>Meaning <b aria-hidden="true">*</b></span>
-                <input name="meaning" type="text" placeholder="Vietnamese translation or meaning" autocomplete="off" />
-                <small class="field-error" data-error-for="meaning"></small>
-              </label>
               <label class="field">
                 <span>Pronunciation</span>
                 <input name="pronunciation" type="text" placeholder="e.g. /rɪˈzɪliənt/" autocomplete="off" />

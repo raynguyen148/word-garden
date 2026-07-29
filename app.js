@@ -31,6 +31,11 @@
   const elements = {};
   let renderer;
   let review;
+  let inlineTextTooltip;
+  let inlineTextTooltipTimer;
+  let inlineTextTooltipTarget;
+
+  const INLINE_TEXT_TOOLTIP_DELAY = 1000;
 
   function usesCommandKey() {
     const platform = navigator.userAgentData && navigator.userAgentData.platform
@@ -309,20 +314,6 @@
   function handleTableClick(event) {
     const button = event.target.closest("button[data-action]");
     if (!button) return;
-    if (button.dataset.action === "cancel-parts") {
-      renderer.renderApp();
-      return;
-    }
-    if (button.dataset.action === "apply-parts") {
-      const picker = button.closest("[data-part-picker]");
-      const selectedParts = Array.from(picker.querySelectorAll('input[type="checkbox"]:checked')).map(function (input) { return input.value; });
-      if (!selectedParts.length) {
-        showToast("Choose a part of speech", "Each word needs at least one category.", "error");
-        return;
-      }
-      saveInlineEdit(button, selectedParts);
-      return;
-    }
     const word = findWord(button.dataset.id);
     if (!word) return;
     if (button.dataset.action === "copy") copyText(word.vocabulary);
@@ -340,10 +331,102 @@
       if (row) row.classList.toggle("selected", target.checked);
       renderer.renderSelection();
     } else if (target.dataset.field === "partsOfSpeech") {
+      const picker = target.closest(".inline-part-picker");
+      const selectedParts = picker
+        ? Array.from(picker.querySelectorAll('input[type="checkbox"]:checked')).map(function (input) { return input.value; })
+        : [];
+      if (!selectedParts.length) {
+        target.checked = true;
+        showToast("Choose a part of speech", "Each word needs at least one category.", "error");
+      }
       return;
     } else if (target.matches("[data-field]")) {
       saveInlineEdit(target);
     }
+  }
+
+  function closePartPickersOutside(event) {
+    const target = event.target;
+    if (!target || typeof target.closest !== "function") return;
+
+    document.querySelectorAll("[data-part-picker][open]").forEach(function (picker) {
+      if (picker.contains(target)) return;
+
+      if (picker.classList.contains("inline-part-picker")) commitInlinePartPicker(picker);
+      picker.open = false;
+    });
+  }
+
+  function hideInlineTextTooltip() {
+    window.clearTimeout(inlineTextTooltipTimer);
+    inlineTextTooltipTimer = undefined;
+    if (inlineTextTooltipTarget) inlineTextTooltipTarget.removeAttribute("aria-describedby");
+    inlineTextTooltipTarget = undefined;
+    if (!inlineTextTooltip) return;
+    inlineTextTooltip.hidden = true;
+    inlineTextTooltip.textContent = "";
+  }
+
+  function positionInlineTextTooltip(target) {
+    const targetRect = target.getBoundingClientRect();
+    const edgeGap = 12;
+    const offset = 8;
+    const tooltipWidth = inlineTextTooltip.offsetWidth;
+    const tooltipHeight = inlineTextTooltip.offsetHeight;
+    const left = Math.max(edgeGap, Math.min(targetRect.left, window.innerWidth - tooltipWidth - edgeGap));
+    const preferredTop = targetRect.bottom + offset;
+    const top = preferredTop + tooltipHeight <= window.innerHeight - edgeGap
+      ? preferredTop
+      : Math.max(edgeGap, targetRect.top - tooltipHeight - offset);
+
+    inlineTextTooltip.style.left = left + "px";
+    inlineTextTooltip.style.top = top + "px";
+  }
+
+  function showInlineTextTooltip(target) {
+    const text = target.value.trim();
+    if (!text) return;
+    inlineTextTooltipTarget = target;
+    inlineTextTooltip.textContent = text;
+    inlineTextTooltip.hidden = false;
+    target.setAttribute("aria-describedby", inlineTextTooltip.id);
+    positionInlineTextTooltip(target);
+  }
+
+  function scheduleInlineTextTooltip(event) {
+    const target = event.target;
+    if (!target.matches || !target.matches('input.word-input[data-field="vocabulary"], input.meaning-input[data-field="meaning"], textarea[data-field="example"]')) return;
+
+    hideInlineTextTooltip();
+    inlineTextTooltipTarget = target;
+    inlineTextTooltipTimer = window.setTimeout(function () {
+      if (inlineTextTooltipTarget === target && target.matches(":hover")) showInlineTextTooltip(target);
+    }, INLINE_TEXT_TOOLTIP_DELAY);
+  }
+
+  function handleInlineTextTooltipLeave(event) {
+    const target = event.target;
+    if (target.matches && target.matches('input.word-input[data-field="vocabulary"], input.meaning-input[data-field="meaning"], textarea[data-field="example"]')) hideInlineTextTooltip();
+  }
+
+  function setupInlineTextTooltip() {
+    inlineTextTooltip = document.createElement("div");
+    inlineTextTooltip.id = "inlineTextTooltip";
+    inlineTextTooltip.className = "inline-text-tooltip";
+    inlineTextTooltip.setAttribute("role", "tooltip");
+    inlineTextTooltip.hidden = true;
+    document.body.appendChild(inlineTextTooltip);
+  }
+
+  function commitInlinePartPicker(picker) {
+    const word = findWord(picker.dataset.id);
+    if (!word) return;
+    const selectedParts = Array.from(picker.querySelectorAll('input[type="checkbox"]:checked')).map(function (input) { return input.value; });
+    const previousParts = logic.normalizePartsOfSpeech(word.partsOfSpeech || word.partOfSpeech);
+    const nextParts = logic.normalizePartsOfSpeech(selectedParts);
+    const unchanged = previousParts.length === nextParts.length && previousParts.every(function (part, index) { return part === nextParts[index]; });
+    if (!selectedParts.length || unchanged) return;
+    saveInlineEdit(picker, selectedParts);
   }
 
   async function importBackup(event) {
@@ -403,13 +486,12 @@
     });
     elements.wordsTableBody.addEventListener("click", handleTableClick);
     elements.wordsTableBody.addEventListener("change", handleTableChange);
+    elements.wordsTableBody.addEventListener("pointerover", scheduleInlineTextTooltip);
+    elements.wordsTableBody.addEventListener("pointerout", handleInlineTextTooltipLeave);
     elements.wordsTableBody.addEventListener("toggle", function (event) {
       const picker = event.target;
       if (!picker.matches || !picker.matches(".inline-part-picker")) return;
-      if (!picker.open) {
-        const word = findWord(picker.dataset.id);
-        if (word) viewModule.syncPartPicker(picker, word.partsOfSpeech || word.partOfSpeech, word.vocabulary);
-      }
+      if (!picker.open) commitInlinePartPicker(picker);
     }, true);
     elements.selectAllCheckbox.addEventListener("change", function () {
       state.currentPageIds.forEach(function (id) {
@@ -460,6 +542,9 @@
         viewModule.syncPartPicker(event.target.closest("[data-part-picker]"));
       }
     });
+    document.addEventListener("pointerdown", closePartPickersOutside);
+    window.addEventListener("resize", hideInlineTextTooltip);
+    window.addEventListener("scroll", hideInlineTextTooltip, true);
     elements.emptyAddButton.addEventListener("click", function () {
       if (state.emptyAction === "add") return openAddPanel();
       state.query = "";
@@ -509,6 +594,7 @@
 
   async function initialize() {
     cacheElements();
+    setupInlineTextTooltip();
     updateShortcutHints();
     renderer = viewModule.createRenderer(elements, state);
     review = window.createLexiloReview({
