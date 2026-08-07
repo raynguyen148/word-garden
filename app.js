@@ -587,7 +587,8 @@
     document.addEventListener("keydown", function (event) {
       if (elements.reviewView.hidden) return;
       if (event.key === "Escape") review.exit();
-      if (event.key === " " && !event.repeat) { event.preventDefault(); review.showAnswer(); }
+      if ((event.key === " " || event.key === "ArrowLeft") && !event.repeat) { event.preventDefault(); review.showAnswer(); }
+      if (event.key === "ArrowUp" && !event.repeat) { event.preventDefault(); review.speak(); }
       if (event.key === "ArrowRight" && !event.repeat) { event.preventDefault(); review.next(); }
     });
   }

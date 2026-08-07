@@ -289,7 +289,7 @@
             <p id="reviewInstruction">What does this word mean?</p>
             <div class="review-prompt-row">
               <h1 id="reviewPrompt">—</h1>
-              <button id="reviewSpeakButton" class="speak-button" type="button" aria-label="Play pronunciation" title="Play pronunciation">
+              <button id="reviewSpeakButton" class="speak-button" type="button" aria-label="Play pronunciation" aria-keyshortcuts="ArrowUp" title="Play pronunciation">
                 <svg><use href="#icon-volume"></use></svg>
               </button>
             </div>
@@ -302,16 +302,16 @@
             <blockquote id="reviewExample" hidden></blockquote>
           </div>
           <div class="review-actions">
-            <button id="showAnswerButton" class="button button-answer" type="button">
+            <button id="showAnswerButton" class="button button-answer" type="button" aria-keyshortcuts="Space ArrowLeft">
               <svg><use href="#icon-eye"></use></svg>Show Answer
             </button>
-            <button id="nextWordButton" class="button button-primary button-next" type="button">
+            <button id="nextWordButton" class="button button-primary button-next" type="button" aria-keyshortcuts="ArrowRight">
               Next<svg><use href="#icon-chevron-right"></use></svg>
             </button>
           </div>
         </div>
         <div class="shortcut-guide">
-          <span><kbd>Space</kbd> Show answer</span><span><kbd>→</kbd> Next word</span><span><kbd>Esc</kbd> Exit review</span>
+          <span><kbd>Space</kbd> / <kbd>←</kbd> Show answer</span><span><kbd>↑</kbd> Pronunciation</span><span><kbd>→</kbd> Next word</span><span><kbd>Esc</kbd> Exit review</span>
         </div>
       </section>
     </main>
