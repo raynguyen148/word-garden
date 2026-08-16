@@ -36,6 +36,33 @@
   let inlineTextTooltipTarget;
 
   const INLINE_TEXT_TOOLTIP_DELAY = 1000;
+  const THEME_STORAGE_KEY = "word-garden:theme";
+
+  function getTheme() {
+    try {
+      return window.localStorage.getItem(THEME_STORAGE_KEY) === "dark" ? "dark" : "light";
+    } catch (error) {
+      return "light";
+    }
+  }
+
+  function applyTheme(theme, shouldPersist) {
+    const isDark = theme === "dark";
+    document.documentElement.dataset.theme = isDark ? "dark" : "light";
+    elements.themeToggleLabel.textContent = isDark ? "Light" : "Dark";
+    elements.themeToggleIcon.setAttribute("href", isDark ? "#icon-sun" : "#icon-moon");
+    const action = isDark ? "light" : "dark";
+    elements.themeToggle.setAttribute("aria-label", "Switch to " + action + " theme");
+    elements.themeToggle.title = "Switch to " + action + " theme";
+    document.getElementById("themeColor").content = isDark ? "#101827" : "#f8f5f2";
+
+    if (!shouldPersist) return;
+    try {
+      window.localStorage.setItem(THEME_STORAGE_KEY, isDark ? "dark" : "light");
+    } catch (error) {
+      // The selected theme still applies for this page if browser storage is unavailable.
+    }
+  }
 
   function usesCommandKey() {
     const platform = navigator.userAgentData && navigator.userAgentData.platform
@@ -58,6 +85,7 @@
   function cacheElements() {
     const ids = [
       "dictionaryView", "reviewView", "storageStatus", "importButton", "exportButton", "reviewButton", "importInput",
+      "themeToggle", "themeToggleLabel", "themeToggleIcon",
       "totalCount", "toggleAddButton", "addPanel", "closeAddButton", "cancelAddButton", "addForm", "newVocabulary",
       "searchInput", "searchShortcutDescription", "clearSearchButton", "partFilter", "vocabularySortButton", "pageSizeSelect", "bulkBar", "selectedCount",
       "clearSelectionButton", "deleteSelectedButton", "tableWrap", "wordsTableBody", "selectAllCheckbox", "emptyState",
@@ -516,6 +544,10 @@
   }
 
   function bindEvents() {
+    elements.themeToggle.addEventListener("click", function () {
+      const currentTheme = document.documentElement.dataset.theme === "dark" ? "dark" : "light";
+      applyTheme(currentTheme === "dark" ? "light" : "dark", true);
+    });
     elements.toggleAddButton.addEventListener("click", function () {
       if (elements.addPanel.hidden) openAddPanel();
       else closeAddPanel(false);
@@ -595,6 +627,7 @@
 
   async function initialize() {
     cacheElements();
+    applyTheme(getTheme(), false);
     setupInlineTextTooltip();
     updateShortcutHints();
     renderer = viewModule.createRenderer(elements, state);

@@ -3,13 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#f8f5f2" />
+    <meta id="themeColor" name="theme-color" content="#f8f5f2" />
     <meta
       name="description"
       content="A private, offline-first personal dictionary for learning English vocabulary."
     />
     <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
     <title>Word Garden · Personal Dictionary</title>
+    <script>
+      (function () {
+        try {
+          if (localStorage.getItem("word-garden:theme") === "dark") {
+            document.documentElement.dataset.theme = "dark";
+          }
+        } catch (error) {
+          // Theme preference is optional; the light theme remains available.
+        }
+      })();
+    </script>
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
@@ -24,6 +35,12 @@
       </symbol>
       <symbol id="icon-upload" viewBox="0 0 24 24">
         <path d="M12 3v12M7 8l5-5 5 5M5 14v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5" />
+      </symbol>
+      <symbol id="icon-moon" viewBox="0 0 24 24">
+        <path d="M20.4 15.2A8.5 8.5 0 0 1 8.8 3.6 8.5 8.5 0 1 0 20.4 15.2Z" />
+      </symbol>
+      <symbol id="icon-sun" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="3.5" /><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
       </symbol>
       <symbol id="icon-download" viewBox="0 0 24 24">
         <path d="M12 3v12M7 10l5 5 5-5M5 19h14" />
@@ -78,6 +95,9 @@
           <span id="storageStatus" class="storage-status" title="Stored privately in this browser">
             <svg><use href="#icon-database"></use></svg><span>Saved locally</span>
           </span>
+          <button id="themeToggle" class="button button-ghost button-compact button-theme" type="button" aria-label="Switch to dark theme" title="Switch to dark theme">
+            <svg aria-hidden="true"><use id="themeToggleIcon" href="#icon-moon"></use></svg><span id="themeToggleLabel">Dark</span>
+          </button>
           <button id="importButton" class="button button-ghost button-compact" type="button" title="Import JSON backup">
             <svg><use href="#icon-upload"></use></svg><span>Import</span>
           </button>
