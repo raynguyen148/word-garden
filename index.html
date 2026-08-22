@@ -108,6 +108,7 @@
           </button>
           <button id="reviewButton" class="button button-primary" type="button">
             <svg><use href="#icon-sparkles"></use></svg><span>Review</span>
+            <span id="reviewDueBadge" class="review-badge" hidden>0</span>
           </button>
           <input id="importInput" type="file" accept="application/json,.json" hidden />
         </div>
@@ -293,13 +294,18 @@
         <div class="review-brand"><span class="brand-mark">W</span><strong>Word Garden</strong></div>
         <span id="reviewWordCount" class="review-count">0 words</span>
       </header>
-      <section class="review-content" aria-labelledby="reviewPrompt">
-        <div class="review-toolbar">
+      <section id="reviewContent" class="review-content" aria-labelledby="reviewPrompt">
+        <div id="reviewToolbar" class="review-toolbar">
           <div class="mode-switch" aria-label="Review direction">
             <button class="mode-button active" type="button" data-mode="eng-vie" aria-pressed="true">ENG <span>→</span> VIE</button>
             <button class="mode-button" type="button" data-mode="vie-eng" aria-pressed="false">VIE <span>→</span> ENG</button>
           </div>
-          <p><svg><use href="#icon-shuffle"></use></svg>Words appear in random order</p>
+          <p id="reviewSessionHint"><svg><use href="#icon-sparkles"></use></svg>Due words first · Up to 10 new words</p>
+        </div>
+
+        <div id="reviewProgress" class="review-progress" role="progressbar" aria-label="Review progress" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0" hidden>
+          <div class="review-progress-bar"><div id="reviewProgressFill" class="review-progress-fill"></div></div>
+          <span id="reviewProgressLabel" aria-live="polite">0 / 0</span>
         </div>
 
         <div id="reviewCard" class="review-card">
@@ -324,16 +330,36 @@
             <blockquote id="reviewExample" hidden></blockquote>
           </div>
           <div class="review-actions">
-            <button id="showAnswerButton" class="button button-answer" type="button" aria-keyshortcuts="Space ArrowLeft">
+            <button id="showAnswerButton" class="button button-answer" type="button" aria-keyshortcuts="Space">
               <svg><use href="#icon-eye"></use></svg>Show Answer
             </button>
-            <button id="nextWordButton" class="button button-primary button-next" type="button" aria-keyshortcuts="ArrowRight">
-              Next<svg><use href="#icon-chevron-right"></use></svg>
+          </div>
+          <div id="gradeButtons" class="grade-buttons" hidden>
+            <button class="grade-button grade-again" type="button" data-grade="again" aria-keyshortcuts="1">
+              <span>Again</span><small id="gradeAgainInterval"></small>
+            </button>
+            <button class="grade-button grade-hard" type="button" data-grade="hard" aria-keyshortcuts="2">
+              <span>Hard</span><small id="gradeHardInterval"></small>
+            </button>
+            <button class="grade-button grade-good" type="button" data-grade="good" aria-keyshortcuts="3">
+              <span>Good</span><small id="gradeGoodInterval"></small>
+            </button>
+            <button class="grade-button grade-easy" type="button" data-grade="easy" aria-keyshortcuts="4">
+              <span>Easy</span><small id="gradeEasyInterval"></small>
             </button>
           </div>
         </div>
-        <div class="shortcut-guide">
-          <span><kbd>Space</kbd> / <kbd>←</kbd> Show answer</span><span><kbd>↑</kbd> Pronunciation</span><span><kbd>→</kbd> Next word</span><span><kbd>Esc</kbd> Exit review</span>
+        <div id="reviewComplete" class="review-complete" hidden>
+          <div class="review-complete-icon">🎉</div>
+          <h2 id="reviewCompleteTitle">Session complete!</h2>
+          <p id="reviewSummaryText">You reviewed 0 words.</p>
+          <div id="reviewSummaryStats" class="review-summary-stats"></div>
+          <button id="reviewCompleteBack" class="button button-primary" type="button">
+            <svg><use href="#icon-arrow-left"></use></svg>Back to Dictionary
+          </button>
+        </div>
+        <div id="shortcutGuide" class="shortcut-guide">
+          <span><kbd>Space</kbd> Show answer</span><span><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd> Grade</span><span><kbd>↑</kbd> Pronunciation</span><span><kbd>Esc</kbd> Exit review</span>
         </div>
       </section>
     </main>

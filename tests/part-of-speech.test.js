@@ -63,16 +63,31 @@ test("imports old and new backups and exports the compatible v2 shape", async fu
   const newBackup = await window.LexiloBackup.readBackup({
     size: 100,
     text: async function () {
-      return JSON.stringify({ words: [{ word: "light", partsOfSpeech: ["noun", "adjective"], meaning: "ánh sáng; nhẹ" }] });
+      return JSON.stringify({ words: [{
+        word: "light",
+        partsOfSpeech: ["noun", "adjective"],
+        meaning: "ánh sáng; nhẹ",
+        srsInterval: 7,
+        srsEase: 2.35,
+        srsDueAt: "2026-01-08T00:00:00.000Z",
+        srsReviewCount: 2,
+      }] });
     },
   }, logic);
 
   assert.deepEqual(oldBackup.words[0].partsOfSpeech, ["verb"]);
   assert.deepEqual(newBackup.words[0].partsOfSpeech, ["noun", "adjective"]);
+  assert.equal(newBackup.words[0].srsInterval, 7);
+  assert.equal(newBackup.words[0].srsEase, 2.35);
+  assert.equal(newBackup.words[0].srsReviewCount, 2);
 
   window.LexiloBackup.exportBackup(newBackup.words);
   const exported = JSON.parse(await exportedBlob.text());
   assert.equal(exported.schemaVersion, 2);
   assert.equal(exported.words[0].partOfSpeech, "noun");
   assert.deepEqual(exported.words[0].partsOfSpeech, ["noun", "adjective"]);
+  assert.equal(exported.words[0].srsInterval, 7);
+  assert.equal(exported.words[0].srsEase, 2.35);
+  assert.equal(exported.words[0].srsDueAt, "2026-01-08T00:00:00.000Z");
+  assert.equal(exported.words[0].srsReviewCount, 2);
 });

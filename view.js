@@ -204,7 +204,18 @@
       const view = currentView();
       elements.totalCount.textContent = String(state.words.length);
       elements.reviewButton.disabled = state.words.length === 0;
-      elements.reviewButton.title = state.words.length ? "Start a review session" : "Add a word before starting a review";
+      // SRS badge: show due word count on Review button.
+      if (logic.getSrsStats && elements.reviewDueBadge) {
+        var srsStats = logic.getSrsStats(state.words, new Date().toISOString());
+        var dueCount = srsStats.dueCount;
+        elements.reviewDueBadge.textContent = String(dueCount);
+        elements.reviewDueBadge.hidden = dueCount === 0;
+        elements.reviewButton.title = dueCount > 0
+          ? dueCount + " word" + (dueCount === 1 ? "" : "s") + " due for review"
+          : (state.words.length ? "All caught up — no words due" : "Add a word before starting a review");
+      } else {
+        elements.reviewButton.title = state.words.length ? "Start a review session" : "Add a word before starting a review";
+      }
       renderSortButton();
       renderRows(view.paginated.items);
       renderPagination(view.paginated, view.filtered.length);

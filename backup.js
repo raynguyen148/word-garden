@@ -6,12 +6,25 @@
 
   const BACKUP_SCHEMA_VERSION = 2;
 
+  function getSrs(word) {
+    if (root.DictionaryLogic && root.DictionaryLogic.normalizeSrs) {
+      return root.DictionaryLogic.normalizeSrs(word);
+    }
+    return {
+      srsInterval: typeof word.srsInterval === "number" ? word.srsInterval : 0,
+      srsEase: typeof word.srsEase === "number" ? word.srsEase : 2.5,
+      srsDueAt: typeof word.srsDueAt === "string" ? word.srsDueAt : null,
+      srsReviewCount: typeof word.srsReviewCount === "number" ? word.srsReviewCount : 0,
+    };
+  }
+
   function exportBackup(words) {
     const backup = {
       app: "Word Garden Personal Dictionary",
       schemaVersion: BACKUP_SCHEMA_VERSION,
       exportedAt: new Date().toISOString(),
       words: words.map(function (word) {
+        const srs = getSrs(word);
         return {
           word: word.vocabulary,
           // Keep the original single-value field so version 1 backups remain
@@ -23,6 +36,11 @@
           example: word.example || "",
           createdAt: word.createdAt,
           updatedAt: word.updatedAt,
+          // SRS review progress — ignored by older app builds.
+          srsInterval: srs.srsInterval,
+          srsEase: srs.srsEase,
+          srsDueAt: srs.srsDueAt,
+          srsReviewCount: srs.srsReviewCount,
         };
       }),
     };

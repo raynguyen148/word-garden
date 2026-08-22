@@ -92,8 +92,12 @@
       "emptyTitle", "emptyMessage", "emptyAddButton", "pagination", "rangeLabel", "previousPageButton", "nextPageButton",
       "pageButtons", "exitReviewButton", "reviewWordCount", "reviewCard", "reviewDirectionLabel", "reviewPart",
       "reviewInstruction", "reviewPrompt", "reviewQuestion", "reviewSpeakButton", "reviewPronunciation", "reviewAnswer",
-      "reviewAnswerText", "reviewAnswerMeta", "reviewExample", "showAnswerButton", "nextWordButton", "confirmDialog",
+      "reviewAnswerText", "reviewAnswerMeta", "reviewExample", "showAnswerButton", "confirmDialog",
       "confirmTitle", "confirmMessage", "confirmCancelButton", "confirmDeleteButton", "toastRegion",
+      "reviewDueBadge", "gradeButtons", "gradeAgainInterval", "gradeHardInterval", "gradeGoodInterval", "gradeEasyInterval",
+      "reviewProgress", "reviewProgressFill", "reviewProgressLabel",
+      "reviewComplete", "reviewSummaryText", "reviewSummaryStats", "reviewCompleteBack",
+      "reviewToolbar", "shortcutGuide", "reviewContent",
     ];
     ids.forEach(function (id) { elements[id] = document.getElementById(id); });
   }
@@ -608,20 +612,28 @@
       showToast("Backup exported", state.words.length + (state.words.length === 1 ? " word was" : " words were") + " included.", "success");
     });
     elements.reviewButton.addEventListener("click", review.enter);
-    elements.exitReviewButton.addEventListener("click", review.exit);
+    elements.exitReviewButton.addEventListener("click", function () { review.exit(); renderer.renderApp(); });
     elements.showAnswerButton.addEventListener("click", review.showAnswer);
-    elements.nextWordButton.addEventListener("click", review.next);
     elements.reviewSpeakButton.addEventListener("click", review.speak);
+    if (elements.reviewCompleteBack) {
+      elements.reviewCompleteBack.addEventListener("click", function () { review.exit(); renderer.renderApp(); });
+    }
+    // Grade buttons (Again / Hard / Good / Easy).
+    document.querySelectorAll(".grade-button").forEach(function (button) {
+      button.addEventListener("click", function () { void review.grade(button.dataset.grade); });
+    });
     document.querySelectorAll(".mode-button").forEach(function (button) {
       button.addEventListener("click", function () { review.setMode(button.dataset.mode); });
     });
     document.addEventListener("keydown", handleSearchShortcut);
     document.addEventListener("keydown", function (event) {
       if (elements.reviewView.hidden) return;
-      if (event.key === "Escape") review.exit();
-      if ((event.key === " " || event.key === "ArrowLeft") && !event.repeat) { event.preventDefault(); review.showAnswer(); }
+      if (event.key === "Escape") { review.exit(); renderer.renderApp(); }
+      if (event.key === " " && !event.repeat) { event.preventDefault(); review.showAnswer(); }
       if (event.key === "ArrowUp" && !event.repeat) { event.preventDefault(); review.speak(); }
-      if (event.key === "ArrowRight" && !event.repeat) { event.preventDefault(); review.next(); }
+      // Number keys 1-4 for grading.
+      var gradeMap = { "1": "again", "2": "hard", "3": "good", "4": "easy" };
+      if (gradeMap[event.key] && !event.repeat) { event.preventDefault(); void review.grade(gradeMap[event.key]); }
     });
   }
 
@@ -638,6 +650,17 @@
       showToast: showToast,
       speakWord: speakWord,
       icon: viewModule.icon,
+      onGrade: async function (wordId, srsUpdate) {
+        setStatus("saving", "Saving review…");
+        try {
+          await state.storage.updateWord(wordId, srsUpdate);
+          renderer.renderApp();
+          setStatus("saved", "Saved locally");
+        } catch (error) {
+          setStatus("error", "Save failed");
+          throw error;
+        }
+      },
     });
     bindEvents();
     setStatus("saving", "Opening storage…");

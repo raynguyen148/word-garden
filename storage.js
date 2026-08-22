@@ -40,15 +40,33 @@
     return selected.length ? Array.from(new Set(selected)) : ["other"];
   }
 
+  function normalizeSrs(record) {
+    if (root.DictionaryLogic && root.DictionaryLogic.normalizeSrs) {
+      return root.DictionaryLogic.normalizeSrs(record);
+    }
+    return {
+      srsInterval: 0,
+      srsEase: 2.5,
+      srsDueAt: null,
+      srsReviewCount: 0,
+    };
+  }
+
   // UI modules call the field vocabulary; persisted Word Garden records use word.
   function toAppWord(record) {
     if (!record) return record;
-    const partsOfSpeech = normalizePartsOfSpeech(record);
+    var partsOfSpeech = normalizePartsOfSpeech(record);
+    var srs = normalizeSrs(record);
     return Object.assign({}, record, {
       vocabulary: record.word || record.vocabulary || "",
       // Preserve this compatibility field for old backups and older app builds.
       partOfSpeech: partsOfSpeech[0],
       partsOfSpeech: partsOfSpeech,
+      // SRS fields — default to "new" state when absent (backward compatible).
+      srsInterval: srs.srsInterval,
+      srsEase: srs.srsEase,
+      srsDueAt: srs.srsDueAt,
+      srsReviewCount: srs.srsReviewCount,
     });
   }
 
@@ -56,6 +74,7 @@
     const word = String(record.word || record.vocabulary || "").trim();
     const now = new Date().toISOString();
     const partsOfSpeech = normalizePartsOfSpeech(record);
+    const srs = normalizeSrs(record);
     return {
       id: forcedId || record.id || createId(),
       word: word,
@@ -69,6 +88,11 @@
       example: String(record.example || "").trim(),
       createdAt: record.createdAt || now,
       updatedAt: record.updatedAt || now,
+      // SRS fields — preserved when present, omitted for new words.
+      srsInterval: srs.srsInterval,
+      srsEase: srs.srsEase,
+      srsDueAt: srs.srsDueAt,
+      srsReviewCount: srs.srsReviewCount,
     };
   }
 
