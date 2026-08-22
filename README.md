@@ -20,6 +20,22 @@ It is a deliberately small browser app built with plain HTML, CSS, and JavaScrip
 - Install as a standalone PWA when served from a compatible origin.
 - Continue using the app offline after its static assets have been cached.
 
+## Screenshots
+
+The screenshots below use the reusable [32-word sample backup](docs/sample-data.json), with Vietnamese meanings and a mix of noun, verb, adjective, adverb, conjunction, preposition, and multi-part-of-speech entries.
+
+### Dictionary with sample data
+
+![Word Garden dictionary with sample vocabulary](docs/screenshots/dictionary.png)
+
+### Review mode · English → Vietnamese
+
+The review flow starts with the English prompt and reveals the Vietnamese meaning, example, and grading controls after selecting **Show Answer**.
+
+![Word Garden English-to-Vietnamese review prompt](docs/screenshots/review-eng-vie-prompt.png)
+
+![Word Garden English-to-Vietnamese answer and grading controls](docs/screenshots/review-eng-vie-answer.png)
+
 ## Quick start
 
 Word Garden has no build step and no dependency installation step.
