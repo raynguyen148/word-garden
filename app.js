@@ -649,6 +649,11 @@
       state.ready = true;
       renderer.renderApp();
       setStatus("saved", "Saved locally");
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("./sw.js").catch(function () {
+          // Service worker is optional; the app works without it.
+        });
+      }
     } catch (error) {
       renderer.renderApp();
       setStatus("error", "Storage unavailable");
