@@ -172,9 +172,12 @@
       var now = new Date().toISOString();
       sessionPackCardCount = sessionLesson ? eligibleWords.length : 0;
       var dailyPackSpeak = sessionScope === "pack" && state.reviewMode === "production";
+      // A pack is deliberate study material: recognition review should always
+      // include every card. Due-only queues remain for the main dictionary.
+      var fullPackRecognition = sessionScope === "pack" && state.reviewMode !== "production";
       queue = dailyPackSpeak
         ? eligibleWords.filter(function (word) { return !logic.wasReviewedToday(word.productionLastReviewedAt, now); })
-        : logic.buildReviewQueue(eligibleWords, now);
+        : (fullPackRecognition ? eligibleWords.slice() : logic.buildReviewQueue(eligibleWords, now));
       queueIndex = 0;
       sessionTotal = queue.length;
       sessionGraded = 0;

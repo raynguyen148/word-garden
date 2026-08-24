@@ -1,16 +1,16 @@
 // Word Garden Service Worker — cache-first, offline-only strategy.
 // Bump CACHE_VERSION to invalidate the old cache after changing app files.
-const CACHE_VERSION = "wg-v20";
+const CACHE_VERSION = "wg-v23";
 
 const APP_FILES = [
   "./",
   "./index.html",
-  "./styles.css",
+  "./styles.css?v=22",
   "./logic.js",
   "./storage.js",
   "./view.js",
   "./backup.js",
-  "./review.js",
+  "./review.js?v=23",
   "./app.js",
   "./favicon.svg",
   "./manifest.json",

@@ -190,7 +190,7 @@
           '<p>' + pack.total + " " + cardWord + (detail ? " · " + detail : "") + '</p>' +
           todayStatus + '</div>' +
           '<div class="practice-pack-actions">' +
-            '<button class="button button-ghost button-small" type="button" data-action="review-pack" data-pack="' + title + '">Review</button>' +
+            '<button class="button button-ghost button-small" type="button" data-action="review-pack" data-pack="' + title + '" title="Review all ' + pack.total + ' cards in this pack" aria-label="Review all ' + pack.total + ' cards in ' + title + '">Review all · ' + pack.total + '</button>' +
             '<button class="button button-primary button-small" type="button" data-action="speak-pack" data-pack="' + title + '"' + (pack.completedToday ? " disabled" : "") + '>' + (pack.completedToday ? "Completed today" : "Speak · " + pack.spokenTodayRemaining + " left") + '</button>' +
           '</div>' +
         '</article>';
