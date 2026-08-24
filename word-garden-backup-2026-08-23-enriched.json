@@ -1,0 +1,4354 @@
+{
+  "app": "Word Garden Personal Dictionary",
+  "schemaVersion": 2,
+  "exportedAt": "2026-08-23T14:06:49.587Z",
+  "words": [
+    {
+      "word": "apart from",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "ngoài ra; ngoại trừ",
+      "pronunciation": "",
+      "example": "Apart from the API timeout, the release looks stable.",
+      "createdAt": "2026-08-19T03:16:52.423Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "From my side, I think…",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "Theo góc nhìn của tôi thì…; trong workplace English, 'from my perspective' tự nhiên hơn.",
+      "pronunciation": "",
+      "example": "From my side, I think we should validate the assumption first.",
+      "createdAt": "2026-08-17T11:18:28.760Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 4,
+      "srsEase": 2.65,
+      "srsDueAt": "2026-08-26T13:17:41.498Z",
+      "srsReviewCount": 1
+    },
+    {
+      "word": "assertion",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "một khẳng định được cho là đúng; trong testing, một assertion kiểm tra điều kiện mong đợi.",
+      "pronunciation": "/əˈsɜːrʃən/",
+      "example": "The test failed because the assertion did not match the API response.",
+      "createdAt": "2026-07-26T09:49:46.201Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "casual",
+      "partOfSpeech": "adjective",
+      "partsOfSpeech": [
+        "adjective"
+      ],
+      "meaning": "thân mật, tự nhiên, không quá trang trọng.",
+      "pronunciation": "/ˈkæʒuəl/",
+      "example": "The recruiter kept the first interview casual and conversational.",
+      "createdAt": "2026-08-19T10:30:17.423Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "against",
+      "partOfSpeech": "preposition",
+      "partsOfSpeech": [
+        "preposition",
+        "adverb"
+      ],
+      "meaning": "đối chiếu với; chống lại; tựa vào, tùy ngữ cảnh.",
+      "pronunciation": "/əˈɡenst/",
+      "example": "Compare the new implementation against the acceptance criteria.",
+      "createdAt": "2026-07-29T16:07:57.102Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "Just to make sure we’re aligned",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "Để chắc rằng chúng ta đang cùng hiểu và thống nhất.",
+      "pronunciation": "",
+      "example": "Just to make sure we’re aligned, I’ll ship the smaller change first.",
+      "createdAt": "2026-08-17T11:19:53.439Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 1,
+      "srsEase": 2.5,
+      "srsDueAt": "2026-08-24T13:46:38.736Z",
+      "srsReviewCount": 1
+    },
+    {
+      "word": "canonical",
+      "partOfSpeech": "adjective",
+      "partsOfSpeech": [
+        "adjective"
+      ],
+      "meaning": "chuẩn chính thức được chọn làm nguồn tham chiếu duy nhất hoặc ưu tiên.",
+      "pronunciation": "/kəˈnɒnɪkəl/",
+      "example": "The canonical URL prevents duplicate pages from being indexed.",
+      "createdAt": "2026-08-06T14:41:33.987Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 1,
+      "srsEase": 2.15,
+      "srsDueAt": "2026-08-24T11:02:47.999Z",
+      "srsReviewCount": 3
+    },
+    {
+      "word": "necessarily",
+      "partOfSpeech": "adverb",
+      "partsOfSpeech": [
+        "adverb"
+      ],
+      "meaning": "nhất thiết; không nhất thiết, thường dùng trong phủ định.",
+      "pronunciation": "/ˌnesəˈserəli/",
+      "example": "A larger team is not necessarily a faster team.",
+      "createdAt": "2026-08-17T07:33:48.824Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "idempotency",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "tính chất khiến việc thực hiện cùng một request nhiều lần tạo ra cùng trạng thái cuối; hữu ích khi retry.",
+      "pronunciation": "/ˌaɪdəmˈpoʊtənsi/",
+      "example": "Idempotency prevents a retry from creating the same candidate twice.",
+      "createdAt": "2026-08-04T03:32:02.619Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "dedicated",
+      "partOfSpeech": "adjective",
+      "partsOfSpeech": [
+        "adjective"
+      ],
+      "meaning": "tận tâm; được dành riêng cho một mục đích hoặc nhiệm vụ.",
+      "pronunciation": "/ˈdedɪkeɪtɪd/",
+      "example": "We assigned a dedicated engineer to the migration.",
+      "createdAt": "2026-07-26T08:38:33.466Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "scaffolding",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "bộ khung hoặc mã khởi tạo giúp bắt đầu một feature nhanh hơn; thường là boilerplate tạm thời.",
+      "pronunciation": "/ˈskæfəldɪŋ/",
+      "example": "The CLI generated scaffolding for the new Node.js service.",
+      "createdAt": "2026-07-29T04:15:09.041Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 1,
+      "srsEase": 2.15,
+      "srsDueAt": "2026-08-24T13:47:41.930Z",
+      "srsReviewCount": 3
+    },
+    {
+      "word": "For now, I think that’s enough",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "Hiện tại, tôi nghĩ như vậy là đủ.",
+      "pronunciation": "",
+      "example": "For now, I think that’s enough to unblock the implementation.",
+      "createdAt": "2026-08-17T11:19:00.624Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 1,
+      "srsEase": 2.5,
+      "srsDueAt": "2026-08-23T13:16:39.729Z",
+      "srsReviewCount": 1
+    },
+    {
+      "word": "If I run into anything, I’ll message you",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "Nếu gặp vấn đề gì, tôi sẽ nhắn bạn.",
+      "pronunciation": "",
+      "example": "If I run into anything during QA, I’ll message you.",
+      "createdAt": "2026-08-17T11:20:11.945Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "We can extend it later",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "Sau này chúng ta có thể mở rộng nó.",
+      "pronunciation": "",
+      "example": "We can extend it later if customers need more filters.",
+      "createdAt": "2026-08-17T11:22:04.194Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "deepen",
+      "partOfSpeech": "verb",
+      "partsOfSpeech": [
+        "verb"
+      ],
+      "meaning": "đào sâu; làm cho hiểu biết hoặc mức độ sâu hơn.",
+      "pronunciation": "/ˈdiːpən/",
+      "example": "This exercise will deepen my understanding of event-driven design.",
+      "createdAt": "2026-07-26T15:15:43.775Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "enforcement layer",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "tầng thực thi, nơi hệ thống bắt buộc các rule hoặc policy được tuân thủ.",
+      "pronunciation": "/ɪnˈfɔːrsmənt leɪər/",
+      "example": "Authorization belongs in the enforcement layer, not only in the UI.",
+      "createdAt": "2026-07-29T10:16:58.987Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "Instrument funnel",
+      "partOfSpeech": "verb",
+      "partsOfSpeech": [
+        "verb",
+        "noun"
+      ],
+      "meaning": "instrument the funnel: gắn tracking cho từng bước của conversion funnel để đo drop-off; đây là cụm chuyên môn hơn là một danh từ cố định.",
+      "pronunciation": "/ˈɪnstrəmənt ðə ˈfʌnəl/",
+      "example": "We need to instrument the funnel before changing the onboarding flow.",
+      "createdAt": "2026-08-20T15:54:58.584Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 1,
+      "srsEase": 2.5,
+      "srsDueAt": "2026-08-23T13:17:47.306Z",
+      "srsReviewCount": 1
+    },
+    {
+      "word": "rollout",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "việc triển khai một feature hoặc phiên bản, thường theo từng giai đoạn.",
+      "pronunciation": "/ˈroʊlaʊt/",
+      "example": "We will monitor error rates during the staged rollout.",
+      "createdAt": "2026-08-05T09:23:41.414Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "diagnostic",
+      "partOfSpeech": "adjective",
+      "partsOfSpeech": [
+        "adjective",
+        "noun"
+      ],
+      "meaning": "dùng để chẩn đoán; thông tin hoặc công cụ giúp tìm nguyên nhân sự cố.",
+      "pronunciation": "/ˌdaɪəɡˈnɒstɪk/",
+      "example": "The diagnostic logs point to a database connection issue.",
+      "createdAt": "2026-08-09T04:26:27.480Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "atomic",
+      "partOfSpeech": "adjective",
+      "partsOfSpeech": [
+        "adjective"
+      ],
+      "meaning": "nguyên tử; trong database, một operation atomic hoàn tất toàn bộ hoặc không thay đổi gì cả.",
+      "pronunciation": "/əˈtɒmɪk/",
+      "example": "The transaction must be atomic so a failed insert does not leave partial data.",
+      "createdAt": "2026-08-07T14:41:20.432Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "There’s one thing I wanted to discuss with you before I continue",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "Có một việc tôi muốn trao đổi với bạn trước khi tiếp tục.",
+      "pronunciation": "",
+      "example": "There’s one thing I wanted to discuss with you before I continue with the refactor.",
+      "createdAt": "2026-08-17T11:20:48.913Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "afterward",
+      "partOfSpeech": "adverb",
+      "partsOfSpeech": [
+        "adverb"
+      ],
+      "meaning": "sau đó, sau khi một việc đã xảy ra.",
+      "pronunciation": "/ˈæftərwərd/",
+      "example": "We can clean up the temporary data afterward.",
+      "createdAt": "2026-07-27T15:16:35.592Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "permanent",
+      "partOfSpeech": "adjective",
+      "partsOfSpeech": [
+        "adjective"
+      ],
+      "meaning": "vĩnh viễn; không tạm thời.",
+      "pronunciation": "/ˈpɜːrmənənt/",
+      "example": "This migration makes a permanent change to the schema.",
+      "createdAt": "2026-08-19T08:17:15.641Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 1,
+      "srsEase": 2.35,
+      "srsDueAt": "2026-08-23T13:18:20.970Z",
+      "srsReviewCount": 1
+    },
+    {
+      "word": "No-op",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun",
+        "adjective"
+      ],
+      "meaning": "no operation; thao tác không tạo ra thay đổi quan sát được.",
+      "pronunciation": "/ˈnoʊ ɒp/",
+      "example": "Calling the update with the same value should be a no-op.",
+      "createdAt": "2026-08-04T08:00:59.367Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "narrow",
+      "partOfSpeech": "adjective",
+      "partsOfSpeech": [
+        "adjective",
+        "verb"
+      ],
+      "meaning": "hẹp; hạn chế về phạm vi hoặc góc nhìn.",
+      "pronunciation": "/ˈnæroʊ/",
+      "example": "A narrow definition of success can hide important user problems.",
+      "createdAt": "2026-07-26T09:51:41.727Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "possession",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "sự sở hữu hoặc quyền kiểm soát; trong security, possession là việc một người có một vật chứng thực.",
+      "pronunciation": "/pəˈzeʃən/",
+      "example": "Possession of the recovery key is required to restore the account.",
+      "createdAt": "2026-08-05T03:59:55.608Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "claim",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun",
+        "verb"
+      ],
+      "meaning": "một khẳng định cụ thể về sự thật hoặc năng lực, cần có evidence để kiểm chứng.",
+      "pronunciation": "/kleɪm/",
+      "example": "The candidate’s claim about reducing latency should be backed by metrics.",
+      "createdAt": "2026-07-26T05:29:06.133Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "There’s one thing I want to discuss with you before I move on.",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "Có một việc tôi muốn trao đổi với bạn trước khi chuyển sang phần tiếp theo.",
+      "pronunciation": "",
+      "example": "There’s one thing I want to discuss with you before I move on.",
+      "createdAt": "2026-08-17T11:18:13.777Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "I want to keep it simple",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "Tôi muốn giữ giải pháp đơn giản.",
+      "pronunciation": "",
+      "example": "I want to keep it simple and avoid adding a new dependency.",
+      "createdAt": "2026-08-17T11:19:23.883Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "worth",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun",
+        "adjective"
+      ],
+      "meaning": "đáng giá; đáng để làm hoặc có giá trị tương đương với một mức nào đó.",
+      "pronunciation": "/wɜːrθ/",
+      "example": "The small refactor is worth doing because it removes repeated logic.",
+      "createdAt": "2026-08-15T11:33:05.888Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "entitlement",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "quyền được phép thực hiện hoặc truy cập một resource, thường do role hoặc subscription quyết định.",
+      "pronunciation": "/ɪnˈtaɪtəlmənt/",
+      "example": "The API checks the user’s entitlement before returning premium data.",
+      "createdAt": "2026-08-14T14:15:08.537Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 1,
+      "srsEase": 2.15,
+      "srsDueAt": "2026-08-24T13:49:07.343Z",
+      "srsReviewCount": 2
+    },
+    {
+      "word": "however",
+      "partOfSpeech": "adverb",
+      "partsOfSpeech": [
+        "adverb",
+        "conjunction"
+      ],
+      "meaning": "tuy nhiên; dùng để đưa ra sự tương phản.",
+      "pronunciation": "/haʊˈevər/",
+      "example": "The approach is simple; however, it does not scale well.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "simplicity",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "sự đơn giản, đặc biệt là sự dễ hiểu và ít phần không cần thiết.",
+      "pronunciation": "/sɪmˈplɪsəti/",
+      "example": "Simplicity makes the hiring workflow easier to maintain.",
+      "createdAt": "2026-08-09T04:24:54.085Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "thesis",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "luận điểm chính được bảo vệ bằng lập luận và evidence; cũng có nghĩa là luận văn.",
+      "pronunciation": "/ˈθiːsɪs/",
+      "example": "The thesis of this design is that explicit ownership reduces risk.",
+      "createdAt": "2026-07-26T12:18:12.128Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "dive",
+      "partOfSpeech": "verb",
+      "partsOfSpeech": [
+        "verb",
+        "noun"
+      ],
+      "meaning": "đi sâu vào một chủ đề; nghĩa gốc là lặn.",
+      "pronunciation": "/daɪv/",
+      "example": "Let’s dive into the authorization flow after the demo.",
+      "createdAt": "2026-07-27T04:00:10.859Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "tension",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "sự căng thẳng hoặc mâu thuẫn cần được cân bằng giữa hai mục tiêu.",
+      "pronunciation": "/ˈtenʃən/",
+      "example": "There is tension between a fast launch and a thorough verification process.",
+      "createdAt": "2026-07-25T10:16:18.209Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 1,
+      "srsEase": 2.15,
+      "srsDueAt": "2026-08-23T13:18:44.950Z",
+      "srsReviewCount": 2
+    },
+    {
+      "word": "rampant",
+      "partOfSpeech": "adjective",
+      "partsOfSpeech": [
+        "adjective"
+      ],
+      "meaning": "lan tràn, phát triển mất kiểm soát; thường mang sắc thái tiêu cực.",
+      "pronunciation": "/ˈræmpənt/",
+      "example": "Duplicate records became rampant after retries were introduced.",
+      "createdAt": "2026-07-26T12:13:10.203Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 1,
+      "srsEase": 2.15,
+      "srsDueAt": "2026-08-24T13:48:39.621Z",
+      "srsReviewCount": 3
+    },
+    {
+      "word": "provenance",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "nguồn gốc và lịch sử hình thành của dữ liệu hoặc artifact.",
+      "pronunciation": "/ˈprɒvənəns/",
+      "example": "The data pipeline records provenance for every enriched profile.",
+      "createdAt": "2026-08-06T13:20:02.009Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "eligible",
+      "partOfSpeech": "adjective",
+      "partsOfSpeech": [
+        "adjective"
+      ],
+      "meaning": "đủ điều kiện theo một rule hoặc tiêu chí.",
+      "pronunciation": "/ˈelɪdʒəbəl/",
+      "example": "Only eligible candidates will receive the coding challenge.",
+      "createdAt": "2026-08-09T15:35:45.015Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "intentional",
+      "partOfSpeech": "adjective",
+      "partsOfSpeech": [
+        "adjective"
+      ],
+      "meaning": "có chủ đích, được thực hiện có suy nghĩ trước.",
+      "pronunciation": "/ɪnˈtenʃənəl/",
+      "example": "The breaking change was intentional and documented in the ADR.",
+      "createdAt": "2026-08-04T07:56:55.758Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "test",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun",
+        "verb",
+        "adjective"
+      ],
+      "meaning": "bài kiểm tra; kiểm thử; kiểm tra một behavior hoặc điều kiện của hệ thống.",
+      "pronunciation": "/test/",
+      "example": "We added a regression test for the duplicate-import bug.",
+      "createdAt": "2026-07-27T13:47:23.415Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "That makes the model much clearer for me.",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "Điều đó làm data model rõ ràng hơn nhiều đối với tôi.",
+      "pronunciation": "",
+      "example": "That makes the model much clearer for me, especially the ownership rules.",
+      "createdAt": "2026-08-17T11:22:29.577Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "Down-runner",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "cách gọi nội bộ cho tool chạy down migrations để rollback; thuật ngữ phổ biến hơn là 'down-migration runner'.",
+      "pronunciation": "/daʊn ˈrʌnər/",
+      "example": "The down-migration runner is available only in the rollback job.",
+      "createdAt": "2026-08-04T08:01:08.792Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "aggregate",
+      "partOfSpeech": "adjective",
+      "partsOfSpeech": [
+        "adjective",
+        "noun",
+        "verb"
+      ],
+      "meaning": "tổng hợp; trong domain design, aggregate là nhóm object được quản lý như một đơn vị nhất quán.",
+      "pronunciation": "/ˈæɡrɪɡət/",
+      "example": "The service returns an aggregate of candidate activity and interview data.",
+      "createdAt": "2026-07-26T12:22:34.171Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 1,
+      "srsEase": 1.55,
+      "srsDueAt": "2026-08-24T13:49:28.716Z",
+      "srsReviewCount": 5
+    },
+    {
+      "word": "slightly",
+      "partOfSpeech": "adverb",
+      "partsOfSpeech": [
+        "adverb"
+      ],
+      "meaning": "một chút, ở mức độ nhỏ.",
+      "pronunciation": "/ˈslaɪtli/",
+      "example": "The new query is slightly faster than the old one.",
+      "createdAt": "2026-08-19T10:27:53.923Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "authenticity",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "tính xác thực, mức độ đúng là thật và không bị giả mạo.",
+      "pronunciation": "/ˌɔːθenˈtɪsəti/",
+      "example": "The platform checks profile authenticity before displaying a trust signal.",
+      "createdAt": "2026-07-26T12:16:55.082Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "first wedge",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "sản phẩm hoặc use case đầu tiên giúp mở cửa vào một thị trường rộng hơn; thường nói 'wedge' hoặc 'wedge product'.",
+      "pronunciation": "/fɜːrst wedʒ/",
+      "example": "Verified referrals could be our first wedge into technical hiring.",
+      "createdAt": "2026-07-26T08:29:52.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 1,
+      "srsEase": 2.35,
+      "srsDueAt": "2026-08-23T13:16:33.775Z",
+      "srsReviewCount": 1
+    },
+    {
+      "word": "MFA",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "multi-factor authentication; xác thực đa yếu tố bằng ít nhất hai loại factor khác nhau.",
+      "pronunciation": "/ˌem ef ˈeɪ/",
+      "example": "MFA is required before an employer can export candidate data.",
+      "createdAt": "2026-07-29T09:51:48.934Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 3,
+      "srsEase": 2.5,
+      "srsDueAt": "2026-08-26T13:45:30.293Z",
+      "srsReviewCount": 2
+    },
+    {
+      "word": "engagement",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "mức độ người dùng tương tác, tham gia hoặc gắn kết với sản phẩm, nội dung hay quy trình.",
+      "pronunciation": "/ɪnˈɡeɪdʒmənt/",
+      "example": "We measure recruiter engagement by completed searches and replies.",
+      "createdAt": "2026-08-21T02:53:42.313Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "gradually",
+      "partOfSpeech": "adverb",
+      "partsOfSpeech": [
+        "adverb"
+      ],
+      "meaning": "dần dần, từng bước.",
+      "pronunciation": "/ˈɡrædʒuəli/",
+      "example": "We gradually increased the rollout from 5% to 50% of users.",
+      "createdAt": "2026-07-26T15:56:07.241Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "analogy",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "phép tương đồng dùng một điều quen thuộc để giải thích điều khác.",
+      "pronunciation": "/əˈnælədʒi/",
+      "example": "The queue is a useful analogy for the job-processing pipeline.",
+      "createdAt": "2026-07-25T16:04:30.675Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "mutation",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "sự thay đổi; trong API hoặc state management, thường là operation làm thay đổi dữ liệu.",
+      "pronunciation": "/mjuˈteɪʃən/",
+      "example": "The mutation updates the candidate’s application status.",
+      "createdAt": "2026-08-04T04:23:35.017Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "at the very start",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "ngay từ lúc bắt đầu.",
+      "pronunciation": "",
+      "example": "At the very start, we should agree on the acceptance criteria.",
+      "createdAt": "2026-07-26T09:58:04.513Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "What’s the smallest change we can make?",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "Thay đổi nhỏ nhất chúng ta có thể thực hiện là gì?",
+      "pronunciation": "",
+      "example": "What’s the smallest change we can make to validate the idea?",
+      "createdAt": "2026-08-17T11:18:40.481Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "built on top of ...",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "được xây dựng dựa trên một nền tảng, abstraction hoặc hệ thống có sẵn.",
+      "pronunciation": "",
+      "example": "The feature is built on top of the existing search index.",
+      "createdAt": "2026-08-19T08:51:29.152Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "Keep the scope tight",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "Giữ phạm vi thay đổi nhỏ, rõ ràng và kiểm soát được.",
+      "pronunciation": "",
+      "example": "Keep the scope tight so we can ship before the interview loop.",
+      "createdAt": "2026-08-17T11:19:40.813Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "RLS",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "row-level security; cơ chế database giới hạn row nào một role được xem hoặc sửa.",
+      "pronunciation": "/ˌɑːr el ˈes/",
+      "example": "RLS ensures each employer can access only its organization’s jobs.",
+      "createdAt": "2026-07-28T10:09:00.460Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "no standalone payoff",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "không có giá trị hoặc lợi ích độc lập đủ để biện minh cho việc làm nó riêng lẻ.",
+      "pronunciation": "",
+      "example": "This refactor has no standalone payoff unless it enables the next feature.",
+      "createdAt": "2026-07-26T09:56:27.621Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 1,
+      "srsEase": 2.35,
+      "srsDueAt": "2026-08-24T13:45:49.190Z",
+      "srsReviewCount": 1
+    },
+    {
+      "word": "trustworthy",
+      "partOfSpeech": "adjective",
+      "partsOfSpeech": [
+        "adjective"
+      ],
+      "meaning": "đáng tin cậy; có thể dựa vào vì thông tin hoặc hành vi nhất quán.",
+      "pronunciation": "/ˈtrʌstwɜːrði/",
+      "example": "A trustworthy profile should show verifiable evidence.",
+      "createdAt": "2026-07-26T05:13:12.381Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 1,
+      "srsEase": 2.35,
+      "srsDueAt": "2026-08-23T13:17:32.820Z",
+      "srsReviewCount": 1
+    },
+    {
+      "word": "assert",
+      "partOfSpeech": "verb",
+      "partsOfSpeech": [
+        "verb"
+      ],
+      "meaning": "khẳng định; trong testing, kiểm tra rằng một điều kiện là đúng.",
+      "pronunciation": "/əˈsɜːrt/",
+      "example": "The test asserts that unauthorized users receive a 403 response.",
+      "createdAt": "2026-07-26T15:18:01.908Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 1,
+      "srsEase": 2.35,
+      "srsDueAt": "2026-08-23T13:17:00.879Z",
+      "srsReviewCount": 1
+    },
+    {
+      "word": "I was thinking + proposal + because + reason.",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "Mẫu câu đưa ra proposal mềm và có lý do: 'I was thinking we could X because Y.'",
+      "pronunciation": "",
+      "example": "I was thinking we could start with a manual review because the sample is still small.",
+      "createdAt": "2026-08-17T11:24:30.915Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "going forward",
+      "partOfSpeech": "adverb",
+      "partsOfSpeech": [
+        "adverb",
+        "phrase"
+      ],
+      "meaning": "từ nay về sau; trong các bước hoặc quyết định tiếp theo.",
+      "pronunciation": "",
+      "example": "Going forward, every schema change needs an ADR.",
+      "createdAt": "2026-08-18T03:29:24.157Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "I was thinking that maybe…",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "Tôi đang nghĩ có lẽ…; cách mở đầu một đề xuất mềm.",
+      "pronunciation": "",
+      "example": "I was thinking that maybe we could postpone the migration until the data is validated.",
+      "createdAt": "2026-08-17T11:21:17.232Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "What do you think?” / “What are you thinking?",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "Bạn nghĩ sao?; Bạn đang nghĩ gì? Dùng để hỏi ý kiến hoặc hướng suy nghĩ của người đối thoại.",
+      "pronunciation": "",
+      "example": "What do you think? Should we keep the first version manual?",
+      "createdAt": "2026-08-17T11:21:34.226Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "permanent spinner",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "loading indicator hiển thị mãi vì request không kết thúc hoặc UI không xử lý lỗi.",
+      "pronunciation": "/ˈpɜːrmənənt ˈspɪnər/",
+      "example": "A permanent spinner makes the dashboard look broken.",
+      "createdAt": "2026-08-19T08:16:45.913Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "defer",
+      "partOfSpeech": "verb",
+      "partsOfSpeech": [
+        "verb"
+      ],
+      "meaning": "hoãn một việc đến thời điểm sau; trì hoãn quyết định hoặc xử lý.",
+      "pronunciation": "/dɪˈfɜːr/",
+      "example": "We can defer this optimization until we have production metrics.",
+      "createdAt": "2026-08-09T04:42:17.802Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "proposition",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "đề xuất hoặc mệnh đề; trong product, value proposition là giá trị sản phẩm hứa hẹn mang lại.",
+      "pronunciation": "/ˌprɒpəˈzɪʃən/",
+      "example": "The proposition is simple: verified profiles reduce hiring risk.",
+      "createdAt": "2026-07-26T05:15:41.768Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "Fatal",
+      "partOfSpeech": "adjective",
+      "partsOfSpeech": [
+        "adjective"
+      ],
+      "meaning": "gây lỗi chí mạng hoặc khiến tiến trình không thể tiếp tục; không chỉ dùng cho nghĩa 'gây tử vong'.",
+      "pronunciation": "/ˈfeɪtəl/",
+      "example": "The service logged a fatal configuration error during startup.",
+      "createdAt": "2026-08-04T08:02:25.416Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 1,
+      "srsEase": 2.15,
+      "srsDueAt": "2026-08-24T13:48:51.527Z",
+      "srsReviewCount": 3
+    },
+    {
+      "word": "traction",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "đà tăng trưởng và dấu hiệu thị trường bắt đầu đón nhận sản phẩm.",
+      "pronunciation": "/ˈtrækʃən/",
+      "example": "The product is gaining traction with small engineering teams.",
+      "createdAt": "2026-07-26T10:01:38.347Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "capability (n)",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "khả năng hoặc năng lực thực hiện một hành động; nên học như noun 'capability'.",
+      "pronunciation": "/ˌkeɪpəˈbɪləti/",
+      "example": "The new capability lets recruiters verify a candidate’s work history.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "tend",
+      "partOfSpeech": "verb",
+      "partsOfSpeech": [
+        "verb"
+      ],
+      "meaning": "có xu hướng hoặc thường có khuynh hướng làm gì.",
+      "pronunciation": "/tend/",
+      "example": "Teams tend to underestimate the cost of data migration.",
+      "createdAt": "2026-07-26T12:04:23.700Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 1,
+      "srsEase": 2.35,
+      "srsDueAt": "2026-08-23T13:17:39.242Z",
+      "srsReviewCount": 1
+    },
+    {
+      "word": "mismatch",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun",
+        "verb"
+      ],
+      "meaning": "sự không khớp giữa hai giá trị, kỳ vọng, schema hoặc yêu cầu.",
+      "pronunciation": "/ˈmɪsmætʃ/",
+      "example": "The validation error comes from a type mismatch in the payload.",
+      "createdAt": "2026-07-31T04:53:26.357Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "discrete",
+      "partOfSpeech": "adjective",
+      "partsOfSpeech": [
+        "adjective"
+      ],
+      "meaning": "rời rạc, tách biệt thành các đơn vị riêng; không phải 'discreet' là kín đáo.",
+      "pronunciation": "/dɪˈskriːt/",
+      "example": "The pipeline has three discrete validation stages.",
+      "createdAt": "2026-07-26T09:47:51.388Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "differentiation",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "sự khác biệt hóa, làm cho một sản phẩm hoặc approach nổi bật so với lựa chọn khác.",
+      "pronunciation": "/ˌdɪfərenʃiˈeɪʃən/",
+      "example": "Verified evidence is a key differentiation for this hiring platform.",
+      "createdAt": "2026-07-26T15:38:25.115Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "I wanted to make sure we were aligned first.",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "Tôi muốn chắc rằng hai bên đã thống nhất trước.",
+      "pronunciation": "",
+      "example": "I wanted to make sure we were aligned first before changing the contract.",
+      "createdAt": "2026-08-17T11:22:48.477Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "granular control",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "khả năng kiểm soát ở mức chi tiết, ví dụ theo user, role, field hoặc action.",
+      "pronunciation": "/ˈɡrænjələr kənˈtroʊl/",
+      "example": "The admin panel needs granular control over export permissions.",
+      "createdAt": "2026-07-29T07:55:03.024Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 1,
+      "srsEase": 2.35,
+      "srsDueAt": "2026-08-23T13:17:35.192Z",
+      "srsReviewCount": 1
+    },
+    {
+      "word": "opinionated",
+      "partOfSpeech": "adjective",
+      "partsOfSpeech": [
+        "adjective"
+      ],
+      "meaning": "có quan điểm hoặc convention rất rõ và ít linh hoạt; có thể tích cực hoặc tiêu cực tùy ngữ cảnh.",
+      "pronunciation": "/əˈpɪnjəneɪtɪd/",
+      "example": "The framework is opinionated about project structure and testing.",
+      "createdAt": "2026-08-19T01:53:43.131Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 1,
+      "srsEase": 1.3,
+      "srsDueAt": "2026-08-23T13:19:06.829Z",
+      "srsReviewCount": 7
+    },
+    {
+      "word": "pretend",
+      "partOfSpeech": "verb",
+      "partsOfSpeech": [
+        "verb"
+      ],
+      "meaning": "giả vờ hoặc coi như một điều là thật dù biết nó không phải vậy.",
+      "pronunciation": "/prɪˈtend/",
+      "example": "We should not pretend that a small sample proves production readiness.",
+      "createdAt": "2026-08-16T04:20:58.003Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "payoff",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "lợi ích hoặc giá trị thu được; cũng có thể là khoản thanh toán.",
+      "pronunciation": "/ˈpeɪɒf/",
+      "example": "The payoff of this cleanup is a safer release process.",
+      "createdAt": "2026-07-26T09:56:06.093Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "deliberate",
+      "partOfSpeech": "adjective",
+      "partsOfSpeech": [
+        "adjective",
+        "verb"
+      ],
+      "meaning": "có chủ ý, được cân nhắc kỹ; khác với 'deliberate' nghĩa là thảo luận/cân nhắc như verb.",
+      "pronunciation": "/dɪˈlɪbərət/",
+      "example": "This was a deliberate trade-off to reduce implementation risk.",
+      "createdAt": "2026-08-04T04:27:32.464Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "ADR",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "architecture decision record; tài liệu ghi lại context, decision và consequences của một quyết định kiến trúc.",
+      "pronunciation": "/ˌeɪ diː ˈɑːr/",
+      "example": "The team created an ADR for the choice of PostgreSQL over a document database.",
+      "createdAt": "2026-07-28T10:29:29.295Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 1,
+      "srsEase": 2.35,
+      "srsDueAt": "2026-08-23T13:17:24.871Z",
+      "srsReviewCount": 1
+    },
+    {
+      "word": "That was my thinking too",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "Tôi cũng đã nghĩ như vậy.",
+      "pronunciation": "",
+      "example": "That was my thinking too, especially given the migration risk.",
+      "createdAt": "2026-08-17T11:21:47.194Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 1,
+      "srsEase": 2.5,
+      "srsDueAt": "2026-08-24T13:46:16.568Z",
+      "srsReviewCount": 1
+    },
+    {
+      "word": "potentially",
+      "partOfSpeech": "adverb",
+      "partsOfSpeech": [
+        "adverb"
+      ],
+      "meaning": "có khả năng xảy ra hoặc có thể trở thành sự thật.",
+      "pronunciation": "/pəˈtenʃəli/",
+      "example": "This change could potentially affect existing integrations.",
+      "createdAt": "2026-08-17T07:41:52.293Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 4,
+      "srsEase": 2.65,
+      "srsDueAt": "2026-08-27T13:47:03.452Z",
+      "srsReviewCount": 1
+    },
+    {
+      "word": "I don’t think we should guess",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "Tôi nghĩ chúng ta không nên đoán khi chưa có đủ evidence.",
+      "pronunciation": "",
+      "example": "I don’t think we should guess; let’s check the database constraint first.",
+      "createdAt": "2026-08-17T11:22:15.995Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "hydrate",
+      "partOfSpeech": "verb",
+      "partsOfSpeech": [
+        "verb"
+      ],
+      "meaning": "bổ sung dữ liệu đầy đủ vào object, state hoặc UI từ một nguồn khác; trong web app thường là khôi phục state từ payload.",
+      "pronunciation": "/ˈhaɪdreɪt/",
+      "example": "The server hydrates the page with the user’s initial session data.",
+      "createdAt": "2026-08-04T04:38:34.218Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "The main reason is that…",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "Lý do chính là…",
+      "pronunciation": "",
+      "example": "The main reason is that the current API does not expose ownership data.",
+      "createdAt": "2026-08-17T11:21:01.467Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "admit",
+      "partOfSpeech": "verb",
+      "partsOfSpeech": [
+        "verb"
+      ],
+      "meaning": "thừa nhận; cho phép một người hoặc request đi vào hệ thống.",
+      "pronunciation": "/ədˈmɪt/",
+      "example": "I have to admit that the first estimate was too optimistic.",
+      "createdAt": "2026-07-26T12:12:21.493Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 2,
+      "srsEase": 2.3,
+      "srsDueAt": "2026-08-25T10:58:17.335Z",
+      "srsReviewCount": 3
+    },
+    {
+      "word": "preflight",
+      "partOfSpeech": "adjective",
+      "partsOfSpeech": [
+        "adjective",
+        "noun",
+        "verb"
+      ],
+      "meaning": "kiểm tra trước khi thực hiện một action, deployment hoặc migration.",
+      "pronunciation": "/ˈpriːflaɪt/",
+      "example": "The deployment runs a preflight check for required environment variables.",
+      "createdAt": "2026-08-20T09:26:23.070Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "hierarchy",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "hệ thống phân cấp giữa các cấp, role, team hoặc object.",
+      "pronunciation": "/ˈhaɪərɑːrki/",
+      "example": "The permission hierarchy gives organization admins broader access.",
+      "createdAt": "2026-07-29T13:40:59.182Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "accurate",
+      "partOfSpeech": "adjective",
+      "partsOfSpeech": [
+        "adjective"
+      ],
+      "meaning": "chính xác, phản ánh đúng dữ liệu hoặc sự thật.",
+      "pronunciation": "/ˈækjərət/",
+      "example": "The dashboard is useful only if its metrics are accurate.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "active candidate",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "ứng viên đang chủ động tìm việc hoặc tích cực tham gia quy trình tuyển dụng.",
+      "pronunciation": "",
+      "example": "An active candidate may respond quickly to a relevant outreach message.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "actually",
+      "partOfSpeech": "adverb",
+      "partsOfSpeech": [
+        "adverb"
+      ],
+      "meaning": "thực ra; trên thực tế, thường dùng để sửa hoặc làm rõ một ý.",
+      "pronunciation": "/ˈæktʃuəli/",
+      "example": "Actually, the endpoint already supports pagination.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 4,
+      "srsEase": 2.65,
+      "srsDueAt": "2026-08-26T13:16:54.173Z",
+      "srsReviewCount": 1
+    },
+    {
+      "word": "AI agent",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "tác nhân AI có thể nhận mục tiêu, lập kế hoạch, dùng tools và thực hiện nhiều bước trong giới hạn được giao.",
+      "pronunciation": "/ˌeɪ ˈaɪ ˈeɪdʒənt/",
+      "example": "The AI agent drafts a shortlist but a recruiter makes the final decision.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "AI workflow",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "quy trình có AI tham gia một hoặc nhiều bước, có input, processing, output và thường có human review.",
+      "pronunciation": "/ˌeɪ ˈaɪ ˈwɜːrkfloʊ/",
+      "example": "The AI workflow enriches profiles and flags uncertain fields for review.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "and so on",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "vân vân; và những thứ tương tự đã được nêu.",
+      "pronunciation": "",
+      "example": "The checklist covers tests, logs, alerts, and so on.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "Applicant Tracking System - ATS",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "applicant tracking system; hệ thống quản lý job posting, hồ sơ, screening và tiến trình ứng viên.",
+      "pronunciation": "/ˈæplɪkənt ˈtrækɪŋ ˌsɪstəm/",
+      "example": "The recruiter moved the applicant to the next stage in the ATS.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "as far as I can remember",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "theo như tôi nhớ.",
+      "pronunciation": "",
+      "example": "As far as I can remember, this endpoint was added for the mobile client.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "as far as I know",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "theo những gì tôi biết; dùng để giới hạn mức độ chắc chắn của phát biểu.",
+      "pronunciation": "",
+      "example": "As far as I know, no customer is using this legacy option.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "as long as",
+      "partOfSpeech": "conjunction",
+      "partsOfSpeech": [
+        "conjunction",
+        "preposition"
+      ],
+      "meaning": "miễn là; với điều kiện là.",
+      "pronunciation": "/æz lɔːŋ æz/",
+      "example": "We can merge today as long as the integration tests pass.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 3,
+      "srsEase": 2.65,
+      "srsDueAt": "2026-08-26T13:44:01.843Z",
+      "srsReviewCount": 2
+    },
+    {
+      "word": "assumption",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "giả định được dùng làm cơ sở khi chưa có đủ thông tin chứng minh.",
+      "pronunciation": "/əˈsʌmpʃən/",
+      "example": "Our estimate depends on the assumption that the API is backward compatible.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "attest",
+      "partOfSpeech": "verb",
+      "partsOfSpeech": [
+        "verb"
+      ],
+      "meaning": "chứng thực hoặc xác nhận rằng một điều là đúng, thường dựa trên kiến thức hoặc trải nghiệm trực tiếp.",
+      "pronunciation": "/əˈtest/",
+      "example": "A former manager can attest to the candidate’s ownership of the project.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "Audience",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "audience; nhóm người dùng hoặc người nghe mà sản phẩm, message hay feature hướng tới.",
+      "pronunciation": "/ˈɔːdiəns/",
+      "example": "The primary audience for this feature is technical recruiters.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 3,
+      "srsEase": 2.5,
+      "srsDueAt": "2026-08-26T13:45:07.828Z",
+      "srsReviewCount": 2
+    },
+    {
+      "word": "Auto Outreach",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "tự động gửi outreach tới ứng viên theo rule hoặc workflow đã cấu hình; cần human oversight để tránh spam.",
+      "pronunciation": "/ˌɔːtoʊ ˈaʊtriːtʃ/",
+      "example": "Auto Outreach should stop when a candidate opts out.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 1,
+      "srsEase": 2.5,
+      "srsDueAt": "2026-08-23T13:16:57.175Z",
+      "srsReviewCount": 1
+    },
+    {
+      "word": "Auto Targeting",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "tự động xác định và gợi ý candidate phù hợp với job dựa trên tiêu chí hoặc model.",
+      "pronunciation": "/ˌɔːtoʊ ˈtɑːrɡɪtɪŋ/",
+      "example": "Auto Targeting ranks candidates by skills, location, and availability.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "Back and forth",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "trao đổi qua lại nhiều lượt; cũng có thể là di chuyển tới lui.",
+      "pronunciation": "",
+      "example": "The contract review involved several rounds of back and forth.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 1,
+      "srsEase": 2.5,
+      "srsDueAt": "2026-08-23T13:16:42.422Z",
+      "srsReviewCount": 1
+    },
+    {
+      "word": "backup",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun",
+        "verb",
+        "adjective"
+      ],
+      "meaning": "bản sao dữ liệu dùng để khôi phục khi dữ liệu chính bị mất hoặc hỏng.",
+      "pronunciation": "/ˈbækʌp/",
+      "example": "Export a backup before importing the enriched dictionary.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "besides",
+      "partOfSpeech": "preposition",
+      "partsOfSpeech": [
+        "preposition",
+        "adverb"
+      ],
+      "meaning": "ngoài ra; bên cạnh đó; đôi khi có nghĩa là ngoài một người hoặc vật nào đó.",
+      "pronunciation": "/bɪˈsaɪdz/",
+      "example": "Besides the UI, we need to update the validation rules.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "beyond",
+      "partOfSpeech": "preposition",
+      "partsOfSpeech": [
+        "preposition",
+        "adverb",
+        "noun"
+      ],
+      "meaning": "vượt quá giới hạn, phạm vi hoặc mức độ nào đó.",
+      "pronunciation": "/bɪˈjɒnd/",
+      "example": "This decision is beyond the scope of the current ticket.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "blueprint",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun",
+        "verb"
+      ],
+      "meaning": "bản thiết kế hoặc kế hoạch chi tiết làm nền tảng để xây dựng một hệ thống.",
+      "pronunciation": "/ˈbluːprɪnt/",
+      "example": "The architecture document is a blueprint for the first implementation.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 4,
+      "srsEase": 2.65,
+      "srsDueAt": "2026-08-27T13:47:10.875Z",
+      "srsReviewCount": 1
+    },
+    {
+      "word": "blurb",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "đoạn giới thiệu ngắn, thường dùng trong profile, landing page hoặc job post.",
+      "pronunciation": "/blɜːrb/",
+      "example": "The job post needs a clearer blurb about the remote culture.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "boolean Search",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "Boolean search; tìm kiếm bằng toán tử AND, OR và NOT để kết hợp hoặc loại trừ từ khóa.",
+      "pronunciation": "/ˈbuːliən sɜːrtʃ/",
+      "example": "The recruiter used a Boolean search for Node.js AND TypeScript NOT internship.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "bottleneck",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "nút thắt làm giảm throughput hoặc khiến cả quy trình bị chậm.",
+      "pronunciation": "/ˈbɒtlnek/",
+      "example": "Manual verification is the bottleneck in the current hiring workflow.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "bring out",
+      "partOfSpeech": "verb",
+      "partsOfSpeech": [
+        "verb"
+      ],
+      "meaning": "làm nổi bật; khơi gợi hoặc khiến một đặc điểm thể hiện rõ hơn.",
+      "pronunciation": "/brɪŋ aʊt/",
+      "example": "The incident review brought out several gaps in our monitoring.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 1,
+      "srsEase": 2.35,
+      "srsDueAt": "2026-08-23T13:16:50.809Z",
+      "srsReviewCount": 1
+    },
+    {
+      "word": "broad",
+      "partOfSpeech": "adjective",
+      "partsOfSpeech": [
+        "adjective"
+      ],
+      "meaning": "rộng, bao quát, không bị giới hạn vào một phạm vi hẹp.",
+      "pronunciation": "/brɔːd/",
+      "example": "We need a broad search before narrowing the candidate pool.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "Candidate Pool",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "candidate pool; tập hợp các ứng viên đang được xem xét cho một hoặc nhiều vị trí.",
+      "pronunciation": "/ˈkændɪdət puːl/",
+      "example": "The recruiter added three engineers to the candidate pool.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "candidate preferences",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "các mong muốn hoặc điều kiện ưu tiên của ứng viên, như location, salary, stack hoặc work arrangement.",
+      "pronunciation": "",
+      "example": "The matching system should respect candidate preferences for remote work.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "capability",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "khả năng hoặc năng lực thực hiện một hành động hoặc cung cấp một chức năng.",
+      "pronunciation": "/ˌkeɪpəˈbɪləti/",
+      "example": "The platform has the capability to verify employment history.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "cascade",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun",
+        "verb"
+      ],
+      "meaning": "chuỗi tác động hoặc hành động nối tiếp; trong software, một thay đổi có thể cascade sang các thành phần khác.",
+      "pronunciation": "/kæˈskeɪd/",
+      "example": "A failed migration can cascade into application errors.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "chase",
+      "partOfSpeech": "verb",
+      "partsOfSpeech": [
+        "verb",
+        "noun"
+      ],
+      "meaning": "theo đuổi; cố gắng đạt được hoặc tiếp tục đốc thúc một việc.",
+      "pronunciation": "/tʃeɪs/",
+      "example": "We should not chase every feature request before validating demand.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 3,
+      "srsEase": 2.5,
+      "srsDueAt": "2026-08-26T11:03:50.643Z",
+      "srsReviewCount": 2
+    },
+    {
+      "word": "collaborate",
+      "partOfSpeech": "verb",
+      "partsOfSpeech": [
+        "verb"
+      ],
+      "meaning": "hợp tác để cùng tạo ra kết quả hoặc giải quyết vấn đề.",
+      "pronunciation": "/kəˈlæbəreɪt/",
+      "example": "Engineers and recruiters collaborate on the interview rubric.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "complexity",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "độ phức tạp của một hệ thống, vấn đề hoặc giải pháp.",
+      "pronunciation": "/kəmˈpleksəti/",
+      "example": "We should avoid adding complexity before we understand the failure mode.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "constantly",
+      "partOfSpeech": "adverb",
+      "partsOfSpeech": [
+        "adverb"
+      ],
+      "meaning": "liên tục hoặc xảy ra rất thường xuyên.",
+      "pronunciation": "/ˈkɒnstəntli/",
+      "example": "The requirements are constantly changing during the pilot.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "constraint",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "ràng buộc hoặc giới hạn mà solution phải tuân theo.",
+      "pronunciation": "/kənˈstreɪnt/",
+      "example": "The database constraint prevents duplicate organization members.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "continuously",
+      "partOfSpeech": "adverb",
+      "partsOfSpeech": [
+        "adverb"
+      ],
+      "meaning": "liên tục, không bị ngắt quãng trong một khoảng thời gian.",
+      "pronunciation": "/kənˈtɪnjuəsli/",
+      "example": "The worker continuously processes events from the queue.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "continuously / iteratively / over time / step by step",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "liên tục / lặp lại để cải tiến / theo thời gian / từng bước; các cách mô tả progress khác nhau.",
+      "pronunciation": "",
+      "example": "We improved the workflow iteratively and rolled it out step by step.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "contribute",
+      "partOfSpeech": "verb",
+      "partsOfSpeech": [
+        "verb"
+      ],
+      "meaning": "đóng góp công sức, ý tưởng, code hoặc giá trị vào một kết quả chung.",
+      "pronunciation": "/kənˈtrɪbjuːt/",
+      "example": "Everyone can contribute to the design review.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "coworker",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "đồng nghiệp, người làm việc cùng tổ chức hoặc team.",
+      "pronunciation": "/ˈkoʊwɜːrkər/",
+      "example": "Ask a coworker to review the pull request before merging.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "CRM",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "customer relationship management; hệ thống quản lý quan hệ và tương tác với khách hàng hoặc lead.",
+      "pronunciation": "/ˌsiː ɑːr ˈem/",
+      "example": "The recruiter synced outreach activity to the CRM.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "crucial",
+      "partOfSpeech": "adjective",
+      "partsOfSpeech": [
+        "adjective"
+      ],
+      "meaning": "cực kỳ quan trọng đối với thành công hoặc kết quả của một việc.",
+      "pronunciation": "/ˈkruːʃəl/",
+      "example": "Clear ownership is crucial for incident response.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 1,
+      "srsEase": 2.35,
+      "srsDueAt": "2026-08-23T13:18:40.636Z",
+      "srsReviewCount": 1
+    },
+    {
+      "word": "curate",
+      "partOfSpeech": "verb",
+      "partsOfSpeech": [
+        "verb"
+      ],
+      "meaning": "tuyển chọn, sắp xếp và duy trì nội dung hoặc dữ liệu có giá trị.",
+      "pronunciation": "/kjʊˈreɪt/",
+      "example": "The team curates a shortlist of relevant candidates.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "curious",
+      "partOfSpeech": "adjective",
+      "partsOfSpeech": [
+        "adjective"
+      ],
+      "meaning": "tò mò, muốn tìm hiểu hoặc biết thêm.",
+      "pronunciation": "/ˈkjʊəriəs/",
+      "example": "I’m curious whether this metric reflects real user value.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "Data Enrichment",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "data enrichment; bổ sung, chuẩn hóa hoặc xác minh thêm thuộc tính cho dữ liệu hiện có.",
+      "pronunciation": "/ˈdeɪtə ɪnˈrɪtʃmənt/",
+      "example": "Data enrichment added the candidate’s current location and skills.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "Definitely",
+      "partOfSpeech": "adverb",
+      "partsOfSpeech": [
+        "adverb"
+      ],
+      "meaning": "chắc chắn; hoàn toàn đồng ý hoặc xác nhận mạnh.",
+      "pronunciation": "/ˈdefɪnətli/",
+      "example": "Definitely, we should reproduce the bug before changing the code.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "density",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "mật độ, số lượng phần tử trong một đơn vị không gian hoặc phạm vi.",
+      "pronunciation": "/ˈdensəti/",
+      "example": "Candidate density is higher in the local market than in the global search.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "detail-oriented",
+      "partOfSpeech": "adjective",
+      "partsOfSpeech": [
+        "adjective"
+      ],
+      "meaning": "chú ý kỹ đến chi tiết và thường phát hiện sai sót nhỏ.",
+      "pronunciation": "/ˈdiːteɪl ˌɔːrientɪd/",
+      "example": "A detail-oriented reviewer caught the missing authorization check.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "do a walk-through",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "cùng xem và giải thích một quy trình, flow hoặc implementation từ đầu đến cuối.",
+      "pronunciation": "",
+      "example": "Can we do a walk-through of the onboarding flow tomorrow?",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "efficiently",
+      "partOfSpeech": "adverb",
+      "partsOfSpeech": [
+        "adverb"
+      ],
+      "meaning": "một cách hiệu quả, đạt kết quả với ít thời gian hoặc tài nguyên lãng phí.",
+      "pronunciation": "/ɪˈfɪʃəntli/",
+      "example": "The worker batches requests to process them efficiently.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "employer",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "nhà tuyển dụng; tổ chức thuê người làm việc.",
+      "pronunciation": "/ɪmˈplɔɪər/",
+      "example": "The employer verified the candidate’s interview feedback.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 3,
+      "srsEase": 2.65,
+      "srsDueAt": "2026-08-26T13:45:32.548Z",
+      "srsReviewCount": 2
+    },
+    {
+      "word": "employment history, background check, and peer verification",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "lịch sử làm việc, kiểm tra lý lịch và xác minh từ đồng nghiệp; ba nguồn evidence khác nhau trong hiring.",
+      "pronunciation": "",
+      "example": "The profile combines employment history, a background check, and peer verification.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "enormous",
+      "partOfSpeech": "adjective",
+      "partsOfSpeech": [
+        "adjective"
+      ],
+      "meaning": "rất lớn về kích thước, số lượng hoặc mức độ.",
+      "pronunciation": "/ɪˈnɔːrməs/",
+      "example": "The migration created an enormous amount of log data.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 1,
+      "srsEase": 2.15,
+      "srsDueAt": "2026-08-24T13:45:39.253Z",
+      "srsReviewCount": 2
+    },
+    {
+      "word": "entire",
+      "partOfSpeech": "adjective",
+      "partsOfSpeech": [
+        "adjective"
+      ],
+      "meaning": "toàn bộ, không bỏ sót phần nào.",
+      "pronunciation": "/ɪnˈtaɪər/",
+      "example": "The entire team joined the incident review.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "especially",
+      "partOfSpeech": "adverb",
+      "partsOfSpeech": [
+        "adverb"
+      ],
+      "meaning": "đặc biệt là; dùng để nhấn mạnh một trường hợp.",
+      "pronunciation": "/ɪˈspeʃəli/",
+      "example": "This matters especially for roles handling sensitive data.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "essentially",
+      "partOfSpeech": "adverb",
+      "partsOfSpeech": [
+        "adverb"
+      ],
+      "meaning": "về bản chất; nói ngắn gọn về điều cốt lõi.",
+      "pronunciation": "/ɪˈsenʃəli/",
+      "example": "The two designs are essentially the same at runtime.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 1,
+      "srsEase": 2.5,
+      "srsDueAt": "2026-08-23T13:18:25.730Z",
+      "srsReviewCount": 1
+    },
+    {
+      "word": "even though",
+      "partOfSpeech": "conjunction",
+      "partsOfSpeech": [
+        "conjunction"
+      ],
+      "meaning": "mặc dù; đưa ra một sự tương phản với mệnh đề chính.",
+      "pronunciation": "/ˈiːvən ðoʊ/",
+      "example": "Even though the change is small, we still need a regression test.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "eventually",
+      "partOfSpeech": "adverb",
+      "partsOfSpeech": [
+        "adverb"
+      ],
+      "meaning": "cuối cùng, sau một khoảng thời gian hoặc nhiều bước.",
+      "pronunciation": "/ɪˈventʃuəli/",
+      "example": "The retry eventually succeeded after the service recovered.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "evidence",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "bằng chứng hỗ trợ một claim, quyết định hoặc kết luận.",
+      "pronunciation": "/ˈevɪdəns/",
+      "example": "The logs provide evidence that the webhook was delivered.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "evolve",
+      "partOfSpeech": "verb",
+      "partsOfSpeech": [
+        "verb"
+      ],
+      "meaning": "phát triển hoặc thay đổi dần theo thời gian.",
+      "pronunciation": "/ɪˈvɒlv/",
+      "example": "The domain model will evolve as we learn from real users.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "fallback",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun",
+        "adjective"
+      ],
+      "meaning": "phương án dự phòng được dùng khi primary path thất bại hoặc không khả dụng.",
+      "pronunciation": "/ˈfɔːlbæk/",
+      "example": "The system uses cached data as a fallback when the provider is down.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 3,
+      "srsEase": 2.5,
+      "srsDueAt": "2026-08-26T11:03:41.055Z",
+      "srsReviewCount": 2
+    },
+    {
+      "word": "for the time being",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "tạm thời trong giai đoạn hiện tại.",
+      "pronunciation": "",
+      "example": "For the time being, we will keep the approval step manual.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "formula",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "công thức; một cách thức hoặc quy tắc thường dùng để tạo ra kết quả.",
+      "pronunciation": "/ˈfɔːrmjələ/",
+      "example": "There is no simple formula for hiring strong engineers.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "friction",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "rào cản khiến user hoặc team mất thêm effort, thời gian hoặc dễ bỏ cuộc.",
+      "pronunciation": "/ˈfrɪkʃən/",
+      "example": "Extra form fields create friction during candidate signup.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "from my perspective",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "theo góc nhìn hoặc quan điểm của tôi.",
+      "pronunciation": "",
+      "example": "From my perspective, the risk is in data ownership, not in the UI.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "funnel",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun",
+        "verb"
+      ],
+      "meaning": "phễu; quy trình thu hẹp dần từ nhiều người dùng/ứng viên xuống một nhóm nhỏ hơn.",
+      "pronunciation": "/ˈfʌnəl/",
+      "example": "The recruiting funnel starts with sourcing and ends with a hire.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "funnel the user",
+      "partOfSpeech": "verb",
+      "partsOfSpeech": [
+        "verb"
+      ],
+      "meaning": "dẫn dắt người dùng qua một flow theo các bước hoặc mục tiêu định trước.",
+      "pronunciation": "/ˈfʌnəl ðə ˈjuːzər/",
+      "example": "The onboarding flow funnels the user toward completing a verified profile.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "get rid of",
+      "partOfSpeech": "verb",
+      "partsOfSpeech": [
+        "verb"
+      ],
+      "meaning": "loại bỏ một thứ không còn cần thiết hoặc gây vấn đề.",
+      "pronunciation": "/ɡet rɪd əv/",
+      "example": "We should get rid of the duplicate validation path.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "handoff",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun",
+        "verb"
+      ],
+      "meaning": "việc bàn giao context, ownership hoặc công việc từ người/team này sang người/team khác.",
+      "pronunciation": "/ˈhændɒf/",
+      "example": "A clear handoff prevents the support issue from being lost.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "Headcount",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "headcount; số lượng người trong một team, tổ chức hoặc kế hoạch tuyển dụng.",
+      "pronunciation": "/ˈhedkaʊnt/",
+      "example": "The team has approval for two more engineering headcount positions.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "Hiring Workflow",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "hiring workflow; chuỗi bước từ mở job, sourcing, screening, interview đến offer hoặc reject.",
+      "pronunciation": "/ˈhaɪərɪŋ ˈwɜːrkfloʊ/",
+      "example": "We mapped the hiring workflow before automating it.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "Hold off on",
+      "partOfSpeech": "verb",
+      "partsOfSpeech": [
+        "verb"
+      ],
+      "meaning": "tạm hoãn việc gì; chờ thêm thông tin trước khi hành động.",
+      "pronunciation": "/hoʊld ɒf ɒn/",
+      "example": "Let’s hold off on the migration until the backup is verified.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "I believe",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "Tôi tin rằng; cách nói nêu quan điểm khá chắc chắn nhưng vẫn lịch sự.",
+      "pronunciation": "",
+      "example": "I believe this is safer because the change is reversible.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "I can just go through this",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "Tôi có thể xem hoặc rà soát nhanh phần này.",
+      "pronunciation": "",
+      "example": "I can just go through this PR before the planning meeting.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 3,
+      "srsEase": 2.5,
+      "srsDueAt": "2026-08-26T13:43:58.167Z",
+      "srsReviewCount": 2
+    },
+    {
+      "word": "naturally",
+      "partOfSpeech": "adverb",
+      "partsOfSpeech": [
+        "adverb"
+      ],
+      "meaning": "một cách tự nhiên; theo lẽ thường hoặc không cần gượng ép.",
+      "pronunciation": "/ˈnætʃərəli/",
+      "example": "The conversation naturally moved from the product to the hiring plan.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 1,
+      "srsEase": 2.5,
+      "srsDueAt": "2026-08-23T13:18:23.828Z",
+      "srsReviewCount": 1
+    },
+    {
+      "word": "I was going to .. but",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "Tôi định làm… nhưng…; mẫu câu nêu ý định rồi chuyển sang một điều chỉnh hoặc lý do.",
+      "pronunciation": "",
+      "example": "I was going to merge it, but the final test exposed a race condition.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 1,
+      "srsEase": 2.5,
+      "srsDueAt": "2026-08-24T13:47:16.568Z",
+      "srsReviewCount": 1
+    },
+    {
+      "word": "I would say",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "Tôi sẽ nói rằng; cách nêu nhận định mềm hơn một khẳng định tuyệt đối.",
+      "pronunciation": "",
+      "example": "I would say the main risk is operational complexity.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "identify",
+      "partOfSpeech": "verb",
+      "partsOfSpeech": [
+        "verb"
+      ],
+      "meaning": "nhận diện hoặc xác định chính xác người, vấn đề, nguyên nhân hay pattern.",
+      "pronunciation": "/aɪˈdentɪfaɪ/",
+      "example": "The logs helped us identify the failing dependency.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "Identity Verification",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "identity verification; quy trình xác minh một người đúng là người họ khai báo.",
+      "pronunciation": "/aɪˈdentəti ˌverɪfɪˈkeɪʃən/",
+      "example": "Identity verification is required before a user can access protected records.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "if I remember correctly",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "nếu tôi nhớ đúng.",
+      "pronunciation": "",
+      "example": "If I remember correctly, the original decision was made during the pilot.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "in addition",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase",
+        "adverb"
+      ],
+      "meaning": "thêm vào đó; ngoài điều vừa nêu.",
+      "pronunciation": "",
+      "example": "In addition, we need to document the rollback procedure.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "In general",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "nhìn chung; nói về xu hướng hoặc nhận định tổng quát.",
+      "pronunciation": "",
+      "example": "In general, smaller pull requests are easier to review.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "in my experience",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "theo kinh nghiệm của tôi.",
+      "pronunciation": "",
+      "example": "In my experience, unclear ownership causes more delay than technical difficulty.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "In my opinion",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "theo ý kiến của tôi.",
+      "pronunciation": "",
+      "example": "In my opinion, we should validate the workflow before scaling it.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "Inbound Recruiting",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "inbound recruiting; thu hút ứng viên để họ chủ động tìm hiểu hoặc ứng tuyển thông qua job post, content, referral hoặc employer brand.",
+      "pronunciation": "/ˈɪnbaʊnd rɪˈkruːtɪŋ/",
+      "example": "Inbound Recruiting works when the job page answers the candidate’s key questions.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "incident",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "sự cố ảnh hưởng hoặc có khả năng ảnh hưởng đến hệ thống, user hoặc dữ liệu.",
+      "pronunciation": "/ˈɪnsɪdənt/",
+      "example": "The incident was resolved after the queue consumer was restarted.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "inconsistent",
+      "partOfSpeech": "adjective",
+      "partsOfSpeech": [
+        "adjective"
+      ],
+      "meaning": "không nhất quán; cho kết quả, format hoặc behavior khác nhau trong các trường hợp tương tự.",
+      "pronunciation": "/ˌɪnkənˈsɪstənt/",
+      "example": "The API returns inconsistent field names across endpoints.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "individual",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun",
+        "adjective"
+      ],
+      "meaning": "cá nhân; riêng lẻ, thuộc về từng người hoặc từng item.",
+      "pronunciation": "/ˌɪndɪˈvɪdʒuəl/",
+      "example": "Each individual candidate can control their profile visibility.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "infer",
+      "partOfSpeech": "verb",
+      "partsOfSpeech": [
+        "verb"
+      ],
+      "meaning": "suy ra một kết luận từ evidence hoặc dấu hiệu thay vì được nói trực tiếp.",
+      "pronunciation": "/ɪnˈfɜːr/",
+      "example": "We can infer that the webhook failed from the missing delivery log.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "insufficient",
+      "partOfSpeech": "adjective",
+      "partsOfSpeech": [
+        "adjective"
+      ],
+      "meaning": "không đủ để đáp ứng một mục tiêu, điều kiện hoặc tiêu chuẩn.",
+      "pronunciation": "/ˌɪnsəˈfɪʃənt/",
+      "example": "The evidence is insufficient to approve the candidate automatically.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "insufficient experience",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "kinh nghiệm chưa đủ cho một role hoặc responsibility cụ thể.",
+      "pronunciation": "",
+      "example": "The feedback was that the candidate had insufficient experience with distributed systems.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "intuitive",
+      "partOfSpeech": "adjective",
+      "partsOfSpeech": [
+        "adjective"
+      ],
+      "meaning": "dễ hiểu và dễ sử dụng mà không cần hướng dẫn nhiều; cũng có nghĩa là dựa vào trực giác.",
+      "pronunciation": "/ɪnˈtuːɪtɪv/",
+      "example": "The search filters should be intuitive for first-time recruiters.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "isolate / isolated",
+      "partOfSpeech": "verb",
+      "partsOfSpeech": [
+        "verb",
+        "adjective"
+      ],
+      "meaning": "isolate: cô lập một thành phần hoặc vấn đề; isolated: đã được tách riêng.",
+      "pronunciation": "/ˈaɪsəleɪt/; /ˈaɪsəleɪtɪd/",
+      "example": "We isolated the failing worker to reproduce the issue safely.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 1,
+      "srsEase": 2.35,
+      "srsDueAt": "2026-08-23T13:17:27.684Z",
+      "srsReviewCount": 1
+    },
+    {
+      "word": "go through the document",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "đọc, xem xét hoặc rà soát tài liệu một cách có hệ thống.",
+      "pronunciation": "",
+      "example": "I’ll go through the document and leave comments on the unclear sections.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "Job Board",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "job board; website hoặc nền tảng đăng và tìm kiếm tin tuyển dụng.",
+      "pronunciation": "/dʒɒb bɔːrd/",
+      "example": "The employer posted the vacancy on a public job board.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "Job Posting",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "job posting; tin tuyển dụng mô tả role, responsibilities, requirements và cách ứng tuyển.",
+      "pronunciation": "/dʒɒb ˈpoʊstɪŋ/",
+      "example": "The job posting should separate must-have and nice-to-have skills.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 4,
+      "srsEase": 2.65,
+      "srsDueAt": "2026-08-26T13:18:08.339Z",
+      "srsReviewCount": 1
+    },
+    {
+      "word": "kind of",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "khá, hơi hoặc kiểu như; dùng để làm câu nói bớt tuyệt đối, đôi khi là filler.",
+      "pronunciation": "",
+      "example": "This is kind of risky because the data is incomplete.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "latency",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "độ trễ từ lúc gửi request hoặc event đến lúc nhận được response hoặc xử lý xong.",
+      "pronunciation": "/ˈleɪtənsi/",
+      "example": "The cache reduced search latency from 300 ms to 80 ms.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 4,
+      "srsEase": 2.65,
+      "srsDueAt": "2026-08-27T13:47:22.189Z",
+      "srsReviewCount": 1
+    },
+    {
+      "word": "let me think",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "để tôi nghĩ một chút; filler lịch sự khi cần thời gian trả lời.",
+      "pronunciation": "",
+      "example": "Let me think about the trade-off before I commit to a date.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 3,
+      "srsEase": 2.65,
+      "srsDueAt": "2026-08-26T13:45:10.295Z",
+      "srsReviewCount": 2
+    },
+    {
+      "word": "LLM",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "large language model; mô hình ngôn ngữ lớn được huấn luyện để hiểu và tạo text.",
+      "pronunciation": "/ˌel el ˈem/",
+      "example": "The LLM drafts a response, but the application enforces the business rules.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "meaningful (adj)",
+      "partOfSpeech": "adjective",
+      "partsOfSpeech": [
+        "adjective"
+      ],
+      "meaning": "có ý nghĩa hoặc tạo ra giá trị đáng kể, không chỉ là thay đổi bề mặt.",
+      "pronunciation": "/ˈmiːnɪŋfəl/",
+      "example": "We need meaningful evidence before claiming that the feature works.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 1,
+      "srsEase": 2.5,
+      "srsDueAt": "2026-08-24T13:46:59.987Z",
+      "srsReviewCount": 1
+    },
+    {
+      "word": "moat",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "lợi thế cạnh tranh khó bị sao chép và giúp bảo vệ business trong dài hạn.",
+      "pronunciation": "/moʊt/",
+      "example": "A trusted verification network could become a defensible moat.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "modular",
+      "partOfSpeech": "adjective",
+      "partsOfSpeech": [
+        "adjective"
+      ],
+      "meaning": "được chia thành các module tương đối độc lập, dễ thay thế hoặc tái sử dụng.",
+      "pronunciation": "/ˈmɒdjələr/",
+      "example": "A modular architecture lets us replace the search provider later.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "multi-tenant",
+      "partOfSpeech": "adjective",
+      "partsOfSpeech": [
+        "adjective"
+      ],
+      "meaning": "multi-tenant; một hệ thống phục vụ nhiều organization/tenant trong cùng hạ tầng nhưng vẫn tách dữ liệu và quyền truy cập.",
+      "pronunciation": "/ˌmʌlti ˈtenənt/",
+      "example": "The multi-tenant API must enforce organization ownership on every query.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "MVP",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "minimum viable product; phiên bản nhỏ nhất có đủ giá trị để kiểm chứng giả thuyết với người dùng.",
+      "pronunciation": "/ˌem viː ˈpiː/",
+      "example": "The MVP includes manual verification instead of a fully automated workflow.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "not only that",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "không chỉ vậy; dùng để bổ sung một điểm còn mạnh hoặc quan trọng hơn.",
+      "pronunciation": "",
+      "example": "Not only that, the change also reduces operational cost.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "obviously",
+      "partOfSpeech": "adverb",
+      "partsOfSpeech": [
+        "adverb"
+      ],
+      "meaning": "một cách rõ ràng; dùng để nói điều người nói cho là dễ thấy, nhưng có thể nghe hơi áp đặt.",
+      "pronunciation": "/ˈɒbviəsli/",
+      "example": "Obviously, we still need evidence before making that claim.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "on the other hand",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "mặt khác; đưa ra một góc nhìn hoặc điểm đối lập.",
+      "pronunciation": "",
+      "example": "The shortcut is faster; on the other hand, it is harder to audit.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "on top of that",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "hơn nữa; thêm vào đó.",
+      "pronunciation": "",
+      "example": "On top of that, the current flow creates duplicate notifications.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "orchestration",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "việc điều phối thứ tự, dữ liệu và kết quả giữa nhiều service, job hoặc agent trong một workflow.",
+      "pronunciation": "/ˌɔːrkɪˈstreɪʃən/",
+      "example": "The orchestration layer coordinates enrichment, verification, and human review.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "Outbound Sourcing",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "outbound sourcing; chủ động tìm và tiếp cận ứng viên thay vì chỉ chờ họ nộp đơn.",
+      "pronunciation": "/ˈaʊtbaʊnd ˈsɔːrsɪŋ/",
+      "example": "Outbound Sourcing works best when the message is relevant to the candidate.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 1,
+      "srsEase": 2.5,
+      "srsDueAt": "2026-08-23T13:17:22.038Z",
+      "srsReviewCount": 1
+    },
+    {
+      "word": "Outbound sourcing engine",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "công cụ hoặc hệ thống tự động tìm, xếp hạng và hỗ trợ tiếp cận ứng viên từ các nguồn bên ngoài.",
+      "pronunciation": "/ˈaʊtbaʊnd ˈsɔːrsɪŋ ˈendʒɪn/",
+      "example": "The outbound sourcing engine ranks public profiles before outreach.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "overall / in short",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "overall: nhìn tổng thể; in short: nói ngắn gọn hoặc tóm lại.",
+      "pronunciation": "",
+      "example": "Overall, the design is sound; in short, we need better ownership checks.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "panic",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun",
+        "verb"
+      ],
+      "meaning": "hoảng loạn; trong programming, panic là trạng thái lỗi nghiêm trọng khiến process hoặc runtime dừng bất thường.",
+      "pronunciation": "/ˈpænɪk/",
+      "example": "The worker should log the error instead of panicking on one bad record.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 1,
+      "srsEase": 2.35,
+      "srsDueAt": "2026-08-23T13:18:28.894Z",
+      "srsReviewCount": 1
+    },
+    {
+      "word": "particularly (adv)",
+      "partOfSpeech": "adverb",
+      "partsOfSpeech": [
+        "adverb"
+      ],
+      "meaning": "đặc biệt là; ở mức độ hoặc trường hợp đáng chú ý.",
+      "pronunciation": "/pərˈtɪkjələrli/",
+      "example": "This is particularly important for senior engineering hires.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 1,
+      "srsEase": 2.35,
+      "srsDueAt": "2026-08-23T13:17:05.466Z",
+      "srsReviewCount": 1
+    },
+    {
+      "word": "particularly / in particular",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "đặc biệt; riêng một trường hợp hoặc điểm cụ thể.",
+      "pronunciation": "",
+      "example": "I’m concerned about one issue in particular: data ownership.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "passive candidate",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "ứng viên không chủ động tìm việc nhưng có thể quan tâm nếu nhận được cơ hội phù hợp.",
+      "pronunciation": "/ˈpæsɪv ˈkændɪdət/",
+      "example": "A passive candidate may need context before responding to outreach.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "Peer Attestation",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "peer attestation; đồng nghiệp hoặc người từng làm việc cùng xác nhận một claim về ứng viên.",
+      "pronunciation": "/pɪər əˈtesteɪʃən/",
+      "example": "Peer Attestation is stronger when the relationship and timeframe are visible.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "perfection",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "sự hoàn hảo; trong product, thường là mục tiêu khó đạt và có thể làm chậm việc ship.",
+      "pronunciation": "/pərˈfekʃən/",
+      "example": "We should optimize for learning first, not perfection.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "personally",
+      "partOfSpeech": "adverb",
+      "partsOfSpeech": [
+        "adverb"
+      ],
+      "meaning": "về cá nhân tôi; theo quan điểm hoặc trải nghiệm riêng của tôi.",
+      "pronunciation": "/ˈpɜːrsənəli/",
+      "example": "Personally, I would keep the first version manual.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "Pipeline",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "pipeline; chuỗi các ứng viên hoặc công việc đang đi qua nhiều stage.",
+      "pronunciation": "/ˈpaɪplaɪn/",
+      "example": "The recruiter reviewed the candidate pipeline before the hiring meeting.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "pivot",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun",
+        "verb"
+      ],
+      "meaning": "thay đổi đáng kể về product, strategy hoặc target market dựa trên learning mới.",
+      "pronunciation": "/ˈpɪvət/",
+      "example": "The team pivoted from job boards to verified referrals.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 1,
+      "srsEase": 2.15,
+      "srsDueAt": "2026-08-23T13:18:48.485Z",
+      "srsReviewCount": 2
+    },
+    {
+      "word": "polished",
+      "partOfSpeech": "adjective",
+      "partsOfSpeech": [
+        "adjective"
+      ],
+      "meaning": "được hoàn thiện, trau chuốt và sẵn sàng trình bày hoặc sử dụng.",
+      "pronunciation": "/ˈpɒlɪʃt/",
+      "example": "The polished demo made the workflow easy to understand.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "Portable Identity",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "portable identity; danh tính hoặc credential có thể được người dùng mang sang nhiều context hoặc platform.",
+      "pronunciation": "/ˈpɔːrtəbəl aɪˈdentəti/",
+      "example": "A portable identity can reduce repeated verification across applications.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "Portable Verified Profile",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "portable verified profile; hồ sơ đã có evidence/verification và có thể được ứng viên dùng lại giữa nhiều lần ứng tuyển.",
+      "pronunciation": "/ˈpɔːrtəbəl ˈverɪfaɪd ˈproʊfaɪl/",
+      "example": "The candidate shared a portable verified profile with a new employer.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "possibly",
+      "partOfSpeech": "adverb",
+      "partsOfSpeech": [
+        "adverb"
+      ],
+      "meaning": "có thể, nhưng chưa chắc xảy ra hoặc đúng.",
+      "pronunciation": "/ˈpɒsəbli/",
+      "example": "The outage was possibly caused by a provider timeout.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "probe",
+      "partOfSpeech": "verb",
+      "partsOfSpeech": [
+        "verb",
+        "noun"
+      ],
+      "meaning": "thăm dò hoặc điều tra sâu để lấy thêm thông tin.",
+      "pronunciation": "/proʊb/",
+      "example": "We should probe the failure with a smaller reproducible case.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "procedure",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "quy trình hoặc tập hợp các bước cần làm để đạt một kết quả.",
+      "pronunciation": "/prəˈsiːdʒər/",
+      "example": "The incident procedure defines who must be notified first.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "productive",
+      "partOfSpeech": "adjective",
+      "partsOfSpeech": [
+        "adjective"
+      ],
+      "meaning": "tạo ra kết quả hữu ích trong thời gian hoặc nguồn lực đã dùng.",
+      "pronunciation": "/prəˈdʌktɪv/",
+      "example": "The review was productive because everyone came prepared.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "progressively",
+      "partOfSpeech": "adverb",
+      "partsOfSpeech": [
+        "adverb"
+      ],
+      "meaning": "dần dần theo từng mức hoặc bước tăng lên.",
+      "pronunciation": "/prəˈɡresɪvli/",
+      "example": "We progressively increased traffic after each validation step.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "prompt",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun",
+        "verb",
+        "adjective"
+      ],
+      "meaning": "prompt; instruction hoặc context đưa cho model AI để định hướng output; cũng có thể là lời nhắc hoặc nhanh chóng.",
+      "pronunciation": "/prɒmpt/",
+      "example": "A precise prompt produces more consistent extraction results.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "proof",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun",
+        "verb"
+      ],
+      "meaning": "bằng chứng hoặc kết quả kiểm chứng cho thấy một điều đúng hoặc hoạt động.",
+      "pronunciation": "/pruːf/",
+      "example": "The passing integration test is not proof of production readiness by itself.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "RAG",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "retrieval-augmented generation; pattern truy xuất context liên quan rồi đưa context đó vào model trước khi tạo response.",
+      "pronunciation": "/ræɡ/",
+      "example": "RAG grounds the answer in the company’s internal documentation.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "rather than",
+      "partOfSpeech": "preposition",
+      "partsOfSpeech": [
+        "preposition",
+        "conjunction"
+      ],
+      "meaning": "thay vì; dùng để chọn một option thay cho option khác.",
+      "pronunciation": "/ˈræðər ðæn/",
+      "example": "We should validate the assumption rather than guess.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 4,
+      "srsEase": 2.65,
+      "srsDueAt": "2026-08-26T13:16:52.672Z",
+      "srsReviewCount": 1
+    },
+    {
+      "word": "Reasoning",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "quá trình suy luận từ thông tin, rule và evidence để đi đến kết luận.",
+      "pronunciation": "/ˈriːzənɪŋ/",
+      "example": "The system should expose enough reasoning context for a reviewer to verify the result.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "Referral / employee referral",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "referral: sự giới thiệu; employee referral: ứng viên được nhân viên trong công ty giới thiệu.",
+      "pronunciation": "/rɪˈfɜːrəl/; /ɪmˈplɔɪiː rɪˈfɜːrəl/",
+      "example": "An employee referral can shorten sourcing time, but it still needs consistent screening.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "Relevance Score",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "relevance score; điểm biểu thị mức độ phù hợp giữa candidate/profile và job/query.",
+      "pronunciation": "/ˈreləvəns skɔːr/",
+      "example": "The relevance score should be explainable to the recruiter.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "responsibility",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "trách nhiệm hoặc nhiệm vụ mà một người/team phải sở hữu và hoàn thành.",
+      "pronunciation": "/rɪˌspɒnsəˈbɪləti/",
+      "example": "The backend team owns the responsibility for data retention.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "Retrieval",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "việc truy xuất dữ liệu từ storage, index hoặc knowledge base.",
+      "pronunciation": "/rɪˈtriːvəl/",
+      "example": "Retrieval returns the documents used to ground the answer.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "retroactively",
+      "partOfSpeech": "adverb",
+      "partsOfSpeech": [
+        "adverb"
+      ],
+      "meaning": "hồi tố; áp dụng một thay đổi cho dữ liệu hoặc thời điểm trong quá khứ.",
+      "pronunciation": "/ˌretroʊˈæktɪvli/",
+      "example": "The policy cannot be applied retroactively without rechecking old records.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "Role",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "role; vị trí công việc hoặc tập hợp quyền và trách nhiệm của một người trong hệ thống.",
+      "pronunciation": "/roʊl/",
+      "example": "The admin role can manage members but cannot change billing.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "Scalability",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "scalability; khả năng hệ thống tăng tải, dữ liệu hoặc user mà vẫn đáp ứng mục tiêu chấp nhận được.",
+      "pronunciation": "/ˌskeɪləˈbɪləti/",
+      "example": "We should discuss scalability after validating the workflow with real users.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "scrape",
+      "partOfSpeech": "verb",
+      "partsOfSpeech": [
+        "verb",
+        "noun"
+      ],
+      "meaning": "tự động thu thập và trích xuất dữ liệu từ web; cần tuân thủ terms, robots rules và privacy requirements.",
+      "pronunciation": "/skreɪp/",
+      "example": "The service scrapes public job pages and normalizes their titles.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "screening",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "quy trình sàng lọc ứng viên hoặc hồ sơ theo tiêu chí trước vòng interview sâu hơn.",
+      "pronunciation": "/ˈskriːnɪŋ/",
+      "example": "The screening stage checks the must-have technical requirements.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "Semantic Matching",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "semantic matching; ghép cặp dựa trên ý nghĩa và context, không chỉ exact keyword.",
+      "pronunciation": "/sɪˈmæntɪk ˈmætʃɪŋ/",
+      "example": "Semantic matching can connect equivalent skills written with different terms.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "semantic search",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "semantic search; tìm kiếm theo ý nghĩa/context thường dùng embeddings hoặc language models thay vì chỉ khớp từ khóa.",
+      "pronunciation": "/sɪˈmæntɪk sɜːrtʃ/",
+      "example": "Semantic search finds profiles that mention equivalent experience.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "sensitive",
+      "partOfSpeech": "adjective",
+      "partsOfSpeech": [
+        "adjective"
+      ],
+      "meaning": "nhạy cảm, cần được bảo vệ vì có thể gây hại hoặc ảnh hưởng riêng tư nếu bị lộ.",
+      "pronunciation": "/ˈsensətɪv/",
+      "example": "Employment history is sensitive personal data.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "So what we'll see here is",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "Vậy điều chúng ta sẽ thấy ở đây là…; mẫu câu dẫn vào phần giải thích hoặc demo.",
+      "pronunciation": "",
+      "example": "So what we'll see here is a single review step before publishing the profile.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "sooner than later",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "sớm hơn thay vì để quá muộn; cách phổ biến hơn là 'sooner rather than later'.",
+      "pronunciation": "",
+      "example": "We should fix the ownership bug sooner rather than later.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "sort of",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "kiểu như, hơi, gần như; dùng để làm câu nói bớt tuyệt đối, giống 'kind of'.",
+      "pronunciation": "",
+      "example": "The service is sort of a gateway for the existing APIs.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "spin up",
+      "partOfSpeech": "verb",
+      "partsOfSpeech": [
+        "verb"
+      ],
+      "meaning": "khởi tạo hoặc khởi động nhanh một server, environment, instance hoặc resource.",
+      "pronunciation": "/spɪn ʌp/",
+      "example": "We can spin up a staging environment for the interview demo.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 4,
+      "srsEase": 2.65,
+      "srsDueAt": "2026-08-26T13:18:14.789Z",
+      "srsReviewCount": 1
+    },
+    {
+      "word": "stands out",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "nổi bật và dễ được chú ý hơn những thứ khác.",
+      "pronunciation": "",
+      "example": "The candidate’s measurable impact stands out in the shortlist.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "synthetic-noise resumes",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "CV chứa thông tin tổng hợp, phóng đại, mâu thuẫn hoặc nhiễu khiến việc đánh giá kém tin cậy.",
+      "pronunciation": "/sɪnˈθetɪk nɔɪz rɪˈzuːmz/",
+      "example": "The screening model should flag synthetic-noise resumes for human review.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "take ownership",
+      "partOfSpeech": "verb",
+      "partsOfSpeech": [
+        "verb"
+      ],
+      "meaning": "chủ động chịu trách nhiệm đến cùng về một vấn đề, task hoặc outcome.",
+      "pronunciation": "/teɪk ˈoʊnərʃɪp/",
+      "example": "She took ownership of the incident and coordinated the recovery.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "talent acquisition (TA)",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "talent acquisition; hoạt động chiến lược để thu hút, đánh giá và tuyển người phù hợp cho tổ chức.",
+      "pronunciation": "/ˈtælənt ˌækwɪˈzɪʃən/",
+      "example": "The TA team partnered with engineering to improve the interview process.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "Talent Pool",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "talent pool; tập hợp những người có năng lực tiềm năng cho các role hiện tại hoặc tương lai.",
+      "pronunciation": "/ˈtælənt puːl/",
+      "example": "The company maintains a talent pool for hard-to-fill roles.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "Talent Search",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "talent search; hoạt động tìm kiếm người có kỹ năng phù hợp với một role hoặc nhu cầu tuyển dụng.",
+      "pronunciation": "/ˈtælənt sɜːrtʃ/",
+      "example": "Talent Search should combine skills, seniority, and candidate preferences.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "Target Candidate",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "target candidate; ứng viên mục tiêu phù hợp nhất với tiêu chí và context của một role.",
+      "pronunciation": "/ˈtɑːrɡɪt ˈkændɪdət/",
+      "example": "The target candidate has strong Node.js experience and has worked remotely.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "theoretical",
+      "partOfSpeech": "adjective",
+      "partsOfSpeech": [
+        "adjective"
+      ],
+      "meaning": "thuộc về lý thuyết, chưa chắc đã được chứng minh hoặc áp dụng thực tế.",
+      "pronunciation": "/ˌθiːəˈretɪkəl/",
+      "example": "The theoretical throughput is higher than what we observed in production.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "trade-off",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "sự đánh đổi; chấp nhận mất một lợi ích để đạt một lợi ích khác.",
+      "pronunciation": "/ˈtreɪd ɒf/",
+      "example": "The trade-off is faster delivery now versus more cleanup later.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 4,
+      "srsEase": 2.65,
+      "srsDueAt": "2026-08-26T13:17:29.720Z",
+      "srsReviewCount": 1
+    },
+    {
+      "word": "tRPC",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "tRPC; thư viện tạo type-safe API giữa client và server bằng cách suy luận type từ procedure.",
+      "pronunciation": "/ˌtiː ɑːr piː ˈsiː/",
+      "example": "tRPC lets the client infer the input type from the server procedure.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "trust Ladder",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "trust ladder; các mức độ tin cậy tăng dần dựa trên những evidence hoặc verification đã hoàn thành.",
+      "pronunciation": "/trʌst ˈlædər/",
+      "example": "The trust ladder moves from self-claims to verified work history.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "trust Network",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "trust network; mạng lưới người, organization hoặc evidence liên kết để hỗ trợ đánh giá độ tin cậy.",
+      "pronunciation": "/trʌst ˈnetwɜːrk/",
+      "example": "The trust network becomes stronger when relationships are transparent.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "trust Signal",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "trust signal; dấu hiệu giúp người xem đánh giá mức độ đáng tin của một profile hoặc claim.",
+      "pronunciation": "/trʌst ˈsɪɡnəl/",
+      "example": "A verified domain is one trust signal, not a complete guarantee.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "trust-ladder cascade",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "trust-ladder cascade; chuỗi rule trong đó một verification đạt được sẽ mở khóa hoặc kích hoạt bước verification tiếp theo.",
+      "pronunciation": "/trʌst ˈlædər kæˈskeɪd/",
+      "example": "The trust-ladder cascade should stop when evidence is missing or revoked.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 1,
+      "srsEase": 2.5,
+      "srsDueAt": "2026-08-23T13:16:45.572Z",
+      "srsReviewCount": 1
+    },
+    {
+      "word": "unless",
+      "partOfSpeech": "conjunction",
+      "partsOfSpeech": [
+        "conjunction"
+      ],
+      "meaning": "trừ khi; nếu không có điều kiện ngoại lệ được nêu.",
+      "pronunciation": "/ənˈles/",
+      "example": "Do not publish the profile unless the owner approves the changes.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "unreliable",
+      "partOfSpeech": "adjective",
+      "partsOfSpeech": [
+        "adjective"
+      ],
+      "meaning": "không đáng tin cậy; thường sai, không ổn định hoặc không thể dự đoán.",
+      "pronunciation": "/ˌʌnrɪˈlaɪəbəl/",
+      "example": "A single unverified source is unreliable evidence.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "usual (adj)",
+      "partOfSpeech": "adjective",
+      "partsOfSpeech": [
+        "adjective"
+      ],
+      "meaning": "thông thường, quen thuộc hoặc thường xảy ra.",
+      "pronunciation": "/ˈjuːʒuəl/",
+      "example": "Use the usual deployment checklist before releasing the change.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "Vacancy",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "vacancy; vị trí việc làm đang trống và cần tuyển người.",
+      "pronunciation": "/ˈveɪkənsi/",
+      "example": "The vacancy is open to candidates in any time zone.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "Value Proposition",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "value proposition; lời hứa giá trị cốt lõi giải thích sản phẩm giúp ai, giải quyết vấn đề gì và khác biệt ra sao.",
+      "pronunciation": "/ˈvæljuː ˌprɒpəˈzɪʃən/",
+      "example": "The value proposition is faster hiring with more verifiable evidence.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "Verification Cascade",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "verification cascade; chuỗi bước xác minh nối tiếp hoặc mở khóa dựa trên kết quả của bước trước.",
+      "pronunciation": "/ˌverɪfɪˈkeɪʃən kæˈskeɪd/",
+      "example": "The verification cascade starts with email and then checks employment history.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "Verified Hiring Platform",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "verified hiring platform; nền tảng tuyển dụng dùng các bước xác minh để tăng độ tin cậy cho cả candidate và employer.",
+      "pronunciation": "/ˈverɪfaɪd ˈhaɪərɪŋ ˈplætfɔːrm/",
+      "example": "A verified hiring platform still needs transparent consent and review rules.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "Verified-on-both-sides",
+      "partOfSpeech": "adjective",
+      "partsOfSpeech": [
+        "adjective"
+      ],
+      "meaning": "được xác minh từ cả hai phía, tức candidate và employer đều có evidence hoặc identity verification phù hợp.",
+      "pronunciation": "/ˈverɪfaɪd ɒn boʊθ saɪdz/",
+      "example": "The marketplace is verified on both sides before the introduction is made.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "vouch",
+      "partOfSpeech": "verb",
+      "partsOfSpeech": [
+        "verb"
+      ],
+      "meaning": "đứng ra xác nhận hoặc bảo chứng cho năng lực, nhân cách hay claim của người khác.",
+      "pronunciation": "/vaʊtʃ/",
+      "example": "A former teammate can vouch for her ownership of the service.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "walk through a process",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "giải thích hoặc thực hiện cùng nhau từng bước của một quy trình.",
+      "pronunciation": "",
+      "example": "I’ll walk you through the process before you run it yourself.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "walk through code",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "cùng đọc và giải thích code theo trình tự, thường để review hoặc onboarding.",
+      "pronunciation": "",
+      "example": "Can you walk me through the code that handles retries?",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 1,
+      "srsEase": 2.5,
+      "srsDueAt": "2026-08-23T13:17:43.430Z",
+      "srsReviewCount": 1
+    },
+    {
+      "word": "well",
+      "partOfSpeech": "interjection",
+      "partsOfSpeech": [
+        "interjection",
+        "adverb"
+      ],
+      "meaning": "à, ừm; từ đệm để bắt đầu câu, chuyển ý hoặc tạo thời gian suy nghĩ.",
+      "pronunciation": "/wel/",
+      "example": "Well, I think we should first confirm the expected behavior.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "conversation fillers",
+      "partOfSpeech": "noun",
+      "partsOfSpeech": [
+        "noun"
+      ],
+      "meaning": "các từ/cụm từ đệm trong hội thoại như well, so, right, you know, I mean; giúp giữ nhịp nhưng không thêm nhiều nội dung.",
+      "pronunciation": "/ˌkɒnvərˈseɪʃən ˈfɪlərz/",
+      "example": "Conversation fillers are common, but too many can make an interview answer less precise.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "wherever",
+      "partOfSpeech": "adverb",
+      "partsOfSpeech": [
+        "adverb",
+        "conjunction"
+      ],
+      "meaning": "bất cứ nơi nào; ở nơi nào cũng được.",
+      "pronunciation": "/werˈevər/",
+      "example": "The candidate can work wherever there is a reliable internet connection.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "work more closely",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "làm việc chặt chẽ hơn, phối hợp thường xuyên và sát hơn.",
+      "pronunciation": "",
+      "example": "Engineering and recruiting need to work more closely on the hiring rubric.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "would be left",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "sẽ còn lại; mô tả phần vẫn tồn tại sau khi một phần khác được xử lý hoặc loại bỏ.",
+      "pronunciation": "",
+      "example": "After the cleanup, only the validated records would be left.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    },
+    {
+      "word": "you know",
+      "partOfSpeech": "phrase",
+      "partsOfSpeech": [
+        "phrase"
+      ],
+      "meaning": "bạn biết đấy; từ đệm kéo người nghe vào câu chuyện hoặc làm câu nói bớt trực tiếp.",
+      "pronunciation": "",
+      "example": "It was, you know, a useful lesson about ownership.",
+      "createdAt": "2026-07-24T14:26:35.925Z",
+      "updatedAt": "2026-08-23T14:06:49.587Z",
+      "srsInterval": 0,
+      "srsEase": 2.5,
+      "srsDueAt": null,
+      "srsReviewCount": 0
+    }
+  ]
+}

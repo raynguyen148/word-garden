@@ -22,6 +22,8 @@
     "other",
   ];
 
+  const CARD_TYPES = ["vocabulary", "phrase", "pattern"];
+
   function cleanText(value) {
     return typeof value === "string" ? value.trim() : "";
   }
@@ -69,6 +71,64 @@
     return fallback;
   }
 
+  function normalizeCardType(value) {
+    const normalized = cleanText(value).toLowerCase();
+    return CARD_TYPES.includes(normalized) ? normalized : "vocabulary";
+  }
+
+  function normalizeTags(value) {
+    const values = Array.isArray(value)
+      ? value
+      : (typeof value === "string" ? value.split(/[\n,]/) : []);
+    const seen = new Set();
+    const tags = [];
+    values.forEach(function (item) {
+      const tag = cleanText(item).replace(/\s+/g, " ").slice(0, 48);
+      const key = tag.toLocaleLowerCase("en-US");
+      if (tag && !seen.has(key) && tags.length < 12) {
+        seen.add(key);
+        tags.push(tag);
+      }
+    });
+    return tags;
+  }
+
+  function normalizeReviewSignal(value) {
+    const number = typeof value === "number" ? value : Number(value);
+    return Number.isFinite(number) ? Math.max(0, Math.floor(number)) : 0;
+  }
+
+  function sanitizePracticeDetails(raw) {
+    const source = raw && typeof raw === "object" ? raw : {};
+    return {
+      // Optional fields: older records remain ordinary vocabulary cards.
+      cardType: normalizeCardType(source.cardType),
+      lesson: cleanText(source.lesson || source.lessonTitle || source.practicePack).slice(0, 120),
+      tags: normalizeTags(source.tags),
+      situation: cleanText(source.situation || source.practicePrompt).slice(0, 420),
+      recognitionReviewCount: normalizeReviewSignal(source.recognitionReviewCount),
+      productionReviewCount: normalizeReviewSignal(source.productionReviewCount),
+      recognitionLastReviewedAt: safeIsoDate(source.recognitionLastReviewedAt, null),
+      productionLastReviewedAt: safeIsoDate(source.productionLastReviewedAt, null),
+    };
+  }
+
+  function isPracticePackCard(word) {
+    const source = word && typeof word === "object" ? word : {};
+    return Boolean(cleanText(source.lesson)) &&
+      normalizePartsOfSpeech(source.partsOfSpeech || source.partOfSpeech).includes("phrase");
+  }
+
+  function localDayKey(value) {
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return "";
+    return [date.getFullYear(), date.getMonth(), date.getDate()].join("-");
+  }
+
+  function wasReviewedToday(value, now) {
+    return Boolean(value) && localDayKey(value) === localDayKey(now || new Date());
+  }
+
   function sanitizeImportedWord(raw, timestamp) {
     if (!raw || typeof raw !== "object" || Array.isArray(raw)) return null;
 
@@ -92,7 +152,83 @@
       // SRS fields — preserved from backup when present and normalized so a
       // malformed backup cannot make a word disappear from the queue.
       ...normalizeSrs(raw),
+      ...sanitizePracticeDetails(raw),
     };
+  }
+
+  function cleanLessonLine(line) {
+    return cleanText(line)
+      .replace(/^(?:[-*•]|\d+[.)])\s*/, "")
+      .replace(/^[“"]|[”"]$/g, "")
+      .trim();
+  }
+
+  // Parse a copied lesson without depending on OCR or a remote service. The
+  // preview remains editable in the UI before any card is saved.
+  function preparePracticeLesson(text, options) {
+    const settings = options && typeof options === "object" ? options : {};
+    const lesson = cleanText(settings.lesson).slice(0, 120);
+    const tags = normalizeTags(settings.tags);
+    const lines = typeof text === "string" ? text.split(/\r?\n/) : [];
+    const cards = [];
+    let section = "phrases";
+
+    lines.forEach(function (rawLine) {
+      const line = cleanLessonLine(rawLine);
+      if (!line) return;
+      if (/^(?:key phrases|speaking pattern|practice this structure)/i.test(line)) {
+        section = /speaking pattern|practice this structure/i.test(line) ? "pattern" : "phrases";
+        return;
+      }
+      if (/^(?:for example|examples?)\s*:?$/i.test(line)) {
+        section = "examples";
+        return;
+      }
+      if (/^(?:this pattern|for the second practice|the goal is)/i.test(line)) return;
+
+      const pair = line.match(/^(.+?)\s*(?:→|->|=>)\s*(.+)$/);
+      if (pair) {
+        const vocabulary = cleanLessonLine(pair[1]);
+        const meaning = cleanText(pair[2]);
+        if (!vocabulary || !meaning) return;
+        cards.push({
+          vocabulary: vocabulary,
+          meaning: meaning,
+          partOfSpeech: "phrase",
+          partsOfSpeech: ["phrase"],
+          cardType: "phrase",
+          lesson: lesson,
+          tags: tags,
+          situation: "Trong work discussion, dùng khi: " + meaning,
+          pronunciation: "",
+          example: "",
+        });
+        return;
+      }
+
+      // Standalone English lines in a pattern/example section become useful
+      // production cards. Headings and Vietnamese prose above are ignored.
+      if (section !== "phrases" && /[A-Za-z]{3}/.test(line) && /[.!?]$/.test(line)) {
+        const isPattern = section === "pattern";
+        cards.push({
+          vocabulary: line,
+          meaning: isPattern ? "Speaking pattern for a technical plan." : "Example of a technical speaking pattern.",
+          partOfSpeech: "phrase",
+          partsOfSpeech: ["phrase"],
+          cardType: isPattern ? "pattern" : "phrase",
+          lesson: lesson,
+          tags: tags,
+          situation: isPattern
+            ? "Nói cấu trúc này thành tiếng, rồi thay X, Y, Z và A bằng kế hoạch thực tế."
+            : "Dùng ví dụ này làm model, rồi diễn đạt lại theo tình huống công việc của bạn.",
+          pronunciation: "",
+          example: "",
+        });
+      }
+    });
+
+    const prepared = prepareImportedWords(cards, new Date().toISOString());
+    return Object.assign({}, prepared, { lesson: lesson });
   }
 
   function prepareImportedWords(rawWords, timestamp) {
@@ -132,18 +268,27 @@
     return errors;
   }
 
-  function filterAndSortWords(words, query, partOfSpeech, sortOrder) {
+  function filterAndSortWords(words, query, partOfSpeech, sortOrder, lesson, contentType) {
     const normalizedQuery = normalizeWord(query);
     const selectedPart = cleanText(partOfSpeech).toLowerCase();
+    const selectedLesson = cleanText(lesson);
+    const selectedContentType = ["vocabulary", "practice"].includes(contentType) ? contentType : "all";
 
     const filtered = words.filter(function (word) {
       const wordParts = normalizePartsOfSpeech(word.partsOfSpeech || word.partOfSpeech);
-      const matchesPart = !selectedPart || selectedPart === "all" || wordParts.includes(selectedPart);
+      const practiceCard = isPracticePackCard(word);
+      if (selectedContentType === "vocabulary" && practiceCard) return false;
+      if (selectedContentType === "practice" && !practiceCard) return false;
+      const matchesPart = selectedContentType === "practice" || !selectedPart || selectedPart === "all" || wordParts.includes(selectedPart);
       if (!matchesPart) return false;
+      if (selectedLesson && (word.lesson !== selectedLesson || !practiceCard)) return false;
       if (!normalizedQuery) return true;
       return (
         normalizeWord(word.vocabulary).includes(normalizedQuery) ||
-        normalizeWord(word.meaning).includes(normalizedQuery)
+        normalizeWord(word.meaning).includes(normalizedQuery) ||
+        normalizeWord(word.lesson).includes(normalizedQuery) ||
+        normalizeWord(word.situation).includes(normalizedQuery) ||
+        (Array.isArray(word.tags) && word.tags.some(function (tag) { return normalizeWord(tag).includes(normalizedQuery); }))
       );
     });
 
@@ -152,6 +297,40 @@
         return b.vocabulary.localeCompare(a.vocabulary, "en", { sensitivity: "base", numeric: true });
       }
       return a.vocabulary.localeCompare(b.vocabulary, "en", { sensitivity: "base", numeric: true });
+    });
+  }
+
+  function getPracticePacks(words, now) {
+    const referenceDate = now || new Date();
+    const packs = new Map();
+    (Array.isArray(words) ? words : []).forEach(function (word) {
+      const wordParts = normalizePartsOfSpeech(word.partsOfSpeech || word.partOfSpeech);
+      if (!wordParts.includes("phrase")) return;
+      const details = sanitizePracticeDetails(word);
+      if (!details.lesson) return;
+      if (!packs.has(details.lesson)) {
+        packs.set(details.lesson, {
+          title: details.lesson,
+          total: 0,
+          phraseCount: 0,
+          patternCount: 0,
+          speakReadyCount: 0,
+          spokenTodayCount: 0,
+        });
+      }
+      const pack = packs.get(details.lesson);
+      pack.total += 1;
+      if (details.cardType === "pattern") pack.patternCount += 1;
+      else if (details.cardType === "phrase") pack.phraseCount += 1;
+      if (details.productionReviewCount > 0) pack.speakReadyCount += 1;
+      if (wasReviewedToday(details.productionLastReviewedAt, referenceDate)) pack.spokenTodayCount += 1;
+    });
+    return Array.from(packs.values()).map(function (pack) {
+      pack.spokenTodayRemaining = Math.max(0, pack.total - pack.spokenTodayCount);
+      pack.completedToday = pack.total > 0 && pack.spokenTodayRemaining === 0;
+      return pack;
+    }).sort(function (a, b) {
+      return a.title.localeCompare(b.title, "en", { sensitivity: "base" });
     });
   }
 
@@ -365,14 +544,22 @@
 
   return {
     PARTS_OF_SPEECH: PARTS_OF_SPEECH,
+    CARD_TYPES: CARD_TYPES,
     normalizeWord: normalizeWord,
     normalizePartOfSpeech: normalizePartOfSpeech,
     normalizePartsOfSpeech: normalizePartsOfSpeech,
     formatPartsOfSpeech: formatPartsOfSpeech,
     sanitizeImportedWord: sanitizeImportedWord,
+    sanitizePracticeDetails: sanitizePracticeDetails,
+    isPracticePackCard: isPracticePackCard,
+    wasReviewedToday: wasReviewedToday,
+    normalizeCardType: normalizeCardType,
+    normalizeTags: normalizeTags,
     prepareImportedWords: prepareImportedWords,
+    preparePracticeLesson: preparePracticeLesson,
     validateWordDraft: validateWordDraft,
     filterAndSortWords: filterAndSortWords,
+    getPracticePacks: getPracticePacks,
     paginateWords: paginateWords,
     pickRandomWord: pickRandomWord,
     escapeHtml: escapeHtml,

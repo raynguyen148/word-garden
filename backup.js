@@ -41,6 +41,16 @@
           srsEase: srs.srsEase,
           srsDueAt: srs.srsDueAt,
           srsReviewCount: srs.srsReviewCount,
+          // Optional practice fields are additive, so schema v2 backups stay
+          // readable by older Word Garden versions.
+          cardType: word.cardType || "vocabulary",
+          lesson: word.lesson || "",
+          tags: Array.isArray(word.tags) ? word.tags : [],
+          situation: word.situation || "",
+          recognitionReviewCount: word.recognitionReviewCount || 0,
+          productionReviewCount: word.productionReviewCount || 0,
+          recognitionLastReviewedAt: word.recognitionLastReviewedAt || null,
+          productionLastReviewedAt: word.productionLastReviewedAt || null,
         };
       }),
     };

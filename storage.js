@@ -52,11 +52,28 @@
     };
   }
 
+  function normalizePracticeDetails(record) {
+    if (root.DictionaryLogic && root.DictionaryLogic.sanitizePracticeDetails) {
+      return root.DictionaryLogic.sanitizePracticeDetails(record);
+    }
+    return {
+      cardType: "vocabulary",
+      lesson: "",
+      tags: [],
+      situation: "",
+      recognitionReviewCount: 0,
+      productionReviewCount: 0,
+      recognitionLastReviewedAt: null,
+      productionLastReviewedAt: null,
+    };
+  }
+
   // UI modules call the field vocabulary; persisted Word Garden records use word.
   function toAppWord(record) {
     if (!record) return record;
     var partsOfSpeech = normalizePartsOfSpeech(record);
     var srs = normalizeSrs(record);
+    var practice = normalizePracticeDetails(record);
     return Object.assign({}, record, {
       vocabulary: record.word || record.vocabulary || "",
       // Preserve this compatibility field for old backups and older app builds.
@@ -67,6 +84,14 @@
       srsEase: srs.srsEase,
       srsDueAt: srs.srsDueAt,
       srsReviewCount: srs.srsReviewCount,
+      cardType: practice.cardType,
+      lesson: practice.lesson,
+      tags: practice.tags,
+      situation: practice.situation,
+      recognitionReviewCount: practice.recognitionReviewCount,
+      productionReviewCount: practice.productionReviewCount,
+      recognitionLastReviewedAt: practice.recognitionLastReviewedAt,
+      productionLastReviewedAt: practice.productionLastReviewedAt,
     });
   }
 
@@ -75,6 +100,7 @@
     const now = new Date().toISOString();
     const partsOfSpeech = normalizePartsOfSpeech(record);
     const srs = normalizeSrs(record);
+    const practice = normalizePracticeDetails(record);
     return {
       id: forcedId || record.id || createId(),
       word: word,
@@ -93,6 +119,15 @@
       srsEase: srs.srsEase,
       srsDueAt: srs.srsDueAt,
       srsReviewCount: srs.srsReviewCount,
+      // Optional practice metadata. Older builds simply ignore these fields.
+      cardType: practice.cardType,
+      lesson: practice.lesson,
+      tags: practice.tags,
+      situation: practice.situation,
+      recognitionReviewCount: practice.recognitionReviewCount,
+      productionReviewCount: practice.productionReviewCount,
+      recognitionLastReviewedAt: practice.recognitionLastReviewedAt,
+      productionLastReviewedAt: practice.productionLastReviewedAt,
     };
   }
 
@@ -174,6 +209,29 @@
       return stored.id;
     }
 
+    async function insertWords(words, existingWords) {
+      const existingKeys = new Set((existingWords || []).map(function (word) { return word.wordKey; }));
+      const pendingKeys = new Set();
+      const records = [];
+      let duplicateCount = 0;
+      (Array.isArray(words) ? words : []).forEach(function (word) {
+        const stored = toStoredWord(word);
+        if (existingKeys.has(stored.wordKey) || pendingKeys.has(stored.wordKey)) {
+          duplicateCount += 1;
+          return;
+        }
+        pendingKeys.add(stored.wordKey);
+        records.push(stored);
+      });
+      if (!records.length) return { addedCount: 0, duplicateCount: duplicateCount };
+      const transaction = database.transaction(WORD_STORE, "readwrite");
+      const completion = transactionToPromise(transaction);
+      const store = transaction.objectStore(WORD_STORE);
+      records.forEach(function (record) { store.put(record); });
+      await completion;
+      return { addedCount: records.length, duplicateCount: duplicateCount };
+    }
+
     function updateWord(id, changes) {
       return new Promise(function (resolve, reject) {
         const transaction = database.transaction(WORD_STORE, "readwrite");
@@ -227,7 +285,7 @@
       return { addedCount: addedCount, updatedCount: updatedCount };
     }
 
-    return { getAllWords, insertWord, updateWord, removeWords, importWords, close: function () { database.close(); } };
+    return { getAllWords, insertWord, insertWords, updateWord, removeWords, importWords, close: function () { database.close(); } };
   }
 
   root.LexiloStorage = { version: DB_VERSION, open: createStorage };

@@ -16,6 +16,7 @@
     words: [],
     query: "",
     partOfSpeech: "all",
+    contentType: "all",
     sortOrder: "a-z",
     page: 1,
     pageSize: 25,
@@ -27,6 +28,9 @@
     answerShown: false,
     keepAdding: false,
     emptyAction: "add",
+    lesson: "",
+    lessonDrafts: [],
+    practiceWordId: null,
   };
   const elements = {};
   let renderer;
@@ -84,20 +88,23 @@
 
   function cacheElements() {
     const ids = [
-      "dictionaryView", "reviewView", "storageStatus", "importButton", "exportButton", "reviewButton", "importInput",
-      "themeToggle", "themeToggleLabel", "themeToggleIcon",
+      "dictionaryView", "practicePacksView", "reviewView", "storageStatus", "importButton", "exportButton", "reviewButton", "practicePacksButton", "backToDictionaryButton", "practicePacksEmptyAddButton", "importInput",
+      "themeToggle", "themeToggleLabel", "themeToggleIcon", "openLessonFromHeroButton",
       "totalCount", "toggleAddButton", "addPanel", "closeAddButton", "cancelAddButton", "addForm", "newVocabulary",
-      "searchInput", "searchShortcutDescription", "clearSearchButton", "partFilter", "vocabularySortButton", "pageSizeSelect", "bulkBar", "selectedCount",
+      "lessonPanel", "closeLessonButton", "cancelLessonButton", "lessonForm", "lessonTitle", "lessonText", "previewLessonButton", "lessonPreview", "lessonPreviewSummary", "lessonSaveActions", "saveLessonButton",
+      "practicePacks", "practicePackList", "practicePacksEmpty", "packFilter",
+      "searchInput", "searchShortcutDescription", "clearSearchButton", "contentTypeFilter", "partFilter", "vocabularySortButton", "pageSizeSelect", "bulkBar", "selectedCount",
       "clearSelectionButton", "deleteSelectedButton", "tableWrap", "wordsTableBody", "selectAllCheckbox", "emptyState",
       "emptyTitle", "emptyMessage", "emptyAddButton", "pagination", "rangeLabel", "previousPageButton", "nextPageButton",
-      "pageButtons", "exitReviewButton", "reviewWordCount", "reviewCard", "reviewDirectionLabel", "reviewPart",
+      "pageButtons", "exitReviewButton", "reviewCard", "reviewDirectionLabel", "reviewPart",
       "reviewInstruction", "reviewPrompt", "reviewQuestion", "reviewSpeakButton", "reviewPronunciation", "reviewAnswer",
       "reviewAnswerText", "reviewAnswerMeta", "reviewExample", "showAnswerButton", "confirmDialog",
       "confirmTitle", "confirmMessage", "confirmCancelButton", "confirmDeleteButton", "toastRegion",
-      "reviewDueBadge", "gradeButtons", "gradeAgainInterval", "gradeHardInterval", "gradeGoodInterval", "gradeEasyInterval",
+      "reviewDueBadge", "practicePackBadge", "gradeButtons", "gradeAgainInterval", "gradeHardInterval", "gradeGoodInterval", "gradeEasyInterval",
       "reviewProgress", "reviewProgressFill", "reviewProgressLabel",
-      "reviewComplete", "reviewSummaryText", "reviewSummaryStats", "reviewCompleteBack",
-      "reviewToolbar", "shortcutGuide", "reviewContent",
+      "reviewComplete", "reviewCompleteTitle", "reviewSummaryText", "reviewSummaryStats", "reviewCompleteBack",
+      "reviewToolbar", "shortcutGuide", "reviewContent", "reviewPackContext", "reviewPackName", "reviewCompletePackContext", "reviewCompletePackName",
+      "practiceDialog", "practiceForm", "practiceDialogTitle", "practiceCardType", "practiceLesson", "practiceTags", "practiceSituation", "practiceCancelButton", "practicePreviewMode", "practicePreviewPrompt", "practicePreviewAnswer", "addPracticeDetails",
     ];
     ids.forEach(function (id) { elements[id] = document.getElementById(id); });
   }
@@ -114,6 +121,41 @@
     elements.addPanel.hidden = false;
     elements.toggleAddButton.setAttribute("aria-expanded", "true");
     window.requestAnimationFrame(function () { elements.newVocabulary.focus(); });
+  }
+
+  function openLessonPanel() {
+    elements.lessonPanel.hidden = false;
+    elements.addPanel.hidden = true;
+    elements.toggleAddButton.setAttribute("aria-expanded", "false");
+    window.requestAnimationFrame(function () { elements.lessonTitle.focus(); });
+  }
+
+  function openPracticePacks() {
+    closeAddPanel(false);
+    closeLessonPanel(false);
+    elements.dictionaryView.hidden = true;
+    elements.practicePacksView.hidden = false;
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+    renderer.renderApp();
+  }
+
+  function closePracticePacks() {
+    elements.practicePacksView.hidden = true;
+    elements.dictionaryView.hidden = false;
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  }
+
+  function closeLessonPanel(reset) {
+    elements.lessonPanel.hidden = true;
+    if (!reset) return;
+    elements.lessonForm.reset();
+    state.lessonDrafts = [];
+    elements.lessonPreview.hidden = true;
+    elements.lessonPreview.innerHTML = "";
+    elements.lessonSaveActions.hidden = true;
+    elements.lessonPreviewSummary.textContent = "Paste your notes, then review the cards before saving.";
   }
 
   function handleSearchShortcut(event) {
@@ -149,8 +191,24 @@
     if (reset) {
       elements.addForm.reset();
       viewModule.syncPartPicker(elements.addForm.querySelector("[data-part-picker]"), ["noun"], "new word");
+      syncAddPracticeDetails();
       clearFormErrors();
     }
+  }
+
+  function isPhrase(word) {
+    return Boolean(word && logic.normalizePartsOfSpeech(word.partsOfSpeech || word.partOfSpeech).includes("phrase"));
+  }
+
+  function syncAddPracticeDetails() {
+    const phraseSelected = Array.from(elements.addForm.querySelectorAll('input[name="partsOfSpeech"]:checked'))
+      .some(function (input) { return input.value === "phrase"; });
+    const fields = elements.addPracticeDetails.querySelectorAll("input, select, textarea");
+
+    elements.addPracticeDetails.hidden = !phraseSelected;
+    elements.addPracticeDetails.open = phraseSelected;
+    fields.forEach(function (field) { field.disabled = !phraseSelected; });
+    if (phraseSelected) elements.addForm.elements.cardType.value = "phrase";
   }
 
   function showFormErrors(errors) {
@@ -186,6 +244,10 @@
       meaning: String(data.get("meaning") || "").trim(),
       pronunciation: String(data.get("pronunciation") || "").trim(),
       example: String(data.get("example") || "").trim(),
+      cardType: logic.normalizeCardType(data.get("cardType")),
+      lesson: String(data.get("lesson") || "").trim(),
+      tags: logic.normalizeTags(data.get("tags")),
+      situation: String(data.get("situation") || "").trim(),
     };
     const errors = logic.validateWordDraft(draft);
     if (!selectedParts.length) errors.partsOfSpeech = "Choose at least one part of speech.";
@@ -348,9 +410,168 @@
     if (!button) return;
     const word = findWord(button.dataset.id);
     if (!word) return;
+    if (button.dataset.action === "practice") openPracticeDialog(word.id);
     if (button.dataset.action === "copy") copyText(word.vocabulary);
     if (button.dataset.action === "speak") speakWord(word.vocabulary, button);
     if (button.dataset.action === "delete") openDeleteDialog([word.id]);
+  }
+
+  function openPracticeDialog(id) {
+    const word = findWord(id);
+    if (!word) return;
+    if (!isPhrase(word)) {
+      showToast("Phrase practice only", "Choose Phrase as the part of speech before adding practice details.", "error");
+      return;
+    }
+    state.practiceWordId = id;
+    elements.practiceDialogTitle.textContent = "Practice “" + word.vocabulary + "”";
+    elements.practiceCardType.value = word.cardType === "pattern" ? "pattern" : "phrase";
+    elements.practiceLesson.value = word.lesson || "";
+    elements.practiceTags.value = (word.tags || []).join(", ");
+    elements.practiceSituation.value = word.situation || "";
+    updatePracticePreview();
+    elements.practiceDialog.showModal();
+  }
+
+  function updatePracticePreview() {
+    const word = findWord(state.practiceWordId);
+    if (!word) return;
+    const situation = elements.practiceSituation.value.trim();
+    const pattern = elements.practiceCardType.value === "pattern";
+
+    elements.practicePreviewMode.textContent = pattern
+      ? "Speaking pattern · Speak first"
+      : "Production · Speak first";
+    elements.practicePreviewPrompt.textContent = situation || "Add a situation prompt to see your production card.";
+    elements.practicePreviewPrompt.classList.toggle("is-empty", !situation);
+    elements.practicePreviewAnswer.hidden = !situation;
+    elements.practicePreviewAnswer.textContent = situation ? word.vocabulary : "";
+  }
+
+  async function savePracticeDetails(event) {
+    event.preventDefault();
+    const id = state.practiceWordId;
+    const word = findWord(id);
+    if (!word) return;
+    if (!isPhrase(word)) {
+      elements.practiceDialog.close();
+      showToast("Phrase practice only", "This entry is no longer marked as a phrase.", "error");
+      return;
+    }
+    const data = new FormData(elements.practiceForm);
+    const details = logic.sanitizePracticeDetails(Object.assign({}, word, {
+      cardType: data.get("cardType") === "pattern" ? "pattern" : "phrase",
+      lesson: data.get("lesson"),
+      tags: data.get("tags"),
+      situation: data.get("situation"),
+    }));
+    const changes = Object.assign({}, details, { updatedAt: new Date().toISOString() });
+    setStatus("saving", "Saving…");
+    try {
+      await state.storage.updateWord(id, changes);
+      const index = state.words.findIndex(function (item) { return item.id === id; });
+      if (index >= 0) state.words[index] = Object.assign({}, word, changes);
+      state.practiceWordId = null;
+      elements.practiceDialog.close();
+      renderer.renderApp();
+      setStatus("saved", "Saved locally");
+      showToast("Phrase practice saved", "This phrase is ready for focused review.", "success");
+    } catch (error) {
+      setStatus("error", "Save failed");
+      showToast("Practice details not saved", "Please try again.", "error");
+    }
+  }
+
+  function renderLessonPreview(cards, duplicateCount, invalidCount) {
+    const e = logic.escapeHtml;
+    elements.lessonPreview.innerHTML = cards.map(function (card, index) {
+      const type = card.cardType === "pattern" ? "pattern" : "phrase";
+      return '<article class="lesson-preview-card" data-index="' + index + '">' +
+        '<div class="lesson-preview-card-heading"><strong>Card ' + (index + 1) + '</strong><button class="table-action danger" type="button" data-lesson-remove="' + index + '" aria-label="Remove card ' + (index + 1) + '">' + viewModule.icon("trash") + '</button></div>' +
+        '<label class="field"><span>English <b aria-hidden="true">*</b></span><input data-lesson-field="vocabulary" value="' + e(card.vocabulary) + '"></label>' +
+        '<label class="field"><span>Meaning <b aria-hidden="true">*</b></span><input data-lesson-field="meaning" value="' + e(card.meaning) + '"></label>' +
+        '<label class="field"><span>Card type</span><select data-lesson-field="cardType">' +
+          '<option value="phrase"' + (type === "phrase" ? " selected" : "") + '>Phrase</option><option value="pattern"' + (type === "pattern" ? " selected" : "") + '>Speaking pattern</option>' +
+        '</select></label>' +
+        '<label class="field"><span>Situation prompt</span><textarea data-lesson-field="situation" rows="3">' + e(card.situation || "") + '</textarea></label>' +
+        '<label class="field"><span>Example</span><input data-lesson-field="example" value="' + e(card.example || "") + '"></label>' +
+      '</article>';
+    }).join("");
+    elements.lessonPreview.hidden = cards.length === 0;
+    elements.lessonSaveActions.hidden = cards.length === 0;
+    const notes = [];
+    notes.push(cards.length + (cards.length === 1 ? " card ready" : " cards ready"));
+    if (duplicateCount) notes.push(duplicateCount + " duplicate line" + (duplicateCount === 1 ? "" : "s") + " merged");
+    if (invalidCount) notes.push(invalidCount + " line" + (invalidCount === 1 ? " was" : "s were") + " skipped");
+    elements.lessonPreviewSummary.textContent = notes.join(" · ") + ". Edit anything below before saving.";
+  }
+
+  function previewLesson() {
+    const data = new FormData(elements.lessonForm);
+    const title = String(data.get("lessonTitle") || "").trim();
+    const text = String(data.get("lessonText") || "").trim();
+    if (!title || !text) {
+      showToast("Add a pack name and lesson text", "Use one English → Vietnamese pair per line.", "error");
+      return;
+    }
+    const prepared = logic.preparePracticeLesson(text, { lesson: title, tags: data.get("lessonTags") });
+    state.lessonDrafts = prepared.words;
+    if (!state.lessonDrafts.length) {
+      renderLessonPreview([], prepared.duplicateCount, prepared.invalidCount);
+      showToast("No cards found", "Use an English → Vietnamese pair on each line.", "error");
+      return;
+    }
+    renderLessonPreview(state.lessonDrafts, prepared.duplicateCount, prepared.invalidCount);
+  }
+
+  function collectLessonCards() {
+    const formData = new FormData(elements.lessonForm);
+    const lesson = String(formData.get("lessonTitle") || "").trim();
+    const tags = logic.normalizeTags(formData.get("lessonTags"));
+    return Array.from(elements.lessonPreview.querySelectorAll(".lesson-preview-card")).map(function (card) {
+      const field = function (name) { return card.querySelector('[data-lesson-field="' + name + '"]'); };
+      const type = field("cardType").value === "pattern" ? "pattern" : "phrase";
+      return {
+        vocabulary: field("vocabulary").value.trim(),
+        meaning: field("meaning").value.trim(),
+        partOfSpeech: "phrase",
+        partsOfSpeech: ["phrase"],
+        cardType: type,
+        lesson: lesson,
+        tags: tags,
+        situation: field("situation").value.trim(),
+        example: field("example").value.trim(),
+        pronunciation: "",
+      };
+    });
+  }
+
+  async function saveLesson(event) {
+    event.preventDefault();
+    if (!state.lessonDrafts.length) return previewLesson();
+    const rawCards = collectLessonCards();
+    const prepared = logic.prepareImportedWords(rawCards, new Date().toISOString());
+    if (!prepared.words.length) {
+      showToast("No valid cards", "Each card needs English text and a meaning.", "error");
+      return;
+    }
+    setStatus("saving", "Saving lesson…");
+    try {
+      const result = await state.storage.insertWords(prepared.words, state.words);
+      state.words = await state.storage.getAllWords();
+      state.lesson = String(new FormData(elements.lessonForm).get("lessonTitle") || "").trim();
+      state.contentType = "practice";
+      state.partOfSpeech = "all";
+      state.page = 1;
+      closeLessonPanel(true);
+      renderer.renderApp();
+      setStatus("saved", "Saved locally");
+      const skipped = result.duplicateCount + prepared.duplicateCount;
+      showToast("Practice pack saved", result.addedCount + " cards added" + (skipped ? ", " + skipped + " duplicates skipped" : "") + ".", "success");
+    } catch (error) {
+      setStatus("error", "Save failed");
+      showToast("Practice pack not saved", "No cards were added. Please try again.", "error");
+    }
   }
 
   function handleTableChange(event) {
@@ -506,6 +727,22 @@
       state.page = 1;
       renderer.renderApp();
     });
+    elements.contentTypeFilter.addEventListener("change", function () {
+      state.contentType = elements.contentTypeFilter.value;
+      if (state.contentType === "practice") {
+        state.partOfSpeech = "all";
+        elements.partFilter.value = "all";
+      } else {
+        state.lesson = "";
+      }
+      state.page = 1;
+      renderer.renderApp();
+    });
+    elements.packFilter.addEventListener("change", function () {
+      state.lesson = elements.packFilter.value;
+      state.page = 1;
+      renderer.renderApp();
+    });
     elements.vocabularySortButton.addEventListener("click", function () {
       state.sortOrder = state.sortOrder === "a-z" ? "z-a" : "a-z";
       state.page = 1;
@@ -545,6 +782,13 @@
       const button = event.target.closest("button[data-page]");
       if (button) { state.page = Number(button.dataset.page); renderer.renderApp(); }
     });
+    elements.practicePackList.addEventListener("click", function (event) {
+      const button = event.target.closest("button[data-pack]");
+      if (!button) return;
+      const lesson = button.dataset.pack;
+      if (button.dataset.action === "review-pack") review.enter({ lesson: lesson, mode: "eng-vie", scope: "pack" });
+      if (button.dataset.action === "speak-pack") review.enter({ lesson: lesson, mode: "production", scope: "pack" });
+    });
   }
 
   function bindEvents() {
@@ -553,6 +797,7 @@
       applyTheme(currentTheme === "dark" ? "light" : "dark", true);
     });
     elements.toggleAddButton.addEventListener("click", function () {
+      closeLessonPanel(false);
       if (elements.addPanel.hidden) openAddPanel();
       else closeAddPanel(false);
     });
@@ -576,8 +821,43 @@
     elements.addForm.addEventListener("change", function (event) {
       if (event.target.name === "partsOfSpeech") {
         viewModule.syncPartPicker(event.target.closest("[data-part-picker]"));
+        syncAddPracticeDetails();
       }
     });
+    elements.openLessonFromHeroButton.addEventListener("click", openLessonPanel);
+    elements.practicePacksButton.addEventListener("click", openPracticePacks);
+    elements.backToDictionaryButton.addEventListener("click", closePracticePacks);
+    elements.practicePacksEmptyAddButton.addEventListener("click", function () {
+      closePracticePacks();
+      openLessonPanel();
+    });
+    elements.closeLessonButton.addEventListener("click", function () { closeLessonPanel(false); });
+    elements.cancelLessonButton.addEventListener("click", function () { closeLessonPanel(true); });
+    elements.previewLessonButton.addEventListener("click", previewLesson);
+    elements.lessonForm.addEventListener("submit", saveLesson);
+    elements.lessonForm.addEventListener("input", function (event) {
+      if (!event.target.matches("#lessonTitle, #lessonText, [name=lessonTags]")) return;
+      state.lessonDrafts = [];
+      elements.lessonSaveActions.hidden = true;
+      elements.lessonPreview.hidden = true;
+      elements.lessonPreviewSummary.textContent = "Your source changed. Preview the cards again before saving.";
+    });
+    elements.lessonPreview.addEventListener("click", function (event) {
+      const button = event.target.closest("button[data-lesson-remove]");
+      if (!button) return;
+      const index = Number(button.dataset.lessonRemove);
+      const cards = collectLessonCards();
+      cards.splice(index, 1);
+      state.lessonDrafts = cards;
+      renderLessonPreview(cards, 0, 0);
+    });
+    elements.practiceCancelButton.addEventListener("click", function () {
+      state.practiceWordId = null;
+      elements.practiceDialog.close();
+    });
+    elements.practiceForm.addEventListener("submit", savePracticeDetails);
+    elements.practiceForm.addEventListener("input", updatePracticePreview);
+    elements.practiceForm.addEventListener("change", updatePracticePreview);
     document.addEventListener("pointerdown", closePartPickersOutside);
     window.addEventListener("resize", hideInlineTextTooltip);
     window.addEventListener("scroll", hideInlineTextTooltip, true);
@@ -585,8 +865,11 @@
       if (state.emptyAction === "add") return openAddPanel();
       state.query = "";
       state.partOfSpeech = "all";
+      state.contentType = "all";
+      state.lesson = "";
       state.page = 1;
       elements.searchInput.value = "";
+      elements.contentTypeFilter.value = "all";
       elements.partFilter.value = "all";
       elements.clearSearchButton.hidden = true;
       renderer.renderApp();
@@ -611,7 +894,7 @@
       backupModule.exportBackup(state.words);
       showToast("Backup exported", state.words.length + (state.words.length === 1 ? " word was" : " words were") + " included.", "success");
     });
-    elements.reviewButton.addEventListener("click", review.enter);
+    elements.reviewButton.addEventListener("click", function () { review.enter({ mode: "eng-vie", scope: "vocabulary" }); });
     elements.exitReviewButton.addEventListener("click", function () { review.exit(); renderer.renderApp(); });
     elements.showAnswerButton.addEventListener("click", review.showAnswer);
     elements.reviewSpeakButton.addEventListener("click", review.speak);
@@ -627,8 +910,21 @@
     });
     document.addEventListener("keydown", handleSearchShortcut);
     document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") {
+        if (!elements.reviewView.hidden) {
+          event.preventDefault();
+          review.exit();
+          renderer.renderApp();
+          return;
+        }
+        if (!elements.practicePacksView.hidden) {
+          event.preventDefault();
+          closePracticePacks();
+          return;
+        }
+        return;
+      }
       if (elements.reviewView.hidden) return;
-      if (event.key === "Escape") { review.exit(); renderer.renderApp(); }
       if (event.key === " " && !event.repeat) { event.preventDefault(); review.showAnswer(); }
       if (event.key === "ArrowUp" && !event.repeat) { event.preventDefault(); review.speak(); }
       // Number keys 1-4 for grading.
@@ -639,6 +935,7 @@
 
   async function initialize() {
     cacheElements();
+    syncAddPracticeDetails();
     applyTheme(getTheme(), false);
     setupInlineTextTooltip();
     updateShortcutHints();

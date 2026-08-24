@@ -31,6 +31,10 @@
         <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
         <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z" />
       </symbol>
+      <symbol id="icon-cards" viewBox="0 0 24 24">
+        <rect x="7" y="3" width="13" height="16" rx="2" />
+        <path d="M4 7v12a2 2 0 0 0 2 2h10" />
+      </symbol>
       <symbol id="icon-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" /></symbol>
       <symbol id="icon-search" viewBox="0 0 24 24">
         <circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" />
@@ -85,6 +89,7 @@
         <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z" />
         <path d="M17 21v-8H7v8M7 3v5h8" />
       </symbol>
+      <symbol id="icon-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2" /><path d="M8 10V7a4 4 0 0 1 8 0v3" /></symbol>
     </svg>
 
     <main id="dictionaryView" class="app-shell">
@@ -106,10 +111,17 @@
           <button id="exportButton" class="button button-ghost button-compact" type="button" title="Export JSON backup">
             <svg><use href="#icon-download"></use></svg><span>Export</span>
           </button>
-          <button id="reviewButton" class="button button-primary" type="button">
-            <svg><use href="#icon-sparkles"></use></svg><span>Review</span>
-            <span id="reviewDueBadge" class="review-badge" hidden>0</span>
-          </button>
+          <div class="review-entry-points" role="group" aria-label="Review modes">
+            <span class="review-entry-label">Review</span>
+            <button id="reviewButton" class="button button-primary button-compact" type="button" title="Vocabulary review">
+              <svg><use href="#icon-cards"></use></svg><span>Vocabulary</span>
+              <span id="reviewDueBadge" class="review-badge" hidden>0</span>
+            </button>
+            <button id="practicePacksButton" class="button button-primary button-compact" type="button" title="Practice review for focused work-English packs">
+              <svg><use href="#icon-book"></use></svg><span>Practice</span>
+              <span id="practicePackBadge" class="review-badge" hidden>0</span>
+            </button>
+          </div>
           <input id="importInput" type="file" accept="application/json,.json" hidden />
         </div>
       </header>
@@ -123,9 +135,14 @@
           </div>
           <div class="intro-actions">
             <div class="word-count"><strong id="totalCount">0</strong><span>words saved</span></div>
-            <button id="toggleAddButton" class="button button-primary" type="button" aria-expanded="false" aria-controls="addPanel">
-              <svg><use href="#icon-plus"></use></svg><span>Add word</span>
-            </button>
+            <div class="creation-actions" role="group" aria-label="Create learning content">
+              <button id="openLessonFromHeroButton" class="button button-ghost" type="button" title="Create a practice pack from copied text">
+                <svg><use href="#icon-plus"></use></svg><span>Add lesson</span>
+              </button>
+              <button id="toggleAddButton" class="button button-ghost" type="button" aria-expanded="false" aria-controls="addPanel">
+                <svg><use href="#icon-plus"></use></svg><span>Add word</span>
+              </button>
+            </div>
           </div>
         </section>
 
@@ -184,6 +201,17 @@
                 <input name="example" type="text" placeholder="Use the word in a sentence" autocomplete="off" />
               </label>
             </div>
+            <details id="addPracticeDetails" class="practice-details-form" hidden>
+              <summary>Add phrase practice details <span>optional</span></summary>
+              <div class="practice-fields-grid">
+                <label class="field"><span>Card type</span>
+                  <select name="cardType"><option value="phrase">Phrase</option><option value="pattern">Speaking pattern</option></select>
+                </label>
+                <label class="field"><span>Practice pack</span><input name="lesson" type="text" placeholder="e.g. Migration & rollout" autocomplete="off" /></label>
+                <label class="field"><span>Tags</span><input name="tags" type="text" placeholder="e.g. migration, rollout" autocomplete="off" /></label>
+                <label class="field field-situation"><span>Situation prompt</span><textarea name="situation" rows="2" placeholder="When would you use this in a technical discussion?"></textarea></label>
+              </div>
+            </details>
             <div class="add-form-footer">
               <p><svg><use href="#icon-keyboard"></use></svg> Press <kbd data-shortcut-mac="⌘" data-shortcut-windows="Ctrl">⌘</kbd> + <kbd>Enter</kbd> to save and add another.</p>
               <div>
@@ -193,6 +221,30 @@
                 </button>
               </div>
             </div>
+          </form>
+        </section>
+
+        <section id="lessonPanel" class="add-panel lesson-panel" aria-labelledby="lessonHeading" hidden>
+          <div class="add-panel-heading">
+            <div>
+              <p class="eyebrow">Practice pack</p>
+              <h2 id="lessonHeading">Create a lesson from copied notes</h2>
+              <p class="lesson-help">Paste one <strong>English → Vietnamese</strong> pair per line. The preview is editable before anything is saved.</p>
+            </div>
+            <button id="closeLessonButton" class="icon-button" type="button" aria-label="Close lesson panel" title="Close"><svg><use href="#icon-x"></use></svg></button>
+          </div>
+          <form id="lessonForm" novalidate>
+            <div class="lesson-form-grid">
+              <label class="field"><span>Pack name <b aria-hidden="true">*</b></span><input id="lessonTitle" name="lessonTitle" type="text" placeholder="e.g. Safe rollouts" autocomplete="off" /></label>
+              <label class="field"><span>Tags</span><input name="lessonTags" type="text" placeholder="e.g. migration, deployment" autocomplete="off" /></label>
+              <label class="field field-lesson-text"><span>Lesson text <b aria-hidden="true">*</b></span><textarea id="lessonText" name="lessonText" rows="9" placeholder="“What’s the downside?” → Điểm bất lợi là gì?&#10;“Small, reversible steps.” → Các bước nhỏ và có thể rollback."></textarea></label>
+            </div>
+            <div class="lesson-form-footer">
+              <p id="lessonPreviewSummary">Paste your notes, then review the cards before saving.</p>
+              <div><button id="cancelLessonButton" class="button button-ghost" type="button">Cancel</button><button id="previewLessonButton" class="button button-ghost" type="button">Preview cards</button></div>
+            </div>
+            <div id="lessonPreview" class="lesson-preview" hidden></div>
+            <div id="lessonSaveActions" class="lesson-save-actions" hidden><button id="saveLessonButton" class="button button-primary" type="submit"><svg><use href="#icon-save"></use></svg>Save practice pack</button></div>
           </form>
         </section>
 
@@ -208,6 +260,11 @@
               <span id="searchShortcutDescription" class="sr-only">Press Command F to focus search.</span>
             </label>
             <div class="toolbar-filters">
+              <label class="compact-field"><span>Content type</span>
+                <select id="contentTypeFilter">
+                  <option value="all">All content</option><option value="vocabulary">Vocabulary</option><option value="practice">Practice cards</option>
+                </select>
+              </label>
               <label class="compact-field"><span>Part of speech</span>
                 <select id="partFilter">
                   <option value="all">All parts of speech</option><option value="noun">Noun</option>
@@ -217,6 +274,7 @@
                   <option value="interjection">Interjection</option><option value="phrase">Phrase</option><option value="other">Other</option>
                 </select>
               </label>
+              <label class="compact-field"><span>Practice pack</span><select id="packFilter" disabled><option value="">All packs</option></select></label>
               <label class="compact-field page-size-field"><span>Rows</span>
                 <select id="pageSizeSelect">
                   <option value="10">10 per page</option><option value="25" selected>25 per page</option>
@@ -286,19 +344,52 @@
       </div>
     </main>
 
+    <main id="practicePacksView" class="app-shell practice-packs-page" hidden>
+      <header class="topbar">
+        <a class="brand" href="#top" aria-label="Word Garden home">
+          <span class="brand-mark">W</span>
+          <span><strong>Word Garden</strong><small>Personal dictionary</small></span>
+        </a>
+        <div class="topbar-actions">
+          <button id="backToDictionaryButton" class="button button-ghost" type="button"><svg><use href="#icon-arrow-left"></use></svg><span>Dictionary</span></button>
+        </div>
+      </header>
+      <div class="content-wrap">
+        <section class="practice-packs-intro" aria-labelledby="practicePacksHeading">
+          <p class="eyebrow">Work English</p>
+          <h1 id="practicePacksHeading">Practice review</h1>
+          <p>Choose a pack. Review helps you recall it; Speak helps you use it aloud in context.</p>
+        </section>
+        <section id="practicePacks" class="practice-packs" aria-label="Your practice packs">
+          <div id="practicePackList" class="practice-pack-list"></div>
+          <div id="practicePacksEmpty" class="practice-packs-empty" hidden>
+            <svg><use href="#icon-book"></use></svg>
+            <h2>No practice packs yet</h2>
+            <p>Create a lesson from your work-English notes to practise a focused topic.</p>
+            <button id="practicePacksEmptyAddButton" class="button button-primary" type="button"><svg><use href="#icon-plus"></use></svg>Add lesson</button>
+          </div>
+        </section>
+      </div>
+    </main>
+
     <main id="reviewView" class="review-view" hidden>
       <header class="review-header">
-        <button id="exitReviewButton" class="button button-ghost review-back" type="button">
-          <svg><use href="#icon-arrow-left"></use></svg>Dictionary
-        </button>
         <div class="review-brand"><span class="brand-mark">W</span><strong>Word Garden</strong></div>
-        <span id="reviewWordCount" class="review-count">0 words</span>
+        <div class="review-header-actions">
+          <button id="exitReviewButton" class="button button-ghost review-back" type="button">
+            <svg><use href="#icon-arrow-left"></use></svg>Dictionary
+          </button>
+        </div>
       </header>
       <section id="reviewContent" class="review-content" aria-labelledby="reviewPrompt">
+        <p id="reviewPackContext" class="review-pack-context" hidden>
+          <svg aria-hidden="true"><use href="#icon-book"></use></svg><span>Practice pack</span><strong id="reviewPackName"></strong>
+        </p>
         <div id="reviewToolbar" class="review-toolbar">
           <div class="mode-switch" aria-label="Review direction">
             <button class="mode-button active" type="button" data-mode="eng-vie" aria-pressed="true">ENG <span>→</span> VIE</button>
             <button class="mode-button" type="button" data-mode="vie-eng" aria-pressed="false">VIE <span>→</span> ENG</button>
+            <button class="mode-button" type="button" data-mode="production" aria-pressed="false">SPEAK</button>
           </div>
           <p id="reviewSessionHint"><svg><use href="#icon-sparkles"></use></svg>Due words first · Up to 10 new words</p>
         </div>
@@ -350,6 +441,9 @@
           </div>
         </div>
         <div id="reviewComplete" class="review-complete" hidden>
+          <p id="reviewCompletePackContext" class="review-pack-context" hidden>
+            <svg aria-hidden="true"><use href="#icon-book"></use></svg><span>Practice pack</span><strong id="reviewCompletePackName"></strong>
+          </p>
           <div class="review-complete-icon">🎉</div>
           <h2 id="reviewCompleteTitle">Session complete!</h2>
           <p id="reviewSummaryText">You reviewed 0 words.</p>
@@ -374,6 +468,31 @@
         <button id="confirmCancelButton" class="button button-ghost" type="button">Cancel</button>
         <button id="confirmDeleteButton" class="button button-danger" type="button">Delete</button>
       </div>
+    </dialog>
+
+    <dialog id="practiceDialog" class="confirm-dialog practice-dialog">
+      <form id="practiceForm" method="dialog">
+        <header class="practice-dialog-header">
+          <div class="practice-dialog-icon"><svg><use href="#icon-sparkles"></use></svg></div>
+          <div>
+            <p class="eyebrow">Phrase practice</p>
+            <h2 id="practiceDialogTitle">Make this phrase easier to use</h2>
+            <p class="practice-dialog-copy">Add a context so this phrase is easier to recall and say naturally in work conversations.</p>
+          </div>
+        </header>
+        <div class="practice-fields-grid dialog-practice-fields">
+          <label class="field"><span>Practice style</span><select id="practiceCardType" name="cardType"><option value="phrase">Phrase</option><option value="pattern">Speaking pattern</option></select></label>
+          <label class="field"><span>Practice pack</span><input id="practiceLesson" name="lesson" type="text" placeholder="e.g. Migration & rollout" /></label>
+          <label class="field"><span>Tags</span><input id="practiceTags" name="tags" type="text" placeholder="e.g. migration, rollout" /></label>
+          <label class="field field-situation"><span>Situation prompt</span><textarea id="practiceSituation" name="situation" rows="3" placeholder="When would you say this?"></textarea></label>
+        </div>
+        <aside id="practicePreview" class="practice-card-preview" aria-label="Review card preview">
+          <div class="practice-preview-heading"><span>Review preview</span><span id="practicePreviewMode">Production · Speak first</span></div>
+          <p id="practicePreviewPrompt" class="practice-preview-prompt">Add a situation prompt to see your production card.</p>
+          <strong id="practicePreviewAnswer" class="practice-preview-answer" hidden></strong>
+        </aside>
+        <div class="dialog-actions"><button id="practiceCancelButton" class="button button-ghost" type="button">Cancel</button><button class="button button-primary" type="submit">Save details</button></div>
+      </form>
     </dialog>
 
     <div id="toastRegion" class="toast-region" aria-live="polite" aria-atomic="true"></div>
