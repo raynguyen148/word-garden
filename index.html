@@ -23,7 +23,7 @@
         }
       })();
     </script>
-    <link rel="stylesheet" href="./styles.css?v=22" />
+    <link rel="stylesheet" href="./styles.css?v=25" />
   </head>
   <body>
     <svg class="icon-sprite" aria-hidden="true">
@@ -346,7 +346,7 @@
 
     <main id="practicePacksView" class="app-shell practice-packs-page" hidden>
       <header class="topbar">
-        <a class="brand" href="#top" aria-label="Word Garden home">
+        <a id="practicePacksHomeButton" class="brand" href="#top" aria-label="Return to Word Garden dictionary">
           <span class="brand-mark">W</span>
           <span><strong>Word Garden</strong><small>Personal dictionary</small></span>
         </a>
@@ -374,7 +374,7 @@
 
     <main id="reviewView" class="review-view" hidden>
       <header class="review-header">
-        <div class="review-brand"><span class="brand-mark">W</span><strong>Word Garden</strong></div>
+        <a id="reviewHomeButton" class="review-brand" href="#top" aria-label="Return to Word Garden dictionary"><span class="brand-mark">W</span><strong>Word Garden</strong></a>
         <div class="review-header-actions">
           <button id="exitReviewButton" class="button button-ghost review-back" type="button">
             <svg><use href="#icon-arrow-left"></use></svg>Dictionary
@@ -386,7 +386,7 @@
           <svg aria-hidden="true"><use href="#icon-book"></use></svg><span>Practice pack</span><strong id="reviewPackName"></strong>
         </p>
         <div id="reviewToolbar" class="review-toolbar">
-          <div class="mode-switch" aria-label="Review direction">
+          <div id="reviewModeSwitch" class="mode-switch" aria-label="Review direction">
             <button class="mode-button active" type="button" data-mode="eng-vie" aria-pressed="true">ENG <span>→</span> VIE</button>
             <button class="mode-button" type="button" data-mode="vie-eng" aria-pressed="false">VIE <span>→</span> ENG</button>
             <button class="mode-button" type="button" data-mode="production" aria-pressed="false">SPEAK</button>
@@ -448,9 +448,14 @@
           <h2 id="reviewCompleteTitle">Session complete!</h2>
           <p id="reviewSummaryText">You reviewed 0 words.</p>
           <div id="reviewSummaryStats" class="review-summary-stats"></div>
-          <button id="reviewCompleteBack" class="button button-primary" type="button">
-            <svg><use href="#icon-arrow-left"></use></svg>Back to Dictionary
-          </button>
+          <div id="reviewCompleteActions" class="review-complete-actions">
+            <button id="reviewCompleteNextAction" class="button button-primary" type="button" hidden>
+              <svg><use href="#icon-cards"></use></svg>Start speaking
+            </button>
+            <button id="reviewCompleteBack" class="button button-ghost" type="button">
+              <svg><use href="#icon-arrow-left"></use></svg>Back to Dictionary
+            </button>
+          </div>
         </div>
         <div id="shortcutGuide" class="shortcut-guide">
           <span><kbd>Space</kbd> Show answer</span><span><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd> Grade</span><span><kbd>↑</kbd> Pronunciation</span><span><kbd>Esc</kbd> Exit review</span>
@@ -502,7 +507,7 @@
     <script src="./storage.js"></script>
     <script src="./view.js"></script>
     <script src="./backup.js"></script>
-    <script src="./review.js?v=23"></script>
-    <script src="./app.js"></script>
+    <script src="./review.js?v=24"></script>
+    <script src="./app.js?v=25"></script>
   </body>
 </html>

@@ -50,7 +50,15 @@
       elements.reviewContent.setAttribute("aria-labelledby", "reviewPrompt");
       renderPackContext("review");
       elements.reviewToolbar.hidden = false;
+      elements.reviewModeSwitch.hidden = sessionScope === "pack";
       elements.shortcutGuide.hidden = false;
+      if (sessionScope === "pack") {
+        elements.reviewSessionHint.innerHTML = icon("book") + (production
+          ? "Speak every phrase once today · " + sessionPackCardCount + " cards"
+          : "Review every card in this pack · " + sessionPackCardCount + " cards");
+      } else {
+        elements.reviewSessionHint.innerHTML = icon("sparkles") + "Due words first · Up to 10 new words";
+      }
       elements.reviewDirectionLabel.textContent = production ? "Production · Speak first" : (englishFirst ? "English → Vietnamese" : "Vietnamese → English");
       var partsOfSpeech = logic.formatPartsOfSpeech(word.partsOfSpeech || word.partOfSpeech);
       elements.reviewPart.textContent = word.cardType === "pattern" ? "Speaking pattern" : partsOfSpeech;
@@ -115,9 +123,10 @@
       elements.reviewProgress.hidden = true;
       var pack = sessionLesson && logic.getPracticePacks(state.words, new Date()).find(function (item) { return item.title === sessionLesson; });
       var packProduction = sessionScope === "pack" && state.reviewMode === "production";
+      var packRecognition = sessionScope === "pack" && !packProduction;
       elements.reviewCompleteTitle.textContent = packProduction && pack && pack.completedToday
-        ? "Complete for today!"
-        : "Session complete!";
+        ? "Speaking complete for today!"
+        : (packRecognition ? "Review complete!" : "Session complete!");
       elements.reviewSummaryText.textContent = message || (packProduction && pack
         ? "You spoke " + pack.spokenTodayCount + "/" + pack.total + " phrases in this pack today."
         : (state.reviewMode === "production"
@@ -126,11 +135,19 @@
 
       elements.reviewCompleteBack.innerHTML = icon("arrow-left") + (sessionScope === "pack" ? "Back to Practice review" : "Back to Dictionary");
       if (sessionScope === "pack" && pack) {
-        elements.reviewSummaryStats.innerHTML =
-          "<span><strong>" + pack.spokenTodayCount + "/" + pack.total + "</strong><small>Spoken today</small></span>" +
-          "<span><strong>" + pack.speakReadyCount + "</strong><small>Spoken in total</small></span>";
+        elements.reviewCompleteNextAction.hidden = !packRecognition || pack.completedToday;
+        if (packRecognition && !pack.completedToday) {
+          elements.reviewCompleteNextAction.innerHTML = icon("cards") + "Start speaking · " + pack.spokenTodayRemaining + " left";
+        }
+        elements.reviewSummaryStats.innerHTML = packRecognition
+          ? "<span><strong>" + sessionGraded + "/" + sessionTotal + "</strong><small>Cards reviewed</small></span>" +
+            "<span><strong>" + pack.spokenTodayRemaining + "</strong><small>Ready to speak</small></span>"
+          : "<span><strong>" + pack.spokenTodayCount + "/" + pack.total + "</strong><small>Spoken today</small></span>" +
+            "<span><strong>" + pack.speakReadyCount + "</strong><small>Spoken in total</small></span>";
         return;
       }
+
+      elements.reviewCompleteNextAction.hidden = true;
 
       var stats = logic.getSrsStats(state.words, new Date().toISOString());
       elements.reviewSummaryStats.innerHTML =
@@ -276,7 +293,7 @@
       sessionGraded += 1;
 
       // If "Again", put the word back at the end of the queue.
-      if (level === "again") {
+      if (level === "again" && sessionScope !== "pack") {
         queue.push(Object.assign({}, word, changes));
         sessionTotal += 1;
       }
@@ -299,6 +316,7 @@
 
     function setMode(mode, skipRestart) {
       if (mode !== "eng-vie" && mode !== "vie-eng" && mode !== "production") return;
+      if (sessionScope === "pack" && state.reviewWord && !skipRestart) return;
       var changed = state.reviewMode !== mode;
       state.reviewMode = mode;
       document.querySelectorAll(".mode-button").forEach(function (button) {
@@ -320,7 +338,12 @@
       }
     }
 
-    return { enter: enter, exit: exit, showAnswer: showAnswer, grade: grade, setMode: setMode, speak: speak };
+    function startSpeaking() {
+      if (sessionScope !== "pack" || !sessionLesson) return;
+      enter({ lesson: sessionLesson, mode: "production", scope: "pack" });
+    }
+
+    return { enter: enter, exit: exit, showAnswer: showAnswer, grade: grade, setMode: setMode, speak: speak, startSpeaking: startSpeaking };
   }
 
   root.createLexiloReview = createReviewController;

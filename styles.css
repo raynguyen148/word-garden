@@ -495,7 +495,7 @@ textarea.inline-control:hover::-webkit-scrollbar, textarea.inline-control:focus:
 .review-header { display: flex; min-height: 70px; align-items: center; justify-content: space-between; gap: 18px; border-bottom: 1px solid var(--review-header-border); padding: 12px clamp(20px, 4vw, 60px); }
 .review-header-actions { display: flex; align-items: center; gap: 10px; }
 .review-back { background: var(--review-glass); }
-.review-brand { display: flex; align-items: center; gap: 10px; font-size: 15px; }
+.review-brand { display: flex; align-items: center; gap: 10px; color: inherit; font-size: 15px; text-decoration: none; }
 .review-brand .brand-mark { width: 34px; height: 34px; border-radius: 10px; }
 .review-content { width: min(760px, calc(100% - 36px)); margin: 0 auto; padding: clamp(30px, 6vh, 64px) 0 40px; }
 .review-pack-context { display: flex; width: fit-content; align-items: center; gap: 7px; margin: 0 0 12px; color: var(--muted); font-size: 11px; line-height: 1.3; }
@@ -607,6 +607,8 @@ textarea.inline-control:hover::-webkit-scrollbar, textarea.inline-control:focus:
 .review-summary-stats span { display: flex; flex-direction: column; align-items: center; gap: 4px; }
 .review-summary-stats strong { font-size: 22px; color: var(--foreground); }
 .review-summary-stats small { color: var(--muted); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; }
+.review-complete-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.review-complete-actions .button { min-width: 190px; }
 
 @media (max-width: 980px) {
   .add-form-grid { grid-template-columns: 1fr 1fr; }
@@ -668,6 +670,8 @@ textarea.inline-control:hover::-webkit-scrollbar, textarea.inline-control:focus:
   .mode-button { min-width: 0; }
   .review-toolbar > p { justify-content: center; }
   .review-card { min-height: 470px; border-radius: 22px; padding: 24px 18px; }
+  .review-complete-actions { width: 100%; flex-direction: column; }
+  .review-complete-actions .button { width: 100%; }
   .review-question { min-height: 215px; }
   .review-prompt-row { align-items: center; flex-direction: column; }
   .review-prompt-row h1 { font-size: 38px; }

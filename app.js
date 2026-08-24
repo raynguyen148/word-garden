@@ -88,7 +88,7 @@
 
   function cacheElements() {
     const ids = [
-      "dictionaryView", "practicePacksView", "reviewView", "storageStatus", "importButton", "exportButton", "reviewButton", "practicePacksButton", "backToDictionaryButton", "practicePacksEmptyAddButton", "importInput",
+      "dictionaryView", "practicePacksView", "reviewView", "storageStatus", "importButton", "exportButton", "reviewButton", "practicePacksButton", "backToDictionaryButton", "practicePacksHomeButton", "reviewHomeButton", "practicePacksEmptyAddButton", "importInput",
       "themeToggle", "themeToggleLabel", "themeToggleIcon", "openLessonFromHeroButton",
       "totalCount", "toggleAddButton", "addPanel", "closeAddButton", "cancelAddButton", "addForm", "newVocabulary",
       "lessonPanel", "closeLessonButton", "cancelLessonButton", "lessonForm", "lessonTitle", "lessonText", "previewLessonButton", "lessonPreview", "lessonPreviewSummary", "lessonSaveActions", "saveLessonButton",
@@ -103,7 +103,7 @@
       "reviewDueBadge", "practicePackBadge", "gradeButtons", "gradeAgainInterval", "gradeHardInterval", "gradeGoodInterval", "gradeEasyInterval",
       "reviewProgress", "reviewProgressFill", "reviewProgressLabel",
       "reviewComplete", "reviewCompleteTitle", "reviewSummaryText", "reviewSummaryStats", "reviewCompleteBack",
-      "reviewToolbar", "shortcutGuide", "reviewContent", "reviewPackContext", "reviewPackName", "reviewCompletePackContext", "reviewCompletePackName",
+      "reviewToolbar", "reviewModeSwitch", "reviewSessionHint", "shortcutGuide", "reviewContent", "reviewPackContext", "reviewPackName", "reviewCompletePackContext", "reviewCompletePackName", "reviewCompleteActions", "reviewCompleteNextAction",
       "practiceDialog", "practiceForm", "practiceDialogTitle", "practiceCardType", "practiceLesson", "practiceTags", "practiceSituation", "practiceCancelButton", "practicePreviewMode", "practicePreviewPrompt", "practicePreviewAnswer", "addPracticeDetails",
     ];
     ids.forEach(function (id) { elements[id] = document.getElementById(id); });
@@ -145,6 +145,15 @@
     elements.dictionaryView.hidden = false;
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
+  }
+
+  function goDictionaryHome() {
+    if (!elements.reviewView.hidden) review.exit();
+    elements.practicePacksView.hidden = true;
+    elements.dictionaryView.hidden = false;
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+    renderer.renderApp();
   }
 
   function closeLessonPanel(reset) {
@@ -827,6 +836,12 @@
     elements.openLessonFromHeroButton.addEventListener("click", openLessonPanel);
     elements.practicePacksButton.addEventListener("click", openPracticePacks);
     elements.backToDictionaryButton.addEventListener("click", closePracticePacks);
+    [elements.practicePacksHomeButton, elements.reviewHomeButton].forEach(function (button) {
+      button.addEventListener("click", function (event) {
+        event.preventDefault();
+        goDictionaryHome();
+      });
+    });
     elements.practicePacksEmptyAddButton.addEventListener("click", function () {
       closePracticePacks();
       openLessonPanel();
@@ -900,6 +915,9 @@
     elements.reviewSpeakButton.addEventListener("click", review.speak);
     if (elements.reviewCompleteBack) {
       elements.reviewCompleteBack.addEventListener("click", function () { review.exit(); renderer.renderApp(); });
+    }
+    if (elements.reviewCompleteNextAction) {
+      elements.reviewCompleteNextAction.addEventListener("click", function () { review.startSpeaking(); });
     }
     // Grade buttons (Again / Hard / Good / Easy).
     document.querySelectorAll(".grade-button").forEach(function (button) {
