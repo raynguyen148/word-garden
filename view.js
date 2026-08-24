@@ -126,7 +126,6 @@
         const vocabulary = e(word.vocabulary);
         const selected = state.selectedIds.has(word.id);
         const tags = Array.isArray(word.tags) ? word.tags : [];
-        const phrase = logic.normalizePartsOfSpeech(word.partsOfSpeech || word.partOfSpeech).includes("phrase");
         const practicePackCard = logic.isPracticePackCard(word);
         const practiceMeta = word.lesson || word.cardType !== "vocabulary" || tags.length
           ? '<div class="practice-row-meta">' +
@@ -143,7 +142,7 @@
           <td><input class="inline-control" data-field="pronunciation" data-id="${id}" value="${e(word.pronunciation || "")}" placeholder="Add pronunciation" aria-label="Pronunciation for ${vocabulary}"></td>
           <td><textarea class="inline-control" data-field="example" data-id="${id}" placeholder="Add an example" aria-label="Example for ${vocabulary}">${e(word.example || "")}</textarea></td>
           <td class="actions-cell"><div class="row-actions">
-            ${phrase ? '<button class="table-action" type="button" data-action="practice" data-id="' + id + '" title="Edit phrase practice" aria-label="Edit phrase practice for ' + vocabulary + '">' + icon("sparkles") + '</button>' : ""}
+            ${practicePackCard ? '<button class="table-action" type="button" data-action="practice" data-id="' + id + '" title="Edit phrase practice" aria-label="Edit phrase practice for ' + vocabulary + '">' + icon("sparkles") + '</button>' : ""}
             <button class="table-action" type="button" data-action="speak" data-id="${id}" title="Hear pronunciation" aria-label="Hear ${vocabulary}">${icon("volume")}</button>
             <button class="table-action" type="button" data-action="copy" data-id="${id}" title="Copy vocabulary" aria-label="Copy ${vocabulary}">${icon("copy")}</button>
             <button class="table-action danger" type="button" data-action="delete" data-id="${id}" title="Delete word" aria-label="Delete ${vocabulary}">${icon("trash")}</button>
