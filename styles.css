@@ -733,11 +733,11 @@ body {
 }
 
 .button-primary {
-  background: linear-gradient(135deg, var(--primary-hover), var(--primary) 58%, #8a6247);
+  background: var(--primary);
 }
 
 .button-primary:hover {
-  background: linear-gradient(135deg, #4d3020, var(--primary-hover) 58%, var(--primary));
+  background: var(--primary-hover);
 }
 
 .page-intro {
