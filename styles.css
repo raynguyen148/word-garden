@@ -113,7 +113,7 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: 96px; }
 body {
   margin: 0;
   min-width: 320px;
@@ -179,18 +179,19 @@ svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width:
 
 .app-shell { min-height: 100vh; }
 .topbar {
-  position: sticky;
-  z-index: 20;
-  top: 0;
+  position: relative;
   display: flex;
+  width: min(1432px, calc(100% - 2 * clamp(20px, 4vw, 64px)));
   min-height: 68px;
+  margin: 16px auto 0;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  border-bottom: 1px solid var(--topbar-border);
-  padding: 10px clamp(20px, 4vw, 64px);
-  background: var(--topbar-background);
-  backdrop-filter: blur(16px);
+  border: 1px solid color-mix(in srgb, var(--border-strong) 72%, var(--border));
+  border-radius: 22px;
+  padding: 10px clamp(16px, 2.5vw, 28px);
+  background: var(--surface);
+  box-shadow: 0 12px 34px rgba(63, 43, 31, .06), var(--shadow-sm);
 }
 .brand { display: inline-flex; align-items: center; gap: 11px; color: inherit; text-decoration: none; }
 .brand-mark { display: grid; width: 38px; height: 38px; place-items: center; border-radius: 11px; background: var(--primary); color: #fff; box-shadow: 0 6px 16px rgba(111, 78, 55, .2); font-family: Georgia, "Times New Roman", serif; font-size: 25px; line-height: 1; }
@@ -207,14 +208,13 @@ svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width:
 .backup-status.overdue { color: var(--warning); }
 .backup-status.overdue svg { color: var(--warning); }
 
-.content-wrap { width: min(1440px, 100%); margin: 0 auto; padding: 46px clamp(20px, 4vw, 64px) 32px; }
-.page-intro { position: relative; display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; margin-bottom: 30px; padding: 10px 0 32px; }
-.page-intro::after { position: absolute; right: 0; bottom: 0; left: 0; height: 1px; background: linear-gradient(90deg, var(--border-strong), var(--border) 62%, transparent); content: ""; }
+.content-wrap { width: min(1440px, 100%); margin: 0 auto; padding: 28px clamp(20px, 4vw, 64px) 30px; }
+.page-intro { position: relative; display: flex; align-items: flex-end; justify-content: space-between; gap: 28px; margin-bottom: 24px; padding: 0 0 24px; }
 .page-intro > div:first-child { max-width: 830px; }
-.eyebrow { margin: 0 0 16px; color: var(--primary); font-size: 11px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
+.eyebrow { margin: 0 0 10px; color: var(--primary); font-size: 11px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
 h1, h2, h3, p { text-wrap: pretty; }
-.page-intro h1 { margin: 0; color: var(--heading); font-family: Georgia, "Times New Roman", serif; font-size: clamp(34px, 3.65vw, 50px); font-weight: 500; line-height: 1.08; letter-spacing: -.045em; }
-.intro-copy { max-width: 700px; margin: 17px 0 0; color: var(--intro); font-size: clamp(16px, 1.55vw, 19px); font-weight: 450; letter-spacing: -.025em; line-height: 1.5; }
+.page-intro h1 { margin: 0; color: var(--heading); font-family: Georgia, "Times New Roman", serif; font-size: clamp(32px, 3.5vw, 48px); font-weight: 500; line-height: 1.1; letter-spacing: -.04em; }
+.intro-copy { max-width: 700px; margin: 12px 0 0; color: var(--intro); font-size: clamp(15px, 1.45vw, 18px); font-weight: 450; letter-spacing: -.02em; line-height: 1.48; }
 .intro-actions { display: flex; flex: 0 0 auto; align-items: center; gap: 12px; border: 1px solid var(--border); border-radius: 16px; padding: 8px; background: var(--surface-soft); box-shadow: var(--shadow-sm); }
 .word-count { display: flex; min-height: 40px; align-items: baseline; gap: 7px; padding: 0 8px; color: var(--muted); }
 .word-count strong { color: var(--foreground); font-size: 28px; letter-spacing: -.04em; }
@@ -496,7 +496,21 @@ textarea.inline-control:hover::-webkit-scrollbar, textarea.inline-control:focus:
 .privacy-note svg { width: 14px; color: var(--primary); }
 
 .review-view { min-height: 100vh; background: var(--review-background); }
-.review-header { display: flex; min-height: 70px; align-items: center; justify-content: space-between; gap: 18px; border-bottom: 1px solid var(--review-header-border); padding: 12px clamp(20px, 4vw, 60px); }
+.review-header {
+  position: relative;
+  display: flex;
+  width: min(1432px, calc(100% - 2 * clamp(20px, 4vw, 64px)));
+  min-height: 68px;
+  margin: 16px auto 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  border: 1px solid color-mix(in srgb, var(--border-strong) 72%, var(--border));
+  border-radius: 22px;
+  padding: 10px clamp(16px, 2.5vw, 28px);
+  background: var(--surface);
+  box-shadow: 0 12px 34px rgba(63, 43, 31, .06), var(--shadow-sm);
+}
 .review-header-actions { display: flex; align-items: center; gap: 10px; }
 .review-back { background: var(--review-glass); }
 .review-brand { color: inherit; }
@@ -627,7 +641,13 @@ textarea.inline-control:hover::-webkit-scrollbar, textarea.inline-control:focus:
 @media (max-width: 720px) {
   .grade-buttons { grid-template-columns: repeat(2, 1fr); }
   .review-summary-stats { flex-wrap: wrap; justify-content: center; }
-  .topbar { padding-inline: 16px; }
+  .topbar, .review-header {
+    width: calc(100% - 24px);
+    min-height: 60px;
+    margin: 10px auto 0;
+    border-radius: 18px;
+    padding: 8px 12px;
+  }
   .brand small, .storage-status, .backup-status, .button-compact span { display: none; }
   .button-compact { width: 38px; padding: 7px; }
   .review-entry-points { gap: 4px; border-left: 0; padding-left: 0; }
@@ -636,9 +656,10 @@ textarea.inline-control:hover::-webkit-scrollbar, textarea.inline-control:focus:
   .topbar #reviewButton, .topbar #practicePacksButton { position: relative; width: 38px; padding: 7px; }
   .topbar #reviewButton > span:not(.review-badge), .topbar #practicePacksButton > span:not(.review-badge) { display: none; }
   .topbar #reviewButton .review-badge, .topbar #practicePacksButton .review-badge { position: absolute; top: -7px; right: -7px; }
-  .content-wrap { padding: 30px 14px 24px; }
-  .page-intro { align-items: flex-start; flex-direction: column; gap: 20px; padding-bottom: 26px; }
-  .page-intro h1 { font-size: 34px; }
+  .content-wrap { padding: 18px 12px 22px; }
+  .page-intro { align-items: flex-start; flex-direction: column; gap: 16px; margin-bottom: 18px; padding-bottom: 18px; }
+  .page-intro h1 { font-size: 30px; }
+  .intro-copy { display: none; }
   .intro-actions { width: 100%; justify-content: space-between; }
   .creation-actions { margin-left: auto; }
   .add-panel { padding: 18px 14px; }
@@ -666,8 +687,7 @@ textarea.inline-control:hover::-webkit-scrollbar, textarea.inline-control:focus:
   .pagination { align-items: flex-start; flex-direction: column; }
   .pagination nav { width: 100%; justify-content: space-between; }
   .privacy-note { align-items: flex-start; text-align: center; }
-  .review-header { padding: 12px 14px; }
-  .review-content { width: min(100% - 24px, 760px); padding-top: 24px; }
+  .review-content { width: min(100% - 24px, 760px); padding-top: 20px; }
   .review-toolbar { align-items: stretch; flex-direction: column; }
   .mode-switch { display: grid; grid-template-columns: repeat(3, 1fr); }
   .mode-button { min-width: 0; }
@@ -686,9 +706,19 @@ textarea.inline-control:hover::-webkit-scrollbar, textarea.inline-control:focus:
 @media (max-width: 430px) {
   .grade-buttons { grid-template-columns: repeat(2, 1fr); gap: 8px; }
   .grade-button { min-height: 56px; padding-inline: 8px; }
-  .topbar-actions { gap: 5px; }
-  .topbar .button-primary { padding-inline: 11px; }
-  .brand-mark { width: 35px; height: 35px; }
+  .topbar, .review-header {
+    width: calc(100% - 16px);
+    min-height: 56px;
+    margin: 8px auto 0;
+    border-radius: 16px;
+    padding: 6px 10px;
+  }
+  .page-intro { gap: 12px; margin-bottom: 15px; padding-bottom: 15px; }
+  .page-intro h1 { font-size: 25px; }
+  .topbar-actions { gap: 4px; }
+  .topbar .button-primary { padding-inline: 10px; }
+  .brand-mark { width: 34px; height: 34px; font-size: 22px; border-radius: 9px; }
+  .brand strong { font-size: 15px; }
   .word-count span { display: none; }
   .intro-actions { align-items: stretch; flex-direction: column; gap: 8px; padding: 10px; }
   .word-count { justify-content: center; }
@@ -715,12 +745,7 @@ body {
 
 .content-wrap {
   width: min(1560px, 100%);
-  padding-top: clamp(38px, 5vw, 64px);
-}
-
-.topbar {
-  min-height: 74px;
-  box-shadow: 0 1px 0 rgba(60, 42, 30, .03);
+  padding-top: clamp(18px, 2.2vw, 28px);
 }
 
 .brand-mark {
@@ -745,8 +770,8 @@ body {
 }
 
 .page-intro {
-  margin-bottom: 34px;
-  padding-bottom: 36px;
+  margin-bottom: 24px;
+  padding-bottom: 24px;
 }
 
 .page-intro h1,
@@ -903,23 +928,11 @@ tr:focus-within .row-actions {
     var(--review-background);
 }
 
-.review-header {
-  position: sticky;
-  z-index: 20;
-  top: 0;
-  min-height: 74px;
-  gap: 24px;
-  border-bottom-color: var(--topbar-border);
-  padding: 10px clamp(20px, 4vw, 64px);
-  background: var(--topbar-background);
-  backdrop-filter: blur(16px);
-  box-shadow: 0 1px 0 rgba(60, 42, 30, .03);
-}
-
 .review-header-actions { gap: 8px; }
 
 .review-content {
   width: min(840px, calc(100% - 40px));
+  padding-top: clamp(24px, 4vh, 48px);
 }
 
 .review-toolbar {
@@ -971,17 +984,15 @@ tr:focus-within .row-actions {
 
 @media (max-width: 1120px) {
   .storage-status, .backup-status { display: none; }
-  .topbar { gap: 14px; padding-inline: 24px; }
-  .review-header { gap: 14px; padding-inline: 24px; }
+  .topbar, .review-header { gap: 12px; padding: 10px clamp(12px, 2vw, 20px); }
   .review-entry-label { display: none; }
   .review-entry-points { gap: 5px; padding-left: 8px; }
 }
 
 @media (max-width: 720px) {
-  .content-wrap { padding-top: 32px; }
-  .topbar { min-height: 64px; }
-  .review-header { min-height: 64px; }
-  .page-intro { margin-bottom: 26px; padding-bottom: 28px; }
+  .content-wrap { padding: 18px 12px 22px; }
+  .topbar, .review-header { min-height: 60px; }
+  .page-intro { margin-bottom: 18px; padding-bottom: 18px; }
   .intro-actions { border-radius: 16px; }
   .word-count { min-width: auto; flex-direction: row; gap: 7px; }
   .toolbar { gap: 14px; padding: 14px; }
@@ -990,6 +1001,6 @@ tr:focus-within .row-actions {
   .practice-packs { max-width: none; }
   .practice-pack-list { grid-template-columns: 1fr; }
   .row-actions { opacity: 1; }
-  .review-content { width: min(100% - 24px, 840px); }
+  .review-content { width: min(100% - 24px, 840px); padding-top: 20px; }
   .review-card { min-height: 480px; border-radius: 24px; }
 }
