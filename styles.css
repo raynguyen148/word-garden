@@ -202,6 +202,10 @@ svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width:
 .storage-status.saving svg { animation: storage-pulse .8s ease-in-out infinite alternate; }
 .storage-status.error { color: var(--danger); }
 .storage-status.error svg { color: var(--danger); }
+.backup-status { display: inline-flex; align-items: center; gap: 6px; margin-right: 4px; color: var(--muted); font-size: 12px; cursor: default; }
+.backup-status svg { width: 14px; height: 14px; color: var(--primary); }
+.backup-status.overdue { color: var(--warning); }
+.backup-status.overdue svg { color: var(--warning); }
 
 .content-wrap { width: min(1440px, 100%); margin: 0 auto; padding: 46px clamp(20px, 4vw, 64px) 32px; }
 .page-intro { position: relative; display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; margin-bottom: 30px; padding: 10px 0 32px; }
@@ -624,7 +628,7 @@ textarea.inline-control:hover::-webkit-scrollbar, textarea.inline-control:focus:
   .grade-buttons { grid-template-columns: repeat(2, 1fr); }
   .review-summary-stats { flex-wrap: wrap; justify-content: center; }
   .topbar { padding-inline: 16px; }
-  .brand small, .storage-status, .button-compact span { display: none; }
+  .brand small, .storage-status, .backup-status, .button-compact span { display: none; }
   .button-compact { width: 38px; padding: 7px; }
   .review-entry-points { gap: 4px; border-left: 0; padding-left: 0; }
   .review-entry-label { display: none; }
@@ -966,7 +970,7 @@ tr:focus-within .row-actions {
 }
 
 @media (max-width: 1120px) {
-  .storage-status { display: none; }
+  .storage-status, .backup-status { display: none; }
   .topbar { gap: 14px; padding-inline: 24px; }
   .review-header { gap: 14px; padding-inline: 24px; }
   .review-entry-label { display: none; }

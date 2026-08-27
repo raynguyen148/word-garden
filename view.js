@@ -8,11 +8,9 @@
     return '<svg aria-hidden="true"><use href="#icon-' + name + '"></use></svg>';
   }
 
-  function setStorageStatus(elements, status, label) {
+  function setStorageStatus(elements, status) {
     elements.storageStatus.classList.toggle("saving", status === "saving");
     elements.storageStatus.classList.toggle("error", status === "error");
-    elements.storageStatus.innerHTML = icon(status === "error" ? "x" : "database") +
-      "<span>" + logic.escapeHtml(label) + "</span>";
   }
 
   function showToast(elements, title, message, type) {

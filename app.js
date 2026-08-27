@@ -41,6 +41,8 @@
 
   const INLINE_TEXT_TOOLTIP_DELAY = 1000;
   const THEME_STORAGE_KEY = "word-garden:theme";
+  const LAST_EXPORT_KEY = "word-garden:lastExportAt";
+  const BACKUP_WARNING_DAYS = 10;
 
   function getTheme() {
     try {
@@ -75,6 +77,35 @@
     return /mac|iphone|ipad|ipod/i.test(platform);
   }
 
+  function saveLastExportTime() {
+    try { window.localStorage.setItem(LAST_EXPORT_KEY, new Date().toISOString()); } catch (e) { /* ignore */ }
+  }
+
+  function updateBackupStatus() {
+    if (!elements.lastExportStatus) return;
+    var raw;
+    try { raw = window.localStorage.getItem(LAST_EXPORT_KEY); } catch (e) { /* ignore */ }
+    if (!raw) {
+      elements.lastExportStatus.textContent = "Never backed up";
+      elements.lastExportStatus.classList.add("overdue");
+      elements.lastExportStatus.title = "Export a backup to keep your data safe";
+      return;
+    }
+    var exportDate = new Date(raw);
+    var now = new Date();
+    var diffDays = Math.floor((now - exportDate) / (1000 * 60 * 60 * 24));
+    var overdue = diffDays >= BACKUP_WARNING_DAYS;
+    var label;
+    if (diffDays === 0) label = "Backed up today";
+    else if (diffDays === 1) label = "Backed up yesterday";
+    else label = "Backed up " + diffDays + "d ago";
+    elements.lastExportStatus.textContent = label;
+    elements.lastExportStatus.classList.toggle("overdue", overdue);
+    elements.lastExportStatus.title = overdue
+      ? "It\u2019s been " + diffDays + " days since your last export. Back up now to keep your data safe."
+      : "Last export: " + exportDate.toLocaleDateString();
+  }
+
   function updateShortcutHints() {
     const isMac = usesCommandKey();
     const shortcutAttribute = isMac ? "data-shortcut-mac" : "data-shortcut-windows";
@@ -88,7 +119,7 @@
 
   function cacheElements() {
     const ids = [
-      "dictionaryView", "practicePacksView", "reviewView", "storageStatus", "importButton", "exportButton", "reviewButton", "practicePacksButton", "backToDictionaryButton", "practicePacksHomeButton", "reviewHomeButton", "practicePacksEmptyAddButton", "importInput",
+      "dictionaryView", "practicePacksView", "reviewView", "storageStatus", "lastExportStatus", "importButton", "exportButton", "reviewButton", "practicePacksButton", "backToDictionaryButton", "practicePacksHomeButton", "reviewHomeButton", "practicePacksEmptyAddButton", "importInput",
       "themeToggle", "themeToggleLabel", "themeToggleIcon", "openLessonFromHeroButton",
       "totalCount", "toggleAddButton", "addPanel", "closeAddButton", "cancelAddButton", "addForm", "newVocabulary",
       "lessonPanel", "closeLessonButton", "cancelLessonButton", "lessonForm", "lessonTitle", "lessonText", "previewLessonButton", "lessonPreview", "lessonPreviewSummary", "lessonSaveActions", "saveLessonButton",
@@ -907,6 +938,8 @@
     elements.importInput.addEventListener("change", importBackup);
     elements.exportButton.addEventListener("click", function () {
       backupModule.exportBackup(state.words);
+      saveLastExportTime();
+      updateBackupStatus();
       showToast("Backup exported", state.words.length + (state.words.length === 1 ? " word was" : " words were") + " included.", "success");
     });
     elements.reviewButton.addEventListener("click", function () { review.enter({ mode: "eng-vie", scope: "vocabulary" }); });
@@ -927,6 +960,29 @@
       button.addEventListener("click", function () { review.setMode(button.dataset.mode); });
     });
     document.addEventListener("keydown", handleSearchShortcut);
+    document.addEventListener("keydown", function (event) {
+      if (
+        event.repeat ||
+        event.altKey || event.ctrlKey || event.metaKey || event.shiftKey ||
+        event.isComposing ||
+        elements.dictionaryView.hidden ||
+        elements.confirmDialog.open ||
+        (document.activeElement && /^(INPUT|TEXTAREA|SELECT)$/i.test(document.activeElement.tagName)) ||
+        (document.activeElement && document.activeElement.isContentEditable)
+      ) return;
+
+      if (event.key === "c") {
+        event.preventDefault();
+        closeLessonPanel(false);
+        if (elements.addPanel.hidden) openAddPanel();
+        else closeAddPanel(false);
+      } else if (event.key === "l") {
+        event.preventDefault();
+        closeAddPanel(false);
+        if (elements.lessonPanel.hidden) openLessonPanel();
+        else closeLessonPanel(false);
+      }
+    });
     document.addEventListener("keydown", function (event) {
       if (event.key === "Escape") {
         if (!elements.reviewView.hidden) {
@@ -957,6 +1013,7 @@
     applyTheme(getTheme(), false);
     setupInlineTextTooltip();
     updateShortcutHints();
+    updateBackupStatus();
     renderer = viewModule.createRenderer(elements, state);
     review = window.createLexiloReview({
       elements: elements,

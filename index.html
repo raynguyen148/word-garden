@@ -99,8 +99,8 @@
           <span><strong>Word Garden</strong><small>Personal dictionary</small></span>
         </a>
         <div class="topbar-actions">
-          <span id="storageStatus" class="storage-status" title="Stored privately in this browser">
-            <svg><use href="#icon-database"></use></svg><span>Saved locally</span>
+          <span id="storageStatus" class="backup-status">
+            <svg><use href="#icon-database"></use></svg><span id="lastExportStatus"></span>
           </span>
           <button id="themeToggle" class="button button-ghost button-compact button-theme" type="button" aria-label="Switch to dark theme" title="Switch to dark theme">
             <svg aria-hidden="true"><use id="themeToggleIcon" href="#icon-moon"></use></svg><span id="themeToggleLabel">Dark</span>
@@ -113,13 +113,13 @@
           </button>
           <div class="review-entry-points" role="group" aria-label="Review modes">
             <span class="review-entry-label">Review</span>
-            <button id="reviewButton" class="button button-primary button-compact" type="button" title="Vocabulary review">
-              <svg><use href="#icon-cards"></use></svg><span>Vocabulary</span>
-              <span id="reviewDueBadge" class="review-badge" hidden>0</span>
-            </button>
             <button id="practicePacksButton" class="button button-primary button-compact" type="button" title="Practice review for focused work-English packs">
               <svg><use href="#icon-book"></use></svg><span>Practice</span>
               <span id="practicePackBadge" class="review-badge" hidden>0</span>
+            </button>
+            <button id="reviewButton" class="button button-primary button-compact" type="button" title="Vocabulary review">
+              <svg><use href="#icon-cards"></use></svg><span>Vocabulary</span>
+              <span id="reviewDueBadge" class="review-badge" hidden>0</span>
             </button>
           </div>
           <input id="importInput" type="file" accept="application/json,.json" hidden />
@@ -136,10 +136,10 @@
           <div class="intro-actions">
             <div class="word-count"><strong id="totalCount">0</strong><span>words saved</span></div>
             <div class="creation-actions" role="group" aria-label="Create learning content">
-              <button id="openLessonFromHeroButton" class="button button-ghost" type="button" title="Create a practice pack from copied text">
+              <button id="openLessonFromHeroButton" class="button button-ghost" type="button" title="Add lesson (l)">
                 <svg><use href="#icon-plus"></use></svg><span>Add lesson</span>
               </button>
-              <button id="toggleAddButton" class="button button-primary" type="button" aria-expanded="false" aria-controls="addPanel">
+              <button id="toggleAddButton" class="button button-primary" type="button" aria-expanded="false" aria-controls="addPanel" title="Add word (c)">
                 <svg><use href="#icon-plus"></use></svg><span>Add word</span>
               </button>
             </div>
@@ -340,7 +340,7 @@
             </nav>
           </footer>
         </section>
-        <p class="privacy-note"><svg><use href="#icon-database"></use></svg>Your dictionary stays in this browser. Export a backup regularly so your learning is never lost.</p>
+        <p class="privacy-note"><svg><use href="#icon-database"></use></svg>Your data is saved privately in this browser — no account or cloud needed. Export a backup regularly so your learning is never lost.</p>
       </div>
     </main>
 
