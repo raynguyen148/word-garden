@@ -124,6 +124,7 @@
       "totalCount", "toggleAddButton", "addPanel", "closeAddButton", "cancelAddButton", "addForm", "newVocabulary",
       "lessonPanel", "closeLessonButton", "cancelLessonButton", "lessonForm", "lessonTitle", "lessonText", "previewLessonButton", "lessonPreview", "lessonPreviewSummary", "lessonSaveActions", "saveLessonButton",
       "practicePacks", "practicePackList", "practicePacksEmpty", "packFilter",
+      "dictionaryToolbar", "toolbarFiltersToggle", "toolbarFilterDetails", "floatingFilterBar", "floatingFiltersToggle", "floatingFilterDetails", "floatingSearchInput", "floatingClearSearchButton", "floatingContentTypeFilter", "floatingPartFilter", "floatingPackFilter", "floatingPageSizeSelect",
       "searchInput", "searchShortcutDescription", "clearSearchButton", "contentTypeFilter", "partFilter", "vocabularySortButton", "pageSizeSelect", "bulkBar", "selectedCount",
       "clearSelectionButton", "deleteSelectedButton", "tableWrap", "wordsTableBody", "selectAllCheckbox", "emptyState",
       "emptyTitle", "emptyMessage", "emptyAddButton", "pagination", "rangeLabel", "previousPageButton", "nextPageButton",
@@ -215,8 +216,14 @@
       : event.ctrlKey && !event.metaKey;
     if (event.key.toLowerCase() === "f" && usesPrimaryModifier) {
       event.preventDefault();
-      elements.searchInput.focus();
-      elements.searchInput.select();
+      const floatingBarVisible = elements.floatingFilterBar
+        && elements.floatingFilterBar.classList.contains("is-visible")
+        && elements.floatingFilterBar.getAttribute("aria-hidden") !== "true";
+      const targetSearchInput = floatingBarVisible
+        ? elements.floatingSearchInput
+        : elements.searchInput;
+      targetSearchInput.focus({ preventScroll: true });
+      targetSearchInput.select();
     }
   }
 
@@ -748,50 +755,68 @@
   }
 
   function bindListEvents() {
-    elements.searchInput.addEventListener("input", function () {
-      state.query = elements.searchInput.value;
-      state.page = 1;
-      elements.clearSearchButton.hidden = !state.query;
-      renderer.renderApp();
-    });
-    elements.clearSearchButton.addEventListener("click", function () {
-      elements.searchInput.value = "";
-      state.query = "";
-      state.page = 1;
-      elements.clearSearchButton.hidden = true;
-      renderer.renderApp();
-      elements.searchInput.focus();
-    });
-    elements.partFilter.addEventListener("change", function () {
-      state.partOfSpeech = elements.partFilter.value;
+    function updateQuery(value) {
+      state.query = value;
       state.page = 1;
       renderer.renderApp();
-    });
-    elements.contentTypeFilter.addEventListener("change", function () {
-      state.contentType = elements.contentTypeFilter.value;
+    }
+
+    function clearQuery(input) {
+      updateQuery("");
+      input.focus();
+    }
+
+    function updatePartOfSpeech(value) {
+      state.partOfSpeech = value;
+      state.page = 1;
+      renderer.renderApp();
+    }
+
+    function updateContentType(value) {
+      state.contentType = value;
       if (state.contentType === "practice") {
         state.partOfSpeech = "all";
-        elements.partFilter.value = "all";
       } else {
         state.lesson = "";
       }
       state.page = 1;
       renderer.renderApp();
-    });
-    elements.packFilter.addEventListener("change", function () {
-      state.lesson = elements.packFilter.value;
+    }
+
+    function updatePack(value) {
+      state.lesson = value;
       state.page = 1;
       renderer.renderApp();
+    }
+
+    function updatePageSize(value) {
+      state.pageSize = Math.min(100, Number(value) || 25);
+      state.page = 1;
+      renderer.renderApp();
+    }
+
+    [elements.searchInput, elements.floatingSearchInput].forEach(function (input) {
+      input.addEventListener("input", function () { updateQuery(input.value); });
+    });
+    [[elements.clearSearchButton, elements.searchInput], [elements.floatingClearSearchButton, elements.floatingSearchInput]].forEach(function (pair) {
+      pair[0].addEventListener("click", function () { clearQuery(pair[1]); });
+    });
+    [elements.partFilter, elements.floatingPartFilter].forEach(function (select) {
+      select.addEventListener("change", function () { updatePartOfSpeech(select.value); });
+    });
+    [elements.contentTypeFilter, elements.floatingContentTypeFilter].forEach(function (select) {
+      select.addEventListener("change", function () { updateContentType(select.value); });
+    });
+    [elements.packFilter, elements.floatingPackFilter].forEach(function (select) {
+      select.addEventListener("change", function () { updatePack(select.value); });
     });
     elements.vocabularySortButton.addEventListener("click", function () {
       state.sortOrder = state.sortOrder === "a-z" ? "z-a" : "a-z";
       state.page = 1;
       renderer.renderApp();
     });
-    elements.pageSizeSelect.addEventListener("change", function () {
-      state.pageSize = Math.min(100, Number(elements.pageSizeSelect.value) || 25);
-      state.page = 1;
-      renderer.renderApp();
+    [elements.pageSizeSelect, elements.floatingPageSizeSelect].forEach(function (select) {
+      select.addEventListener("change", function () { updatePageSize(select.value); });
     });
     elements.wordsTableBody.addEventListener("click", handleTableClick);
     elements.wordsTableBody.addEventListener("change", handleTableChange);
@@ -907,6 +932,14 @@
     document.addEventListener("pointerdown", closePartPickersOutside);
     window.addEventListener("resize", hideInlineTextTooltip);
     window.addEventListener("scroll", hideInlineTextTooltip, true);
+    window.addEventListener("scroll", updateFloatingFilterVisibility, { passive: true });
+    window.addEventListener("resize", updateFloatingFilterVisibility);
+    elements.toolbarFiltersToggle.addEventListener("click", function () {
+      setCompactFiltersExpanded(elements.dictionaryToolbar, elements.toolbarFiltersToggle, !elements.dictionaryToolbar.classList.contains("is-filters-open"));
+    });
+    elements.floatingFiltersToggle.addEventListener("click", function () {
+      setCompactFiltersExpanded(elements.floatingFilterBar, elements.floatingFiltersToggle, !elements.floatingFilterBar.classList.contains("is-filters-open"));
+    });
     elements.emptyAddButton.addEventListener("click", function () {
       if (state.emptyAction === "add") return openAddPanel();
       state.query = "";
@@ -1007,6 +1040,20 @@
     });
   }
 
+  function setCompactFiltersExpanded(container, toggle, shouldExpand) {
+    container.classList.toggle("is-filters-open", shouldExpand);
+    toggle.setAttribute("aria-expanded", shouldExpand ? "true" : "false");
+  }
+
+  function updateFloatingFilterVisibility() {
+    if (!elements.dictionaryToolbar || !elements.floatingFilterBar) return;
+    const toolbarBottom = elements.dictionaryToolbar.getBoundingClientRect().bottom;
+    const shouldShow = !elements.dictionaryView.hidden && toolbarBottom <= 0;
+    if (!shouldShow) setCompactFiltersExpanded(elements.floatingFilterBar, elements.floatingFiltersToggle, false);
+    elements.floatingFilterBar.classList.toggle("is-visible", shouldShow);
+    elements.floatingFilterBar.setAttribute("aria-hidden", shouldShow ? "false" : "true");
+  }
+
   async function initialize() {
     cacheElements();
     syncAddPracticeDetails();
@@ -1043,6 +1090,7 @@
       state.words = await state.storage.getAllWords();
       state.ready = true;
       renderer.renderApp();
+      updateFloatingFilterVisibility();
       setStatus("saved", "Saved locally");
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("./sw.js").catch(function () {

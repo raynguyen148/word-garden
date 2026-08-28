@@ -109,6 +109,33 @@
   }
 
   function createRenderer(elements, state) {
+    function syncFloatingFilters() {
+      const pairs = [
+        [elements.contentTypeFilter, elements.floatingContentTypeFilter],
+        [elements.partFilter, elements.floatingPartFilter],
+        [elements.packFilter, elements.floatingPackFilter],
+        [elements.pageSizeSelect, elements.floatingPageSizeSelect],
+      ];
+      elements.searchInput.value = state.query;
+      elements.floatingSearchInput.value = state.query;
+      elements.contentTypeFilter.value = state.contentType;
+      elements.partFilter.value = state.partOfSpeech;
+      elements.packFilter.value = state.lesson;
+      elements.pageSizeSelect.value = String(state.pageSize);
+      pairs.forEach(function (pair) {
+        const source = pair[0];
+        const target = pair[1];
+        if (!source || !target) return;
+        if (source.tagName === "SELECT") target.innerHTML = source.innerHTML;
+        target.value = source.value;
+        target.disabled = source.disabled;
+        target.title = source.title;
+      });
+      const hasQuery = Boolean(state.query);
+      elements.clearSearchButton.hidden = !hasQuery;
+      elements.floatingClearSearchButton.hidden = !hasQuery;
+    }
+
     function currentView() {
       const filtered = logic.filterAndSortWords(state.words, state.query, state.partOfSpeech, state.sortOrder, state.lesson, state.contentType);
       const paginated = logic.paginateWords(filtered, state.page, state.pageSize);
@@ -293,6 +320,7 @@
       }
       renderSortButton();
       renderPracticePacks(practicePacks);
+      syncFloatingFilters();
       renderRows(view.paginated.items);
       renderPagination(view.paginated, view.filtered.length);
       renderEmptyState(view.filtered.length);

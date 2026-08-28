@@ -816,6 +816,57 @@ body {
   background: linear-gradient(180deg, color-mix(in srgb, var(--surface-soft) 88%, transparent), var(--surface));
 }
 
+.floating-filter-bar {
+  position: fixed;
+  z-index: 80;
+  top: 14px;
+  left: 50%;
+  width: min(1432px, calc(100% - 2 * clamp(20px, 4vw, 64px)));
+  transform: translate(-50%, -14px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: transform .22s cubic-bezier(.2, .8, .2, 1), opacity .18s ease, visibility .18s step-end;
+}
+
+.floating-filter-bar.is-visible {
+  transform: translate(-50%, 0);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: transform .22s cubic-bezier(.2, .8, .2, 1), opacity .18s ease, visibility 0s;
+}
+
+.floating-filter-content {
+  display: grid;
+  grid-template-columns: minmax(260px, 1.15fr) minmax(0, 2fr);
+  align-items: end;
+  gap: 12px;
+  border: 1px solid color-mix(in srgb, var(--border-strong) 80%, var(--border));
+  border-radius: 16px;
+  padding: 10px 12px;
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  box-shadow: 0 16px 38px rgba(63, 43, 31, .14), var(--shadow-sm);
+  backdrop-filter: blur(16px);
+}
+
+.floating-filter-content .search-box { min-width: 0; }
+.floating-filter-content .search-box input,
+.floating-filter-content .compact-field select { height: 44px; }
+.floating-filter-details .toolbar-filters { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.floating-filter-details .compact-field { min-width: 0; }
+
+@media (max-width: 1080px) {
+  .floating-filter-content { grid-template-columns: minmax(220px, 1fr) minmax(0, 1.6fr); }
+  .floating-filter-details .toolbar-filters { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 980px) {
+  .floating-filter-bar { top: 8px; width: calc(100% - 24px); }
+  .floating-filter-content { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; border-radius: 14px; padding: 8px; }
+  .floating-filter-details .toolbar-filters { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+}
+
 .search-box input {
   height: 44px;
   border-color: var(--border-strong);
@@ -1003,4 +1054,78 @@ tr:focus-within .row-actions {
   .row-actions { opacity: 1; }
   .review-content { width: min(100% - 24px, 840px); padding-top: 20px; }
   .review-card { min-height: 480px; border-radius: 24px; }
+}
+
+/* Keep Dictionary filters compact on small screens without removing controls. */
+.compact-filters-toggle { display: none; }
+
+@media (max-width: 980px) {
+  .toolbar,
+  .floating-filter-content {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+  }
+
+  .toolbar .search-box,
+  .floating-filter-content .search-box { grid-column: 1; }
+
+  .compact-filters-toggle {
+    display: inline-flex;
+    min-height: 40px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border-strong);
+    border-radius: 10px;
+    padding: 7px 11px;
+    background: var(--input-background);
+    color: var(--foreground);
+    font-size: 12px;
+    font-weight: 750;
+    letter-spacing: .02em;
+  }
+
+  .compact-filters-toggle[aria-expanded="true"] {
+    border-color: var(--primary);
+    background: var(--primary-soft);
+    color: var(--primary);
+  }
+
+  .toolbar .toolbar-filters,
+  .floating-filter-details {
+    display: block;
+    grid-column: 1 / -1;
+    max-height: 0;
+    gap: 0 8px;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transition: max-height .2s ease, opacity .16s ease, visibility 0s linear .2s;
+  }
+
+  .toolbar.is-filters-open .toolbar-filters,
+  .floating-filter-bar.is-filters-open .floating-filter-details {
+    max-height: 180px;
+    gap: 8px;
+    padding-top: 8px;
+    opacity: 1;
+    visibility: visible;
+    transition: max-height .22s ease, opacity .18s ease, visibility 0s;
+  }
+
+  .toolbar .toolbar-filters,
+  .floating-filter-details .toolbar-filters { display: grid; grid-template-columns: 1fr 1fr; }
+
+  .toolbar .toolbar-filters .compact-field,
+  .floating-filter-details .compact-field { min-width: 0; }
+
+  /* Keep all four controls in the intended two-column mobile grid. A
+     legacy narrow-screen rule made Rows span the entire panel and could push
+     it underneath the table when the compact panel opened. */
+  .toolbar .toolbar-filters .page-size-field,
+  .floating-filter-details .page-size-field { grid-column: auto; }
+
+  .toolbar.is-filters-open .toolbar-filters,
+  .floating-filter-bar.is-filters-open .floating-filter-details { max-height: 220px; }
+
 }

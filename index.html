@@ -23,7 +23,7 @@
         }
       })();
     </script>
-    <link rel="stylesheet" href="./styles.css?v=33" />
+    <link rel="stylesheet" href="./styles.css?v=40" />
   </head>
   <body>
     <svg class="icon-sprite" aria-hidden="true">
@@ -249,7 +249,7 @@
         </section>
 
         <section class="workspace" aria-label="Vocabulary list">
-          <div class="toolbar">
+          <div id="dictionaryToolbar" class="toolbar">
             <label class="search-box" for="searchInput">
               <svg><use href="#icon-search"></use></svg>
               <input id="searchInput" type="search" placeholder="Search vocabulary or meaning…" autocomplete="off" aria-describedby="searchShortcutDescription" aria-keyshortcuts="Meta+F Control+F" />
@@ -259,7 +259,8 @@
               <span class="search-shortcut" aria-hidden="true"><kbd data-shortcut-mac="⌘F" data-shortcut-windows="Ctrl F">⌘F</kbd></span>
               <span id="searchShortcutDescription" class="sr-only">Press Command F to focus search.</span>
             </label>
-            <div class="toolbar-filters">
+            <button id="toolbarFiltersToggle" class="compact-filters-toggle" type="button" aria-expanded="false" aria-controls="toolbarFilterDetails">Filters</button>
+            <div id="toolbarFilterDetails" class="toolbar-filters">
               <label class="compact-field"><span>Content type</span>
                 <select id="contentTypeFilter">
                   <option value="all">All content</option><option value="vocabulary">Vocabulary</option><option value="practice">Practice cards</option>
@@ -342,6 +343,44 @@
         </section>
         <p class="privacy-note"><svg><use href="#icon-database"></use></svg>Your data is saved privately in this browser — no account or cloud needed. Export a backup regularly so your learning is never lost.</p>
       </div>
+
+      <aside id="floatingFilterBar" class="floating-filter-bar" aria-label="Vocabulary filters" aria-hidden="true">
+        <div class="floating-filter-content">
+          <label class="search-box" for="floatingSearchInput">
+            <svg><use href="#icon-search"></use></svg>
+            <input id="floatingSearchInput" type="search" placeholder="Search vocabulary or meaning…" autocomplete="off" aria-label="Search vocabulary or meaning" aria-describedby="searchShortcutDescription" aria-keyshortcuts="Meta+F Control+F" />
+            <button id="floatingClearSearchButton" class="clear-search" type="button" aria-label="Clear search" title="Clear search" hidden>
+              <svg><use href="#icon-x"></use></svg>
+            </button>
+            <span class="search-shortcut" aria-hidden="true"><kbd data-shortcut-mac="⌘F" data-shortcut-windows="Ctrl F">⌘F</kbd></span>
+          </label>
+          <button id="floatingFiltersToggle" class="compact-filters-toggle" type="button" aria-expanded="false" aria-controls="floatingFilterDetails">Filters</button>
+          <div id="floatingFilterDetails" class="floating-filter-details">
+            <div class="toolbar-filters">
+              <label class="compact-field"><span>Content type</span>
+                <select id="floatingContentTypeFilter">
+                  <option value="all">All content</option><option value="vocabulary">Vocabulary</option><option value="practice">Practice cards</option>
+                </select>
+              </label>
+              <label class="compact-field"><span>Part of speech</span>
+                <select id="floatingPartFilter">
+                  <option value="all">All parts of speech</option><option value="noun">Noun</option>
+                  <option value="verb">Verb</option><option value="adjective">Adjective</option>
+                  <option value="adverb">Adverb</option><option value="pronoun">Pronoun</option>
+                  <option value="preposition">Preposition</option><option value="conjunction">Conjunction</option>
+                  <option value="interjection">Interjection</option><option value="phrase">Phrase</option><option value="other">Other</option>
+                </select>
+              </label>
+              <label class="compact-field"><span>Practice pack</span><select id="floatingPackFilter" disabled><option value="">All packs</option></select></label>
+              <label class="compact-field page-size-field"><span>Rows</span>
+                <select id="floatingPageSizeSelect">
+                  <option value="10">10 per page</option><option value="25" selected>25 per page</option>
+                  <option value="50">50 per page</option><option value="100">100 per page</option>
+                </select>
+              </label>
+            </div>
+          </div>
+        </aside>
     </main>
 
     <main id="practicePacksView" class="app-shell practice-packs-page" hidden>
@@ -511,6 +550,6 @@
     <script src="./view.js"></script>
     <script src="./backup.js"></script>
     <script src="./review.js?v=24"></script>
-    <script src="./app.js?v=25"></script>
+    <script src="./app.js?v=28"></script>
   </body>
 </html>
