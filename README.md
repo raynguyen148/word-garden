@@ -7,14 +7,17 @@ It is a deliberately small browser app built with plain HTML, CSS, and JavaScrip
 ## Highlights
 
 - Add English vocabulary with a Vietnamese meaning, one or more parts of speech, pronunciation, and an example sentence.
+- Add phrase cards with optional practice details, including a situation prompt, card type, tags, and a practice pack.
 - Edit vocabulary directly in the table.
-- Search by vocabulary or meaning.
-- Filter by part of speech and sort vocabulary from A–Z or Z–A.
+- Search by vocabulary or meaning, then filter by content type, part of speech, or practice pack.
+- Keep the filter controls available while scrolling with the animated fixed filter bar; on mobile, the filters collapse into a compact two-column panel.
+- Use `Cmd/Ctrl + F` to focus the search box currently visible on screen.
 - Choose 10, 25, 50, or 100 rows per page.
 - Select and delete multiple words with confirmation.
 - Copy a word or hear its pronunciation through the browser Speech Synthesis API.
 - Review due words with a lightweight spaced-repetition system (SRS).
 - Practice in English → Vietnamese or Vietnamese → English mode.
+- Create focused practice packs from pasted English → Vietnamese notes, preview and edit their cards, then choose **Review all** or **Speak** from the pack overview.
 - Export a JSON backup and import it later, including review progress.
 - Switch between light and dark themes.
 - Install as a standalone PWA when served from a compatible origin.
@@ -22,11 +25,23 @@ It is a deliberately small browser app built with plain HTML, CSS, and JavaScrip
 
 ## Screenshots
 
-The screenshots below use the reusable [32-word sample backup](docs/sample-data.json), with Vietnamese meanings and a mix of noun, verb, adjective, adverb, conjunction, preposition, and multi-part-of-speech entries.
+The screenshots below were captured from the current app using a local demo dataset: 19 vocabulary entries with several parts of speech, plus a four-card **Remote delivery** practice pack. The reusable [sample backup](docs/sample-data.json) remains available as a vocabulary-only seed dataset.
 
-### Dictionary with sample data
+### Homepage
 
-![Word Garden dictionary with sample vocabulary](docs/screenshots/dictionary.png)
+![Word Garden homepage with search, filters, vocabulary, and practice cards](docs/screenshots/homepage.png)
+
+### Vocabulary list with fixed filters
+
+The search and filter bar stays available after the original toolbar scrolls out of view. The same controls are available in the compact mobile layout.
+
+![Word Garden vocabulary list with the fixed filter bar](docs/screenshots/vocabulary-list.png)
+
+### Practice packs
+
+Practice packs group phrase and speaking-pattern cards around a focused topic. Each pack shows its card count, daily speaking progress, and actions for recognition review or speaking practice.
+
+![Word Garden practice-pack overview](docs/screenshots/practice-packs.png)
 
 ### Review mode · English → Vietnamese
 
@@ -64,11 +79,18 @@ For development, a static server is the recommended workflow because it also all
 2. Enter the required **Vocabulary** and **Meaning** fields.
 3. Select at least one part of speech.
 4. Optionally add pronunciation and an example sentence.
-5. Select **Add to dictionary**.
+5. If you select **Phrase**, optionally add the card type, practice pack, tags, and a situation prompt.
+6. Select **Add to dictionary**.
 
 Vocabulary is normalized for duplicate detection. Leading and trailing whitespace, Unicode normalization, letter case, and repeated internal whitespace do not create separate entries. For example, `Resilient` and ` resilient ` resolve to the same word key.
 
 Use `Cmd/Ctrl + Enter` in the add form to save the current word and keep adding another word.
+
+### Search and filters
+
+The dictionary toolbar contains search, content type, part-of-speech, practice-pack, and rows-per-page controls. **Content type** can show all content, vocabulary only, or practice cards only. The practice-pack filter becomes available when practice cards are selected.
+
+On smaller screens, select **Filters** to expand the four filter controls into two rows. When you scroll past the main toolbar, Word Garden slides a matching fixed filter bar into view so search and filtering remain available without returning to the top. `Cmd/Ctrl + F` focuses whichever search box is currently visible.
 
 ### Edit and manage words
 
@@ -87,9 +109,20 @@ Available table actions include:
 
 Each word must keep a vocabulary, a meaning, and at least one part of speech. Deleting a word also deletes its associated SRS review progress.
 
+## Practice packs
+
+Select **Add lesson** to create a focused practice pack from copied notes:
+
+1. Enter a pack name and optional tags.
+2. Paste one English → Vietnamese pair per line.
+3. Select **Preview cards**, then edit or remove cards as needed.
+4. Select **Save practice pack**.
+
+Open **Practice** in the top bar to see each pack's card count and daily speaking progress. **Review all** starts a recognition session for the pack. **Speak** starts production practice: read the situation, say the phrase aloud, reveal it, and continue until the pack's daily speaking goal is complete.
+
 ## Review mode
 
-Select **Review** to start a session. The queue prioritizes due words, shuffles them, and includes up to 10 new words. If a word is graded **Again**, it is placed back at the end of the current session queue.
+Select **Vocabulary** to start a vocabulary review session. The queue prioritizes due words, shuffles them, and includes up to 10 new words. If a word is graded **Again**, it is placed back at the end of the current session queue. Practice-pack recognition and speaking sessions are started from the **Practice** overview.
 
 The review flow is:
 
@@ -227,10 +260,10 @@ logic.js → storage.js → view.js → backup.js → review.js → app.js
 | `styles.css` | Responsive layout, light/dark themes, review cards, controls, and accessibility states |
 | `logic.js` | Pure validation, normalization, filtering, pagination, escaping, import preparation, and SRS calculations |
 | `storage.js` | IndexedDB connection, persistence, compatibility mapping, and legacy migration |
-| `view.js` | Dictionary table rendering, part-of-speech controls, toasts, and pagination rendering |
+| `view.js` | Dictionary and practice-pack rendering, part-of-speech controls, toasts, and pagination rendering |
 | `backup.js` | JSON export and validated import parsing |
 | `review.js` | Review queue, answer reveal, grading flow, progress, and completion summary |
-| `app.js` | Application state, event wiring, CRUD orchestration, theme handling, shortcuts, and service-worker registration |
+| `app.js` | Application state, event wiring, CRUD orchestration, theme handling, search/filter shortcuts, and service-worker registration |
 | `sw.js` | Cache-first service-worker strategy for same-origin app assets |
 | `manifest.json` | Installable PWA metadata and icons |
 | `tests/` | Node's built-in test suite for core logic and compatibility behavior |
