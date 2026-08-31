@@ -155,6 +155,37 @@
         "<span><strong>" + stats.reviewingCount + "</strong><small>Reviewing</small></span>" +
         "<span><strong>" + stats.learningCount + "</strong><small>Learning</small></span>" +
         "<span><strong>" + stats.newCount + "</strong><small>New</small></span>";
+
+      launchConfetti();
+    }
+
+    function launchConfetti() {
+      if (typeof document === "undefined" || typeof document.createElement !== "function") return;
+      var container = elements.confettiContainer || (elements.reviewComplete && elements.reviewComplete.querySelector ? elements.reviewComplete.querySelector(".confetti-container") : null);
+      if (!container) return;
+      container.innerHTML = "";
+      var colors = ["#e0ad61", "#4aa968", "#4d88ff", "#f07b7b", "#a07652", "#9b51e0", "#ff7849"];
+      var particleCount = 45;
+      for (var i = 0; i < particleCount; i++) {
+        var piece = document.createElement("div");
+        piece.className = "confetti-piece";
+        var left = Math.random() * 96 + 2;
+        var delay = Math.random() * 0.4;
+        var duration = 1.8 + Math.random() * 1.0;
+        var color = colors[Math.floor(Math.random() * colors.length)];
+        var size = 6 + Math.random() * 6;
+        var isRound = Math.random() > 0.6;
+        piece.style.left = left + "%";
+        piece.style.backgroundColor = color;
+        piece.style.width = size + "px";
+        piece.style.height = (isRound ? size : size * 1.6) + "px";
+        piece.style.borderRadius = isRound ? "50%" : "2px";
+        piece.style.animationDelay = delay + "s";
+        piece.style.animationDuration = duration + "s";
+        if (typeof container.appendChild === "function") {
+          container.appendChild(piece);
+        }
+      }
     }
 
     function enter(options) {
@@ -241,6 +272,8 @@
       sessionScope = "all";
       sessionPackCardCount = 0;
       isGrading = false;
+      var container = elements.confettiContainer || (elements.reviewComplete && elements.reviewComplete.querySelector ? elements.reviewComplete.querySelector(".confetti-container") : null);
+      if (container) container.innerHTML = "";
       document.body.scrollTop = 0;
       document.documentElement.scrollTop = 0;
     }

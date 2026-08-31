@@ -134,7 +134,7 @@
       "confirmTitle", "confirmMessage", "confirmCancelButton", "confirmDeleteButton", "toastRegion",
       "reviewDueBadge", "practicePackBadge", "gradeButtons", "gradeAgainInterval", "gradeHardInterval", "gradeGoodInterval", "gradeEasyInterval",
       "reviewProgress", "reviewProgressFill", "reviewProgressLabel",
-      "reviewComplete", "reviewCompleteTitle", "reviewSummaryText", "reviewSummaryStats", "reviewCompleteBack",
+      "reviewComplete", "confettiContainer", "reviewCompleteTitle", "reviewSummaryText", "reviewSummaryStats", "reviewCompleteBack",
       "reviewToolbar", "reviewModeSwitch", "reviewSessionHint", "shortcutGuide", "reviewContent", "reviewPackContext", "reviewPackName", "reviewCompletePackContext", "reviewCompletePackName", "reviewCompleteActions", "reviewCompleteNextAction",
       "practiceDialog", "practiceForm", "practiceDialogTitle", "practiceCardType", "practiceLesson", "practiceTags", "practiceSituation", "practiceCancelButton", "practicePreviewMode", "practicePreviewPrompt", "practicePreviewAnswer", "addPracticeDetails",
     ];
