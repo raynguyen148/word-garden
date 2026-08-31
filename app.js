@@ -351,6 +351,12 @@
       return;
     }
 
+    const previousParts = logic.normalizePartsOfSpeech(previous.partsOfSpeech || previous.partOfSpeech);
+    const isUnchanged = field === "partsOfSpeech"
+      ? previousParts.length === value.length && previousParts.every(function (part, i) { return part === value[i]; })
+      : previous[field] === value;
+    if (isUnchanged) return;
+
     const changes = { updatedAt: new Date().toISOString() };
     changes[field] = value;
     if (field === "partsOfSpeech") changes.partOfSpeech = value[0];
@@ -370,6 +376,19 @@
       await state.storage.updateWord(id, changes);
       renderer.renderApp();
       setStatus("saved", "Saved locally");
+
+      const targetSelector = field === "partsOfSpeech"
+        ? '.inline-part-picker[data-id="' + id + '"] .part-picker-trigger'
+        : '[data-id="' + id + '"][data-field="' + field + '"]';
+      const updatedControl = elements.wordsTableBody ? elements.wordsTableBody.querySelector(targetSelector) : null;
+      if (updatedControl) {
+        updatedControl.classList.remove("save-pulse");
+        void updatedControl.offsetWidth;
+        updatedControl.classList.add("save-pulse");
+        window.setTimeout(function () {
+          if (updatedControl) updatedControl.classList.remove("save-pulse");
+        }, 650);
+      }
     } catch (error) {
       const currentIndex = state.words.findIndex(function (word) { return word.id === id; });
       if (currentIndex >= 0) state.words[currentIndex] = previous;
