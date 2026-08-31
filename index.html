@@ -23,7 +23,7 @@
         }
       })();
     </script>
-    <link rel="stylesheet" href="./styles.css?v=40" />
+    <link rel="stylesheet" href="./styles.css?v=41" />
   </head>
   <body>
     <svg class="icon-sprite" aria-hidden="true">
@@ -394,10 +394,20 @@
         </div>
       </header>
       <div class="content-wrap">
-        <section class="practice-packs-intro" aria-labelledby="practicePacksHeading">
-          <p class="eyebrow">Work English</p>
-          <h1 id="practicePacksHeading">Practice review</h1>
-          <p>Choose a pack. Review helps you recall it; Speak helps you use it aloud in context.</p>
+        <section class="practice-packs-intro page-intro" aria-labelledby="practicePacksHeading">
+          <div>
+            <p class="eyebrow">Work English</p>
+            <h1 id="practicePacksHeading">Practice review</h1>
+            <p class="intro-copy">Choose a pack. Review helps you recall it; Speak helps you use it aloud in context.</p>
+          </div>
+          <div id="practicePacksIntroActions" class="intro-actions">
+            <div class="word-count"><strong id="practicePacksCount">0</strong><span id="practicePacksCountLabel">packs</span></div>
+            <div class="creation-actions" role="group" aria-label="Create practice pack">
+              <button id="practicePacksAddLessonButton" class="button button-primary" type="button" title="Add lesson (l)">
+                <svg><use href="#icon-plus"></use></svg><span>Add lesson</span>
+              </button>
+            </div>
+          </div>
         </section>
         <section id="practicePacks" class="practice-packs" aria-label="Your practice packs">
           <div id="practicePackList" class="practice-pack-list"></div>

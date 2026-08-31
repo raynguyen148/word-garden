@@ -207,16 +207,36 @@
           pack.phraseCount ? pack.phraseCount + " phrase" + (pack.phraseCount === 1 ? "" : "s") : "",
           pack.patternCount ? pack.patternCount + " pattern" + (pack.patternCount === 1 ? "" : "s") : "",
         ].filter(Boolean).join(" · ");
-        const todayStatus = pack.completedToday
-          ? '<small class="practice-pack-complete">' + icon("check") + "Completed today · " + pack.spokenTodayCount + "/" + pack.total + " spoken</small>"
-          : '<small>' + pack.spokenTodayCount + "/" + pack.total + " spoken today · " + pack.spokenTodayRemaining + " left</small>";
-        return '<article class="practice-pack-card">' +
-          '<div><p class="eyebrow">Practice pack</p><h3>' + title + '</h3>' +
-          '<p>' + pack.total + " " + cardWord + (detail ? " · " + detail : "") + '</p>' +
-          todayStatus + '</div>' +
+        const pct = pack.total > 0 ? Math.min(100, Math.round((pack.spokenTodayCount / pack.total) * 100)) : 0;
+        const progressHtml = '<div class="practice-pack-progress">' +
+          '<div class="practice-pack-progress-track" aria-hidden="true">' +
+            '<div class="practice-pack-progress-bar" style="width: ' + pct + '%"></div>' +
+          '</div>' +
+          '<div class="practice-pack-status-line' + (pack.completedToday ? " is-completed" : "") + '">' +
+            (pack.completedToday
+              ? "<span>" + icon("check") + " Completed today · " + pack.spokenTodayCount + "/" + pack.total + "</span>"
+              : "<span>" + pack.spokenTodayCount + "/" + pack.total + " spoken today</span><span class=\"practice-pack-remaining\">" + pack.spokenTodayRemaining + " left</span>"
+            ) +
+          '</div>' +
+        '</div>';
+
+        return '<article class="practice-pack-card' + (pack.completedToday ? " is-completed" : "") + '">' +
+          '<div>' +
+            '<div class="practice-pack-header">' +
+              '<span class="eyebrow">Practice pack</span>' +
+              '<span class="practice-pack-count-pill">' + pack.total + " " + cardWord + '</span>' +
+            '</div>' +
+            '<h3 title="' + title + '">' + title + '</h3>' +
+            (detail ? '<p class="practice-pack-detail-text">' + detail + '</p>' : "") +
+            progressHtml +
+          '</div>' +
           '<div class="practice-pack-actions">' +
-            '<button class="button button-ghost button-small" type="button" data-action="review-pack" data-pack="' + title + '" title="Review all ' + pack.total + ' cards in this pack" aria-label="Review all ' + pack.total + ' cards in ' + title + '">Review all · ' + pack.total + '</button>' +
-            '<button class="button button-primary button-small" type="button" data-action="speak-pack" data-pack="' + title + '"' + (pack.completedToday ? " disabled" : "") + '>' + (pack.completedToday ? "Completed today" : "Speak · " + pack.spokenTodayRemaining + " left") + '</button>' +
+            '<button class="button button-ghost button-small" type="button" data-action="review-pack" data-pack="' + title + '" title="Review all ' + pack.total + ' cards in this pack" aria-label="Review all ' + pack.total + ' cards in ' + title + '">' +
+              '<svg aria-hidden="true"><use href="#icon-cards"></use></svg><span>Review · ' + pack.total + '</span>' +
+            '</button>' +
+            '<button class="button button-primary button-small" type="button" data-action="speak-pack" data-pack="' + title + '"' + (pack.completedToday ? " disabled" : "") + ' title="' + (pack.completedToday ? "Completed speaking practice today" : "Speak " + pack.spokenTodayRemaining + " cards") + '">' +
+              '<svg aria-hidden="true"><use href="#icon-volume"></use></svg><span>' + (pack.completedToday ? "Completed" : "Speak · " + pack.spokenTodayRemaining) + '</span>' +
+            '</button>' +
           '</div>' +
         '</article>';
       }).join("");
@@ -305,6 +325,12 @@
       if (elements.practicePackBadge) {
         elements.practicePackBadge.textContent = String(practicePacks.length);
         elements.practicePackBadge.hidden = practicePacks.length === 0;
+      }
+      if (elements.practicePacksCount) {
+        elements.practicePacksCount.textContent = String(practicePacks.length);
+      }
+      if (elements.practicePacksCountLabel) {
+        elements.practicePacksCountLabel.textContent = practicePacks.length === 1 ? "pack" : "packs";
       }
       // SRS badge: show due word count on Review button.
       if (logic.getSrsStats && elements.reviewDueBadge) {

@@ -123,7 +123,7 @@
       "themeToggle", "themeToggleLabel", "themeToggleIcon", "openLessonFromHeroButton",
       "totalCount", "toggleAddButton", "addPanel", "closeAddButton", "cancelAddButton", "addForm", "newVocabulary",
       "lessonPanel", "closeLessonButton", "cancelLessonButton", "lessonForm", "lessonTitle", "lessonText", "previewLessonButton", "lessonPreview", "lessonPreviewSummary", "lessonSaveActions", "saveLessonButton",
-      "practicePacks", "practicePackList", "practicePacksEmpty", "packFilter",
+      "practicePacks", "practicePackList", "practicePacksEmpty", "packFilter", "practicePacksCount", "practicePacksCountLabel", "practicePacksAddLessonButton", "practicePacksIntroActions",
       "dictionaryToolbar", "toolbarFiltersToggle", "toolbarFilterDetails", "floatingFilterBar", "floatingFiltersToggle", "floatingFilterDetails", "floatingSearchInput", "floatingClearSearchButton", "floatingContentTypeFilter", "floatingPartFilter", "floatingPackFilter", "floatingPageSizeSelect",
       "searchInput", "searchShortcutDescription", "clearSearchButton", "contentTypeFilter", "partFilter", "vocabularySortButton", "pageSizeSelect", "bulkBar", "selectedCount",
       "clearSelectionButton", "deleteSelectedButton", "tableWrap", "wordsTableBody", "selectAllCheckbox", "emptyState",
@@ -902,6 +902,12 @@
       closePracticePacks();
       openLessonPanel();
     });
+    if (elements.practicePacksAddLessonButton) {
+      elements.practicePacksAddLessonButton.addEventListener("click", function () {
+        closePracticePacks();
+        openLessonPanel();
+      });
+    }
     elements.closeLessonButton.addEventListener("click", function () { closeLessonPanel(false); });
     elements.cancelLessonButton.addEventListener("click", function () { closeLessonPanel(true); });
     elements.previewLessonButton.addEventListener("click", previewLesson);
