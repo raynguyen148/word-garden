@@ -23,7 +23,7 @@
         }
       })();
     </script>
-    <link rel="stylesheet" href="./styles.css?v=44" />
+    <link rel="stylesheet" href="./styles.css?v=47" />
   </head>
   <body>
     <svg class="icon-sprite" aria-hidden="true">
@@ -250,16 +250,28 @@
 
         <section class="workspace" aria-label="Vocabulary list">
           <div id="dictionaryToolbar" class="toolbar">
-            <label class="search-box" for="searchInput">
-              <svg><use href="#icon-search"></use></svg>
-              <input id="searchInput" type="search" placeholder="Search vocabulary or meaning…" autocomplete="off" aria-describedby="searchShortcutDescription" aria-keyshortcuts="Meta+F Control+F" />
-              <button id="clearSearchButton" class="clear-search" type="button" aria-label="Clear search" title="Clear search" hidden>
-                <svg><use href="#icon-x"></use></svg>
-              </button>
-              <span class="search-shortcut" aria-hidden="true"><kbd data-shortcut-mac="⌘F" data-shortcut-windows="Ctrl F">⌘F</kbd></span>
-              <span id="searchShortcutDescription" class="sr-only">Press Command F to focus search.</span>
-            </label>
-            <button id="toolbarFiltersToggle" class="compact-filters-toggle" type="button" aria-expanded="false" aria-controls="toolbarFilterDetails">Filters</button>
+            <div class="search-field">
+              <div class="search-field-header">
+                <button id="clearAllFiltersButton" class="clear-filters-text-btn" type="button" aria-label="Clear all active filters" title="Clear all active filters" hidden>
+                  <svg aria-hidden="true"><use href="#icon-x"></use></svg>
+                  <span>Clear filters</span>
+                  <span id="activeFiltersCountBadge" class="filter-count-badge">0</span>
+                </button>
+              </div>
+              <label class="search-box" for="searchInput">
+                <svg><use href="#icon-search"></use></svg>
+                <input id="searchInput" type="search" placeholder="Search vocabulary or meaning…" autocomplete="off" aria-describedby="searchShortcutDescription" aria-keyshortcuts="Meta+F Control+F" />
+                <button id="clearSearchButton" class="clear-search" type="button" aria-label="Clear search" title="Clear search" hidden>
+                  <svg><use href="#icon-x"></use></svg>
+                </button>
+                <span class="search-shortcut" aria-hidden="true"><kbd data-shortcut-mac="⌘F" data-shortcut-windows="Ctrl F">⌘F</kbd></span>
+                <span id="searchShortcutDescription" class="sr-only">Press Command F to focus search.</span>
+              </label>
+            </div>
+            <button id="toolbarFiltersToggle" class="compact-filters-toggle" type="button" aria-expanded="false" aria-controls="toolbarFilterDetails">
+              <span>Filters</span>
+              <span id="toolbarFiltersToggleBadge" class="filter-count-badge" hidden>0</span>
+            </button>
             <div id="toolbarFilterDetails" class="toolbar-filters">
               <label class="compact-field"><span>Content type</span>
                 <select id="contentTypeFilter">
@@ -346,15 +358,27 @@
 
       <aside id="floatingFilterBar" class="floating-filter-bar" aria-label="Vocabulary filters" aria-hidden="true">
         <div class="floating-filter-content">
-          <label class="search-box" for="floatingSearchInput">
-            <svg><use href="#icon-search"></use></svg>
-            <input id="floatingSearchInput" type="search" placeholder="Search vocabulary or meaning…" autocomplete="off" aria-label="Search vocabulary or meaning" aria-describedby="searchShortcutDescription" aria-keyshortcuts="Meta+F Control+F" />
-            <button id="floatingClearSearchButton" class="clear-search" type="button" aria-label="Clear search" title="Clear search" hidden>
-              <svg><use href="#icon-x"></use></svg>
-            </button>
-            <span class="search-shortcut" aria-hidden="true"><kbd data-shortcut-mac="⌘F" data-shortcut-windows="Ctrl F">⌘F</kbd></span>
-          </label>
-          <button id="floatingFiltersToggle" class="compact-filters-toggle" type="button" aria-expanded="false" aria-controls="floatingFilterDetails">Filters</button>
+          <div class="search-field">
+            <div class="search-field-header">
+              <button id="floatingClearAllFiltersButton" class="clear-filters-text-btn" type="button" aria-label="Clear all active filters" title="Clear all active filters" hidden>
+                <svg aria-hidden="true"><use href="#icon-x"></use></svg>
+                <span>Clear filters</span>
+                <span id="floatingActiveFiltersCountBadge" class="filter-count-badge">0</span>
+              </button>
+            </div>
+            <label class="search-box" for="floatingSearchInput">
+              <svg><use href="#icon-search"></use></svg>
+              <input id="floatingSearchInput" type="search" placeholder="Search vocabulary or meaning…" autocomplete="off" aria-label="Search vocabulary or meaning" aria-describedby="searchShortcutDescription" aria-keyshortcuts="Meta+F Control+F" />
+              <button id="floatingClearSearchButton" class="clear-search" type="button" aria-label="Clear search" title="Clear search" hidden>
+                <svg><use href="#icon-x"></use></svg>
+              </button>
+              <span class="search-shortcut" aria-hidden="true"><kbd data-shortcut-mac="⌘F" data-shortcut-windows="Ctrl F">⌘F</kbd></span>
+            </label>
+          </div>
+          <button id="floatingFiltersToggle" class="compact-filters-toggle" type="button" aria-expanded="false" aria-controls="floatingFilterDetails">
+            <span>Filters</span>
+            <span id="floatingFiltersToggleBadge" class="filter-count-badge" hidden>0</span>
+          </button>
           <div id="floatingFilterDetails" class="floating-filter-details">
             <div class="toolbar-filters">
               <label class="compact-field"><span>Content type</span>
@@ -380,7 +404,8 @@
               </label>
             </div>
           </div>
-        </aside>
+        </div>
+      </aside>
     </main>
 
     <main id="practicePacksView" class="app-shell practice-packs-page" hidden>

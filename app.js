@@ -124,7 +124,7 @@
       "totalCount", "toggleAddButton", "addPanel", "closeAddButton", "cancelAddButton", "addForm", "newVocabulary",
       "lessonPanel", "closeLessonButton", "cancelLessonButton", "lessonForm", "lessonTitle", "lessonText", "previewLessonButton", "lessonPreview", "lessonPreviewSummary", "lessonSaveActions", "saveLessonButton",
       "practicePacks", "practicePackList", "practicePacksEmpty", "packFilter", "practicePacksCount", "practicePacksCountLabel", "practicePacksAddLessonButton", "practicePacksIntroActions",
-      "dictionaryToolbar", "toolbarFiltersToggle", "toolbarFilterDetails", "floatingFilterBar", "floatingFiltersToggle", "floatingFilterDetails", "floatingSearchInput", "floatingClearSearchButton", "floatingContentTypeFilter", "floatingPartFilter", "floatingPackFilter", "floatingPageSizeSelect",
+      "dictionaryToolbar", "toolbarFiltersToggle", "toolbarFiltersToggleBadge", "toolbarFilterDetails", "clearAllFiltersButton", "activeFiltersCountBadge", "floatingFilterBar", "floatingFiltersToggle", "floatingFiltersToggleBadge", "floatingFilterDetails", "floatingSearchInput", "floatingClearSearchButton", "floatingClearAllFiltersButton", "floatingActiveFiltersCountBadge", "floatingContentTypeFilter", "floatingPartFilter", "floatingPackFilter", "floatingPageSizeSelect",
       "searchInput", "searchShortcutDescription", "clearSearchButton", "contentTypeFilter", "partFilter", "vocabularySortButton", "pageSizeSelect", "bulkBar", "selectedCount",
       "clearSelectionButton", "deleteSelectedButton", "tableWrap", "wordsTableBody", "selectAllCheckbox", "emptyState",
       "emptyTitle", "emptyMessage", "emptyAddButton", "pagination", "rangeLabel", "previousPageButton", "nextPageButton",
@@ -965,18 +965,31 @@
     elements.floatingFiltersToggle.addEventListener("click", function () {
       setCompactFiltersExpanded(elements.floatingFilterBar, elements.floatingFiltersToggle, !elements.floatingFilterBar.classList.contains("is-filters-open"));
     });
-    elements.emptyAddButton.addEventListener("click", function () {
-      if (state.emptyAction === "add") return openAddPanel();
+    function clearAllFilters() {
       state.query = "";
       state.partOfSpeech = "all";
       state.contentType = "all";
       state.lesson = "";
       state.page = 1;
       elements.searchInput.value = "";
+      if (elements.floatingSearchInput) elements.floatingSearchInput.value = "";
       elements.contentTypeFilter.value = "all";
       elements.partFilter.value = "all";
+      if (elements.packFilter) elements.packFilter.value = "";
       elements.clearSearchButton.hidden = true;
+      if (elements.floatingClearSearchButton) elements.floatingClearSearchButton.hidden = true;
       renderer.renderApp();
+    }
+
+    if (elements.clearAllFiltersButton) {
+      elements.clearAllFiltersButton.addEventListener("click", clearAllFilters);
+    }
+    if (elements.floatingClearAllFiltersButton) {
+      elements.floatingClearAllFiltersButton.addEventListener("click", clearAllFilters);
+    }
+    elements.emptyAddButton.addEventListener("click", function () {
+      if (state.emptyAction === "add") return openAddPanel();
+      clearAllFilters();
     });
     bindListEvents();
 

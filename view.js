@@ -134,6 +134,34 @@
       const hasQuery = Boolean(state.query);
       elements.clearSearchButton.hidden = !hasQuery;
       elements.floatingClearSearchButton.hidden = !hasQuery;
+
+      var activeFilterCount = 0;
+      if (state.query && state.query.trim()) activeFilterCount++;
+      if (state.contentType && state.contentType !== "all") activeFilterCount++;
+      if (state.partOfSpeech && state.partOfSpeech !== "all") activeFilterCount++;
+      if (state.lesson) activeFilterCount++;
+
+      var hasActiveFilters = activeFilterCount > 0;
+      if (elements.clearAllFiltersButton) {
+        elements.clearAllFiltersButton.hidden = !hasActiveFilters;
+        if (elements.activeFiltersCountBadge) {
+          elements.activeFiltersCountBadge.textContent = String(activeFilterCount);
+        }
+      }
+      if (elements.floatingClearAllFiltersButton) {
+        elements.floatingClearAllFiltersButton.hidden = !hasActiveFilters;
+        if (elements.floatingActiveFiltersCountBadge) {
+          elements.floatingActiveFiltersCountBadge.textContent = String(activeFilterCount);
+        }
+      }
+      if (elements.toolbarFiltersToggleBadge) {
+        elements.toolbarFiltersToggleBadge.textContent = String(activeFilterCount);
+        elements.toolbarFiltersToggleBadge.hidden = !hasActiveFilters;
+      }
+      if (elements.floatingFiltersToggleBadge) {
+        elements.floatingFiltersToggleBadge.textContent = String(activeFilterCount);
+        elements.floatingFiltersToggleBadge.hidden = !hasActiveFilters;
+      }
     }
 
     function currentView() {
