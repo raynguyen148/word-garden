@@ -313,18 +313,19 @@
       elements.totalCount.textContent = String(state.words.length);
       const vocabularyWords = state.words.filter(function (word) { return !word.lesson; });
       const practicePacks = logic.getPracticePacks(state.words);
+      const duePacksCount = practicePacks.filter(function (pack) { return !pack.completedToday; }).length;
       renderContentFilters(practicePacks);
       const view = currentView();
       elements.reviewButton.disabled = vocabularyWords.length === 0;
       if (elements.practicePacksButton) {
         elements.practicePacksButton.disabled = practicePacks.length === 0;
-        elements.practicePacksButton.title = practicePacks.length
-          ? "Review " + practicePacks.length + " practice pack" + (practicePacks.length === 1 ? "" : "s")
-          : "Create a practice pack before starting a practice review";
+        elements.practicePacksButton.title = duePacksCount > 0
+          ? duePacksCount + " practice pack" + (duePacksCount === 1 ? "" : "s") + " left to practise today"
+          : (practicePacks.length ? "All practice packs completed today" : "Create a practice pack before starting a practice review");
       }
       if (elements.practicePackBadge) {
-        elements.practicePackBadge.textContent = String(practicePacks.length);
-        elements.practicePackBadge.hidden = practicePacks.length === 0;
+        elements.practicePackBadge.textContent = String(duePacksCount);
+        elements.practicePackBadge.hidden = duePacksCount === 0;
       }
       if (elements.practicePacksCount) {
         elements.practicePacksCount.textContent = String(practicePacks.length);
