@@ -398,7 +398,7 @@
     }
   }
 
-  async function copyText(text) {
+  async function copyText(text, button) {
     try {
       if (navigator.clipboard && window.isSecureContext) {
         await navigator.clipboard.writeText(text);
@@ -411,6 +411,9 @@
         const copied = document.execCommand("copy");
         textArea.remove();
         if (!copied) throw new Error("Copy failed.");
+      }
+      if (button && viewModule && typeof viewModule.showCopyFeedback === "function") {
+        viewModule.showCopyFeedback(button);
       }
       showToast("Copied", text + " was copied to your clipboard.", "success");
     } catch (error) {
@@ -477,7 +480,7 @@
     const word = findWord(button.dataset.id);
     if (!word) return;
     if (button.dataset.action === "practice") openPracticeDialog(word.id);
-    if (button.dataset.action === "copy") copyText(word.vocabulary);
+    if (button.dataset.action === "copy") copyText(word.vocabulary, button);
     if (button.dataset.action === "speak") speakWord(word.vocabulary, button);
     if (button.dataset.action === "delete") openDeleteDialog([word.id]);
   }

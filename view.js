@@ -26,6 +26,74 @@
     }, 3400);
   }
 
+  function showCopyFeedback(button, duration) {
+    if (!button) return;
+    const timeoutDuration = typeof duration === "number" ? duration : 2000;
+    if (button._copyTimeout) {
+      root.clearTimeout(button._copyTimeout);
+      button._copyTimeout = null;
+    }
+
+    const use = button.querySelector ? button.querySelector("use") : null;
+    if (use && typeof use.setAttribute === "function") {
+      use.setAttribute("href", "#icon-check");
+      if (typeof use.hasAttribute === "function" && use.hasAttribute("xlink:href")) {
+        use.setAttribute("xlink:href", "#icon-check");
+      }
+    } else {
+      button.innerHTML = icon("check");
+    }
+
+    if (button.classList && typeof button.classList.add === "function") {
+      button.classList.add("copied");
+    }
+
+    const hasOriginalTitle = typeof button.hasAttribute === "function" && button.hasAttribute("data-original-title");
+    if (!hasOriginalTitle && typeof button.getAttribute === "function") {
+      const currentTitle = button.getAttribute("title");
+      if (currentTitle) button.setAttribute("data-original-title", currentTitle);
+    }
+
+    const hasOriginalAriaLabel = typeof button.hasAttribute === "function" && button.hasAttribute("data-original-aria-label");
+    if (!hasOriginalAriaLabel && typeof button.getAttribute === "function") {
+      const currentAriaLabel = button.getAttribute("aria-label");
+      if (currentAriaLabel) button.setAttribute("data-original-aria-label", currentAriaLabel);
+    }
+
+    if (typeof button.setAttribute === "function") {
+      button.setAttribute("title", "Copied!");
+      button.setAttribute("aria-label", "Copied");
+    }
+
+    button._copyTimeout = root.setTimeout(function () {
+      if (button.isConnected !== false) {
+        const resetUse = button.querySelector ? button.querySelector("use") : null;
+        if (resetUse && typeof resetUse.setAttribute === "function") {
+          resetUse.setAttribute("href", "#icon-copy");
+          if (typeof resetUse.hasAttribute === "function" && resetUse.hasAttribute("xlink:href")) {
+            resetUse.setAttribute("xlink:href", "#icon-copy");
+          }
+        } else {
+          button.innerHTML = icon("copy");
+        }
+
+        if (button.classList && typeof button.classList.remove === "function") {
+          button.classList.remove("copied");
+        }
+
+        if (typeof button.hasAttribute === "function" && button.hasAttribute("data-original-title")) {
+          button.setAttribute("title", button.getAttribute("data-original-title"));
+          button.removeAttribute("data-original-title");
+        }
+        if (typeof button.hasAttribute === "function" && button.hasAttribute("data-original-aria-label")) {
+          button.setAttribute("aria-label", button.getAttribute("data-original-aria-label"));
+          button.removeAttribute("data-original-aria-label");
+        }
+      }
+      button._copyTimeout = null;
+    }, timeoutDuration);
+  }
+
   const PART_ABBREVIATIONS = {
     noun: "n",
     verb: "v",
@@ -389,6 +457,7 @@
     icon: icon,
     setStorageStatus: setStorageStatus,
     showToast: showToast,
+    showCopyFeedback: showCopyFeedback,
     createRenderer: createRenderer,
     syncPartPicker: syncPartPicker,
   };
