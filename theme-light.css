@@ -1,0 +1,136 @@
+/* Word Garden — Light Theme (Hallmark Warm Craftsman / Editorial Lexicon) */
+
+:root,
+:root[data-theme="light"] {
+  color-scheme: light;
+  --background: #f6f3ed;
+  --surface: #ffffff;
+  --surface-soft: #faf8f5;
+  --foreground: #1c1713;
+  --muted: #6e645a;
+  --muted-2: #968c82;
+  --border: #e4dbcf;
+  --border-strong: #d1c6b8;
+  --primary: #724e36;
+  --primary-hover: #5c3e2b;
+  --primary-soft: #f4ede6;
+  --primary-foreground: #ffffff;
+  --danger: #b33939;
+  --danger-soft: #fcf0f0;
+  --warning: #946014;
+  --heading: #1c1713;
+  --intro: #544a42;
+  --topbar-border: #e4dbcf;
+  --topbar-background: rgba(255, 255, 255, .96);
+  --panel-border: #e2d8cd;
+  --panel-background: #ffffff;
+  --input-background: #ffffff;
+  --input-placeholder: #9e948a;
+  --picker-hover-border: #c8bcaf;
+  --picker-hover-background: #ffffff;
+  --tag-border: #d8cdbf;
+  --picker-menu-border: #d8cdbf;
+  --key-background: #f7f4ee;
+  --focus-background: #ffffff;
+  --bulk-border: #dfd3c5;
+  --bulk-strong: #724e36;
+  --table-heading: #faf8f5;
+  --table-divider: #ede6dc;
+  --table-row-hover: #fcfbfa;
+  --table-row-selected: #f7f1e8;
+  --tooltip-border: #d4c9bc;
+  --tooltip-background: #ffffff;
+  --review-background: #f6f3ed;
+  --review-header-border: #e4dbcf;
+  --review-glass: rgba(255, 255, 255, .92);
+  --review-card-border: #ded5c9;
+  --review-card-background: #ffffff;
+  --speak-border: #ded5c9;
+  --speak-hover: #ede5dc;
+  --answer-border: #e2d7cb;
+  --answer-background: #f7f3ed;
+  --answer-heading: #1c1713;
+  --answer-example: #564c44;
+  --toast-background: #ffffff;
+  --shadow-sm: 0 1px 2px rgba(28, 23, 19, 0.04), 0 3px 10px rgba(28, 23, 19, 0.03);
+  --shadow-md: 0 12px 36px rgba(28, 23, 19, 0.07), 0 2px 6px rgba(28, 23, 19, 0.03);
+}
+
+/* Light theme SRS Grade Buttons */
+:root:not([data-theme="dark"]) .grade-again { --grade-bg: #fcf4f3; --grade-bg-hover: #f8e8e6; --grade-border: #ebd3d1; --grade-text: #a8383e; --grade-muted: #8e585b; --grade-accent: #c94c53; }
+:root:not([data-theme="dark"]) .grade-hard { --grade-bg: #fcf7f0; --grade-bg-hover: #f7ece0; --grade-border: #ebd9c3; --grade-text: #965a1c; --grade-muted: #85694d; --grade-accent: #bd792f; }
+:root:not([data-theme="dark"]) .grade-good { --grade-bg: #f3f8f5; --grade-bg-hover: #e6f1ea; --grade-border: #c8ded0; --grade-text: #266442; --grade-muted: #537962; --grade-accent: #37865c; }
+:root:not([data-theme="dark"]) .grade-easy { --grade-bg: #f3f6fa; --grade-bg-hover: #e5edf5; --grade-border: #cad9e7; --grade-text: #2b5b8c; --grade-muted: #587492; --grade-accent: #3e7bb5; }
+
+/* Light Theme Component & Surface Overrides */
+:root:not([data-theme="dark"]) body {
+  background-color: var(--background);
+  background-image:
+    radial-gradient(ellipse 70% 45% at 20% -10%, color-mix(in srgb, var(--primary-soft) 45%, transparent), transparent 80%),
+    radial-gradient(ellipse 60% 40% at 90% 15%, color-mix(in srgb, var(--surface) 60%, transparent), transparent 70%);
+}
+
+:root:not([data-theme="dark"]) .topbar,
+:root:not([data-theme="dark"]) .review-header {
+  background: rgba(255, 255, 255, 0.98);
+  border-color: var(--border);
+  box-shadow: 0 4px 20px rgba(45, 30, 18, 0.04), var(--shadow-sm);
+}
+
+:root:not([data-theme="dark"]) .brand-mark {
+  background: var(--primary);
+  box-shadow: 0 3px 10px color-mix(in srgb, var(--primary) 22%, transparent);
+}
+
+:root:not([data-theme="dark"]) .intro-actions {
+  border-color: var(--border);
+  background: var(--surface);
+  box-shadow: 0 2px 10px rgba(45, 30, 18, 0.04), var(--shadow-sm);
+}
+
+:root:not([data-theme="dark"]) .workspace {
+  background: var(--surface);
+  border-color: var(--border);
+  border-radius: 20px;
+  box-shadow: 0 4px 24px rgba(45, 30, 18, 0.05), var(--shadow-sm);
+}
+
+:root:not([data-theme="dark"]) .toolbar {
+  background: var(--surface);
+}
+
+:root:not([data-theme="dark"]) .floating-filter-content {
+  border-color: var(--border);
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 8px 30px rgba(45, 30, 18, 0.08), var(--shadow-sm);
+}
+
+:root:not([data-theme="dark"]) .add-panel,
+:root:not([data-theme="dark"]) .practice-pack-card,
+:root:not([data-theme="dark"]) .practice-dialog,
+:root:not([data-theme="dark"]) .confirm-dialog {
+  box-shadow: var(--shadow-sm);
+}
+
+:root:not([data-theme="dark"]) .review-view {
+  background-color: var(--review-background);
+  background-image: radial-gradient(ellipse 65% 45% at 50% 32%, color-mix(in srgb, var(--surface) 65%, transparent), transparent 75%);
+}
+
+:root:not([data-theme="dark"]) .review-card {
+  border-radius: 24px;
+  box-shadow: var(--shadow-md);
+}
+
+:root:not([data-theme="dark"]) .review-card::before {
+  height: 3px;
+  background: var(--primary);
+}
+
+:root:not([data-theme="dark"]) .button-answer {
+  box-shadow: 0 3px 12px color-mix(in srgb, var(--primary) 20%, transparent);
+}
+
+:root:not([data-theme="dark"]) .button-answer:hover {
+  box-shadow: 0 5px 16px color-mix(in srgb, var(--primary) 28%, transparent);
+}

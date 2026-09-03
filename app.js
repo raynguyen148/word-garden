@@ -60,7 +60,7 @@
     const action = isDark ? "light" : "dark";
     elements.themeToggle.setAttribute("aria-label", "Switch to " + action + " theme");
     elements.themeToggle.title = "Switch to " + action + " theme";
-    document.getElementById("themeColor").content = isDark ? "#101827" : "#f8f5f2";
+    document.getElementById("themeColor").content = isDark ? "#101827" : "#f6f3ed";
 
     if (!shouldPersist) return;
     try {
