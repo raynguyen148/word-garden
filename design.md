@@ -10,9 +10,9 @@ Keep the local Charter/Iowan/Georgia display stack and the existing system sans-
 
 ## Sources and cascade
 
-Load in this order: `styles.css`, `theme-light.css`, `theme-dark.css`, `tokens.css`, `refinement.css`.
+Load in this order: `css/styles.css`, `css/theme-light.css`, `css/theme-dark.css`, `css/tokens.css`, `css/refinement.css`.
 
-The two theme files own the established palette. `tokens.css` adds shared sizing, spacing, motion and semantic aliases; dark secondary text has a higher lightness for readability. `refinement.css` overrides the legacy visual layers in place. Its repeated `:root` selector intentionally matches the existing theme selectors' specificity without `!important`.
+The two theme files own the established palette. `css/tokens.css` adds shared sizing, spacing, motion and semantic aliases; dark secondary text has a higher lightness for readability. `css/refinement.css` overrides the legacy visual layers in place. Its repeated `:root` selector intentionally matches the existing theme selectors' specificity without `!important`.
 
 ## Components
 
@@ -30,7 +30,7 @@ The two theme files own the established palette. `tokens.css` adds shared sizing
 
 ### CSS
 
-Use the source files above together. The canonical refinement values are in `tokens.css`; theme aliases deliberately reference the existing theme variables rather than defining a second palette.
+Use the source files above together. The canonical refinement values are in `css/tokens.css`; theme aliases deliberately reference the existing theme variables rather than defining a second palette.
 
 ### Tailwind v4 mapping (optional, not loaded by this app)
 

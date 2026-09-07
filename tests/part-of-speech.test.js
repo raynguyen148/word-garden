@@ -1,6 +1,6 @@
 const assert = require("node:assert/strict");
 const test = require("node:test");
-const logic = require("../logic.js");
+const logic = require("../js/logic.js");
 
 test("normalizes legacy and multi-value parts of speech", function () {
   assert.deepEqual(logic.normalizePartsOfSpeech("verb"), ["verb"]);
@@ -144,8 +144,8 @@ test("imports old and new backups and exports the compatible v2 shape", async fu
     createObjectURL: function (blob) { exportedBlob = blob; return "blob:word-garden-test"; },
     revokeObjectURL: function () {},
   };
-  delete require.cache[require.resolve("../backup.js")];
-  require("../backup.js");
+  delete require.cache[require.resolve("../js/backup.js")];
+  require("../js/backup.js");
 
   const oldBackup = await window.LexiloBackup.readBackup({
     size: 100,

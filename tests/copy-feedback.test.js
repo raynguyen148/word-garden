@@ -74,7 +74,7 @@ function loadViewModule() {
     window: root,
     document: {},
   };
-  vm.runInNewContext(fs.readFileSync("view.js", "utf8"), context);
+  vm.runInNewContext(fs.readFileSync("js/view.js", "utf8"), context);
   return root.LexiloView;
 }
 

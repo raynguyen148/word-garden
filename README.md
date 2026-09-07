@@ -251,19 +251,19 @@ Because the data is local, clearing browser site data can remove the dictionary.
 The app uses dependency-free browser JavaScript loaded directly from `index.html` in this order:
 
 ```text
-logic.js → storage.js → view.js → backup.js → review.js → app.js
+js/logic.js → js/js/storage.js → js/js/view.js → js/js/backup.js → js/js/review.js → js/app.js
 ```
 
 | File | Responsibility |
 | --- | --- |
 | `index.html` | Semantic application markup, dialogs, icons, and script loading order |
-| `styles.css` | Responsive layout, light/dark themes, review cards, controls, and accessibility states |
-| `logic.js` | Pure validation, normalization, filtering, pagination, escaping, import preparation, and SRS calculations |
-| `storage.js` | IndexedDB connection, persistence, compatibility mapping, and legacy migration |
-| `view.js` | Dictionary and practice-pack rendering, part-of-speech controls, toasts, and pagination rendering |
-| `backup.js` | JSON export and validated import parsing |
-| `review.js` | Review queue, answer reveal, grading flow, progress, and completion summary |
-| `app.js` | Application state, event wiring, CRUD orchestration, theme handling, search/filter shortcuts, and service-worker registration |
+| `css/styles.css` | Responsive layout, light/dark themes, review cards, controls, and accessibility states |
+| `js/logic.js` | Pure validation, normalization, filtering, pagination, escaping, import preparation, and SRS calculations |
+| `js/storage.js` | IndexedDB connection, persistence, compatibility mapping, and legacy migration |
+| `js/view.js` | Dictionary and practice-pack rendering, part-of-speech controls, toasts, and pagination rendering |
+| `js/backup.js` | JSON export and validated import parsing |
+| `js/review.js` | Review queue, answer reveal, grading flow, progress, and completion summary |
+| `js/app.js` | Application state, event wiring, CRUD orchestration, theme handling, search/filter shortcuts, and service-worker registration |
 | `sw.js` | Cache-first service-worker strategy for same-origin app assets |
 | `manifest.json` | Installable PWA metadata and icons |
 | `tests/` | Node's built-in test suite for core logic and compatibility behavior |
@@ -303,12 +303,12 @@ node --test tests/part-of-speech.test.js
 Useful static checks:
 
 ```sh
-node --check app.js
-node --check backup.js
-node --check logic.js
-node --check review.js
-node --check storage.js
-node --check view.js
+node --check js/app.js
+node --check js/backup.js
+node --check js/logic.js
+node --check js/review.js
+node --check js/storage.js
+node --check js/view.js
 ```
 
 When changing storage, backups, or Review mode, manually verify in a browser:

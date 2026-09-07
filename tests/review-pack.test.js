@@ -46,7 +46,7 @@ function createController(words, onGrade = async () => {}) {
     },
     window: root,
   };
-  vm.runInNewContext(fs.readFileSync("review.js", "utf8"), context);
+  vm.runInNewContext(fs.readFileSync("js/review.js", "utf8"), context);
 
   const state = { answerShown: false, reviewMode: "eng-vie", reviewWord: null, words };
   const logic = {

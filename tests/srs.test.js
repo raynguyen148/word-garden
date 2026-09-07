@@ -1,6 +1,6 @@
 const assert = require("node:assert/strict");
 const test = require("node:test");
-const logic = require("../logic.js");
+const logic = require("../js/logic.js");
 
 test("getDefaultSrs returns correct initial state", function () {
   const srs = logic.getDefaultSrs();
