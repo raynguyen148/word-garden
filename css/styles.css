@@ -150,7 +150,7 @@ svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width:
 h1, h2, h3, p { text-wrap: pretty; }
 .page-intro h1 { margin: 0; color: var(--heading); font-family: var(--font-display, Georgia, serif); font-size: clamp(32px, 3.5vw, 48px); font-weight: 500; line-height: 1.15; letter-spacing: -.035em; text-wrap: balance; }
 .intro-copy { max-width: 660px; margin: 10px 0 0; color: var(--intro); font-size: 14.5px; font-weight: 450; letter-spacing: -.01em; line-height: 1.55; }
-.intro-actions { display: flex; flex: 0 0 auto; align-items: center; gap: 12px; border: 1px solid var(--border); border-radius: 16px; padding: 8px 10px; background: var(--surface); box-shadow: var(--shadow-sm); }
+.intro-actions { display: flex; flex: 0 0 auto; align-items: center; gap: 12px; border: 1px solid var(--border); border-radius: 16px; padding: 8px 16px; background: var(--surface); box-shadow: var(--shadow-sm); }
 .word-count { display: flex; min-height: 40px; align-items: baseline; gap: 7px; padding: 0 8px; color: var(--muted); }
 .word-count strong { color: var(--foreground); font-family: var(--font-display, Georgia, serif); font-size: 30px; letter-spacing: -.04em; line-height: 1; }
 .word-count span { font-size: 12px; font-weight: 500; }
@@ -1308,4 +1308,24 @@ tr:focus-within .row-actions {
   .toolbar .toolbar-filters .page-size-field,
   .floating-filter-details .page-size-field { grid-column: auto; }
 
+}
+
+.inline-text-tooltip kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  margin-left: 6px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--muted);
+  background: var(--key-background);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+  text-transform: uppercase;
+  vertical-align: text-bottom;
 }

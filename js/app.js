@@ -773,7 +773,9 @@
     const text = target.getAttribute("data-tooltip") || (target.value || "").trim();
     if (!text) return;
     inlineTextTooltipTarget = target;
-    inlineTextTooltip.textContent = text;
+    // Parse [Shortcut] to <kbd>Shortcut</kbd>
+    const formattedText = text.replace(/\[(.*?)\]/g, '<kbd>$1</kbd>');
+    inlineTextTooltip.innerHTML = formattedText;
     inlineTextTooltip.hidden = false;
     // A dialog's tooltip must be inside its top layer and focus boundary.
     const host = target.closest("dialog") || document.body;
@@ -817,7 +819,10 @@
     function syncTitles() {
       document.querySelectorAll("[title]").forEach(function (target) {
         if (!target.title) return;
-        if (target === inlineTextTooltipTarget && inlineTextTooltip) inlineTextTooltip.textContent = target.title;
+        if (target === inlineTextTooltipTarget && inlineTextTooltip) {
+          const formattedText = target.title.replace(/\[(.*?)\]/g, '<kbd>$1</kbd>');
+          inlineTextTooltip.innerHTML = formattedText;
+        }
         target.setAttribute("data-tooltip", target.title);
         target.removeAttribute("title");
       });
