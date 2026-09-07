@@ -554,16 +554,23 @@
       </section>
     </main>
 
-    <dialog id="confirmDialog" class="confirm-dialog" aria-labelledby="confirmTitle" aria-describedby="confirmMessage">
-      <div class="dialog-icon"><svg><use href="#icon-trash"></use></svg></div>
-      <div>
-        <h2 id="confirmTitle">Delete word?</h2>
+    <dialog id="confirmDialog" class="confirm-dialog custom-confirm" aria-labelledby="confirmTitle" aria-describedby="confirmMessage">
+      <header class="confirm-header">
+        <div>
+          <p class="eyebrow">CONFIRM ACTION</p>
+          <h2 id="confirmTitle">Delete word?</h2>
+        </div>
+        <button id="confirmCloseButton" class="icon-button close-dialog" type="button" aria-label="Close" title="Close" onclick="document.getElementById('confirmCancelButton').click()">
+          <svg><use href="#icon-close"></use></svg>
+        </button>
+      </header>
+      <div class="confirm-body">
         <p id="confirmMessage">This action cannot be undone.</p>
       </div>
-      <div class="dialog-actions">
-        <button id="confirmCancelButton" class="button button-ghost" type="button">Cancel</button>
+      <footer class="confirm-footer dialog-actions">
+        <button id="confirmCancelButton" class="button button-outline" type="button">Cancel</button>
         <button id="confirmDeleteButton" class="button button-danger" type="button">Delete</button>
-      </div>
+      </footer>
     </dialog>
 
     <dialog id="practiceDialog" class="confirm-dialog practice-dialog" aria-labelledby="practiceDialogTitle">

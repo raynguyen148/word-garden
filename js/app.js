@@ -433,6 +433,7 @@
       await state.storage.updateWord(id, changes);
       renderer.renderApp();
       setStatus("saved", "Saved locally");
+      showToast("Word updated", "Your changes have been saved.", "success");
 
       const targetSelector = field === "partsOfSpeech"
         ? '.inline-part-picker[data-id="' + id + '"] .part-picker-trigger'
