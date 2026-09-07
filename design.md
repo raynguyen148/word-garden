@@ -10,9 +10,9 @@ Keep the local Charter/Iowan/Georgia display stack and the existing system sans-
 
 ## Sources and cascade
 
-Load in this order: `css/styles.css`, `css/theme-light.css`, `css/theme-dark.css`, `css/tokens.css`, `css/refinement.css`.
+Load in this order: `css/styles.css`, `css/theme-light.css`, `css/theme-warm.css`, `css/theme-dark.css`, `css/tokens.css`, `css/refinement.css`.
 
-The two theme files own the established palette. `css/tokens.css` adds shared sizing, spacing, motion and semantic aliases; dark secondary text has a higher lightness for readability. `css/refinement.css` overrides the legacy visual layers in place. Its repeated `:root` selector intentionally matches the existing theme selectors' specificity without `!important`.
+The three theme files own the established palette. `css/tokens.css` adds shared sizing, spacing, motion and semantic aliases; dark secondary text has a higher lightness for readability. `css/refinement.css` overrides the legacy visual layers in place. Its repeated `:root` selector intentionally matches the existing theme selectors' specificity without `!important`.
 
 ## Components
 

@@ -54,21 +54,54 @@
     }
   }
 
+  const THEMES = ["light", "warm", "dark"];
+
   function applyTheme(theme, shouldPersist) {
-    const isDark = theme === "dark";
-    document.documentElement.dataset.theme = isDark ? "dark" : "light";
-    elements.themeToggleLabel.textContent = isDark ? "Light" : "Dark";
-    elements.themeToggleIcon.setAttribute("href", isDark ? "#icon-sun" : "#icon-moon");
-    const action = isDark ? "light" : "dark";
-    elements.themeToggle.setAttribute("aria-label", "Switch to " + action + " theme");
-    elements.themeToggle.title = "Switch to " + action + " theme";
-    document.getElementById("themeColor").content = isDark ? "#181818" : "#f6f3ed";
+    if (!THEMES.includes(theme)) theme = "light";
+
+    if (theme === "light") {
+      delete document.documentElement.dataset.theme;
+    } else {
+      document.documentElement.dataset.theme = theme;
+    }
+
+    const nextTheme = THEMES[(THEMES.indexOf(theme) + 1) % THEMES.length];
+    
+    let label = "Light";
+    let icon = "#icon-sun";
+    let nextLabel = "Warm";
+    
+    if (theme === "warm") {
+      label = "Warm";
+      icon = "#icon-coffee";
+      nextLabel = "Dark";
+    } else if (theme === "dark") {
+      label = "Dark";
+      icon = "#icon-moon";
+      nextLabel = "Light";
+    }
+    
+    // The user wants label to show current theme
+    elements.themeToggleLabel.textContent = label;
+    elements.themeToggleIcon.setAttribute("href", icon);
+    
+    const ariaLabel = "Switch to " + nextLabel + " theme";
+    elements.themeToggle.setAttribute("aria-label", ariaLabel);
+    
+    // Tooltip format requested: Theme: Light (switch to Warm) [T]
+    const tooltip = "Theme: " + label + " (switch to " + nextLabel + ") [T]";
+    elements.themeToggle.title = tooltip;
+    
+    let metaColor = "#ffffff";
+    if (theme === "warm") metaColor = "#f6f1e7"; // hsl(35, 33%, 96%) approx
+    else if (theme === "dark") metaColor = "#18181b";
+    else if (theme === "light") metaColor = "#f9fafb";
+    document.getElementById("themeColor").content = metaColor;
 
     if (!shouldPersist) return;
     try {
-      window.localStorage.setItem(THEME_STORAGE_KEY, isDark ? "dark" : "light");
+      window.localStorage.setItem(THEME_STORAGE_KEY, theme);
     } catch (error) {
-      // The selected theme still applies for this page if browser storage is unavailable.
     }
   }
 
@@ -943,8 +976,9 @@
 
   function bindEvents() {
     elements.themeToggle.addEventListener("click", function () {
-      const currentTheme = document.documentElement.dataset.theme === "dark" ? "dark" : "light";
-      applyTheme(currentTheme === "dark" ? "light" : "dark", true);
+      const currentTheme = document.documentElement.dataset.theme || "light";
+      const nextTheme = THEMES[(THEMES.indexOf(currentTheme) + 1) % THEMES.length];
+      applyTheme(nextTheme, true);
     });
     elements.toggleAddButton.addEventListener("click", function () {
       closeLessonPanel(false);
@@ -1121,6 +1155,9 @@
         closeAddPanel(false);
         if (elements.lessonPanel.hidden) openLessonPanel();
         else closeLessonPanel(false);
+      } else if (event.key === "t") {
+        event.preventDefault();
+        elements.themeToggle.click();
       }
     });
     document.addEventListener("keydown", function (event) {

@@ -1,131 +1,137 @@
-/* Word Garden — Dark Theme (Antigravity Base with Golden Brown Accent) */
+/* Word Garden — Dark Theme (Nook Deep Charcoal) */
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --background: #181818;
-  --surface: #222222;
-  --surface-soft: #2a2a2a;
-  --foreground: #cccccc;
-  --muted: #858585;
-  --muted-2: #6e6e6e;
-  --border: #333333;
-  --border-strong: #454545;
+  
+  --background: #18181b;
+  --surface: #27272a;
+  --surface-soft: #3f3f46;
+  
+  --foreground: #f4f4f5;
+  --muted: #a1a1aa;
+  --muted-2: #71717a;
+  
+  --border: #3f3f46;
+  --border-strong: #52525b;
+  
   --primary: #c89355;
   --primary-hover: #d7a365;
   --primary-soft: #2e2419;
   --primary-foreground: #151008;
-  --danger: #f14c4c;
-  --danger-soft: #381f21;
-  --warning: #cca700;
-  --heading: #f3f3f3;
-  --intro: #9d9d9d;
-  --topbar-border: #333333;
-  --topbar-background: rgba(24, 24, 24, 0.92);
-  --panel-border: #333333;
-  --panel-background: #222222;
-  --input-background: #1c1c1c;
-  --input-placeholder: #7d7d7d;
-  --picker-hover-border: #484848;
-  --picker-hover-background: #2c2c2c;
-  --tag-border: #383838;
-  --picker-menu-border: #3c3c3c;
-  --key-background: #2d2d2d;
-  --focus-background: #2a2a2a;
-  --bulk-border: #4a3823;
-  --bulk-strong: #d6a258;
-  --table-heading: #1e1e1e;
-  --table-divider: #2b2b2b;
-  --table-row-hover: #282828;
-  --table-row-selected: #292118;
-  --tooltip-border: #454545;
-  --tooltip-background: #252526;
-  --review-background: #181818;
-  --review-header-border: #333333;
-  --review-glass: rgba(28, 28, 28, 0.92);
-  --review-card-border: #383838;
-  --review-card-background: #222222;
-  --speak-border: #383838;
-  --speak-hover: #2b2b2b;
-  --answer-border: #333333;
-  --answer-background: #282828;
-  --answer-heading: #f3f3f3;
-  --answer-example: #b0b0b0;
-  --toast-background: #2d2d2d;
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, .4), 0 4px 14px rgba(0, 0, 0, .3);
-  --shadow-md: 0 16px 40px rgba(0, 0, 0, .55), 0 2px 8px rgba(0, 0, 0, .35);
-  --select-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23858585' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  
+  --danger: #ef4444;
+  --danger-soft: #451a1a;
+  --warning: #f59e0b;
+  
+  --heading: #fafafa;
+  --intro: #e4e4e7;
+  
+  --topbar-border: #3f3f46;
+  --topbar-background: rgba(39, 39, 42, 0.85);
+  
+  --panel-border: #3f3f46;
+  --panel-background: #27272a;
+  
+  --input-background: #18181b;
+  --input-placeholder: #71717a;
+  
+  --picker-hover-border: #52525b;
+  --picker-hover-background: #27272a;
+  --tag-border: #3f3f46;
+  --picker-menu-border: #3f3f46;
+  
+  --key-background: #3f3f46;
+  --focus-background: #27272a;
+  
+  --bulk-border: #3f3f46;
+  --bulk-strong: #c89355;
+  
+  --table-heading: #18181b;
+  --table-divider: #3f3f46;
+  --table-row-hover: #18181b;
+  --table-row-selected: #3f2f11;
+  
+  --tooltip-border: #52525b;
+  --tooltip-background: #27272a;
+  
+  --review-background: #18181b;
+  --review-header-border: #3f3f46;
+  --review-glass: rgba(39, 39, 42, 0.85);
+  --review-card-border: #3f3f46;
+  --review-card-background: #27272a;
+  
+  --speak-border: #3f3f46;
+  --speak-hover: #3f3f46;
+  
+  --answer-border: #3f3f46;
+  --answer-background: #18181b;
+  --answer-heading: #fafafa;
+  --answer-example: #e4e4e7;
+  
+  --toast-background: #27272a;
+  
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4), 0 3px 6px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5), 0 2px 4px rgba(0, 0, 0, 0.3);
+  
+  --select-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23a1a1aa' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
 }
 
-/* Dark Theme SRS Grade Buttons */
-:root[data-theme="dark"] .grade-again { --grade-bg: #351a1d; --grade-bg-hover: #452125; --grade-border: #6e2a31; --grade-text: #f48771; --grade-muted: #c77b75; --grade-accent: #f14c4c; }
-:root[data-theme="dark"] .grade-hard { --grade-bg: #332615; --grade-bg-hover: #40301a; --grade-border: #66491e; --grade-text: #e5b060; --grade-muted: #bfa068; --grade-accent: #cca700; }
-:root[data-theme="dark"] .grade-good { --grade-bg: #162e20; --grade-bg-hover: #1e3b2a; --grade-border: #2e593d; --grade-text: #7ed9a0; --grade-muted: #72a884; --grade-accent: #4ec9b0; }
-:root[data-theme="dark"] .grade-easy { --grade-bg: #15273b; --grade-bg-hover: #1b344e; --grade-border: #295079; --grade-text: #8cc0fa; --grade-muted: #7aa0c9; --grade-accent: #3794ff; }
+/* Dark theme SRS Grade Buttons */
+:root[data-theme="dark"] .grade-again { --grade-bg: #451a1a; --grade-bg-hover: #571c1c; --grade-border: #7f1d1d; --grade-text: #fca5a5; --grade-muted: #f87171; --grade-accent: #ef4444; }
+:root[data-theme="dark"] .grade-hard { --grade-bg: #452410; --grade-bg-hover: #582b11; --grade-border: #7c2d12; --grade-text: #fdba74; --grade-muted: #fb923c; --grade-accent: #f97316; }
+:root[data-theme="dark"] .grade-good { --grade-bg: #143321; --grade-bg-hover: #164026; --grade-border: #14532d; --grade-text: #86efac; --grade-muted: #4ade80; --grade-accent: #22c55e; }
+:root[data-theme="dark"] .grade-easy { --grade-bg: #102a43; --grade-bg-hover: #133452; --grade-border: #1e3a8a; --grade-text: #93c5fd; --grade-muted: #60a5fa; --grade-accent: #3b82f6; }
 
 /* Dark Theme Component Overrides */
 :root[data-theme="dark"] body {
   background-color: var(--background);
-  background-image:
-    radial-gradient(ellipse 70% 45% at 20% -10%, color-mix(in srgb, var(--primary) 12%, transparent), transparent 80%),
-    radial-gradient(ellipse 60% 40% at 90% 15%, color-mix(in srgb, var(--surface-soft) 40%, transparent), transparent 70%);
+  background-image: none;
 }
 
 :root[data-theme="dark"] .topbar,
-:root[data-theme="dark"] .review-header {
+:root[data-theme="dark"] .review-header,
+:root[data-theme="dark"] .floating-filter-content {
   background: var(--topbar-background);
-  border-color: var(--topbar-border);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35), var(--shadow-sm);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-color: var(--border);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.4), 0 4px 16px rgba(0, 0, 0, 0.3);
 }
 
 :root[data-theme="dark"] .brand-mark {
   background: var(--primary);
-  color: var(--primary-foreground);
-  box-shadow: 0 3px 12px color-mix(in srgb, var(--primary) 28%, transparent);
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--primary) 30%, transparent);
 }
 
 :root[data-theme="dark"] .intro-actions {
   border-color: var(--border);
-  border-radius: 16px;
   background: var(--surface);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25), var(--shadow-sm);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4), var(--shadow-sm);
 }
 
 :root[data-theme="dark"] .workspace {
-  overflow: hidden;
   background: var(--surface);
   border-color: var(--border);
-  border-radius: 20px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35), var(--shadow-sm);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4), var(--shadow-sm);
 }
 
 :root[data-theme="dark"] .toolbar {
-  border-top-left-radius: inherit;
-  border-top-right-radius: inherit;
   background: var(--surface);
-}
-
-:root[data-theme="dark"] .floating-filter-content {
-  border-color: var(--border-strong);
-  border-radius: 16px;
-  background: rgba(34, 34, 34, 0.96);
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45), var(--shadow-sm);
-  backdrop-filter: blur(16px);
 }
 
 :root[data-theme="dark"] .add-panel,
 :root[data-theme="dark"] .practice-pack-card,
 :root[data-theme="dark"] .practice-dialog,
 :root[data-theme="dark"] .confirm-dialog {
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-md);
 }
 
 :root[data-theme="dark"] .review-view {
   background-color: var(--review-background);
-  background-image: radial-gradient(ellipse 65% 45% at 50% 32%, color-mix(in srgb, var(--surface) 65%, transparent), transparent 75%);
+  background-image: none;
 }
 
 :root[data-theme="dark"] .review-card {
-  border-radius: 24px;
   box-shadow: var(--shadow-md);
 }
 
@@ -135,37 +141,9 @@
 }
 
 :root[data-theme="dark"] .button-answer {
-  border-color: var(--primary);
-  background: var(--primary);
-  color: var(--primary-foreground);
-  box-shadow: 0 4px 16px color-mix(in srgb, var(--primary) 24%, transparent);
+  box-shadow: 0 3px 12px color-mix(in srgb, var(--primary) 15%, transparent);
 }
 
 :root[data-theme="dark"] .button-answer:hover {
-  background: var(--primary-hover);
-  border-color: var(--primary-hover);
-  box-shadow: 0 6px 20px color-mix(in srgb, var(--primary) 32%, transparent);
-}
-
-:root[data-theme="dark"] .review-badge {
-  border-color: rgba(0, 0, 0, 0.4);
-}
-
-:root[data-theme="dark"] .selected-check,
-:root[data-theme="dark"] .page-button.active {
-  color: var(--primary-foreground);
-}
-
-:root[data-theme="dark"] .practice-pack-card.is-completed .practice-pack-progress-bar {
-  background: #4ec9b0;
-}
-
-:root[data-theme="dark"] .practice-pack-status-line.is-completed {
-  color: #4ec9b0;
-}
-
-:root[data-theme="dark"] .confirm-dialog::backdrop,
-:root[data-theme="dark"] .practice-dialog::backdrop {
-  background: rgba(0, 0, 0, 0.72);
-  backdrop-filter: blur(4px);
+  box-shadow: 0 4px 16px color-mix(in srgb, var(--primary) 25%, transparent);
 }

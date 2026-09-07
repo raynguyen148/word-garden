@@ -1,0 +1,149 @@
+/* Word Garden — Warm Theme (Cozy, Sepia) */
+
+:root[data-theme="warm"] {
+  color-scheme: light;
+  
+  --background: #f6f1e7;
+  --surface: #fdfbf7;
+  --surface-soft: #efe8db;
+  
+  --foreground: #382c20;
+  --muted: #7e6c58;
+  --muted-2: #a89987;
+  
+  --border: #e6dac6;
+  --border-strong: #d4c4ad;
+  
+  --primary: #724e36;
+  --primary-hover: #5c3e2b;
+  --primary-soft: #f4ede6;
+  --primary-foreground: #ffffff;
+  
+  --danger: #c2410c;
+  --danger-soft: #ffedd5;
+  --warning: #b45309;
+  
+  --heading: #291e14;
+  --intro: #5c4c3c;
+  
+  --topbar-border: #e6dac6;
+  --topbar-background: rgba(253, 251, 247, 0.9);
+  
+  --panel-border: #e6dac6;
+  --panel-background: #fdfbf7;
+  
+  --input-background: #ffffff;
+  --input-placeholder: #a89987;
+  
+  --picker-hover-border: #d4c4ad;
+  --picker-hover-background: #fdfbf7;
+  --tag-border: #e6dac6;
+  --picker-menu-border: #e6dac6;
+  
+  --key-background: #efe8db;
+  --focus-background: #fdfbf7;
+  
+  --bulk-border: #e6dac6;
+  --bulk-strong: #724e36;
+  
+  --table-heading: #f6f1e7;
+  --table-divider: #efe8db;
+  --table-row-hover: #fdfaf5;
+  --table-row-selected: #fbeedb;
+  
+  --tooltip-border: #d4c4ad;
+  --tooltip-background: #fdfbf7;
+  
+  --review-background: #f6f1e7;
+  --review-header-border: #e6dac6;
+  --review-glass: rgba(253, 251, 247, 0.9);
+  --review-card-border: #e6dac6;
+  --review-card-background: #fdfbf7;
+  
+  --speak-border: #e6dac6;
+  --speak-hover: #efe8db;
+  
+  --answer-border: #e6dac6;
+  --answer-background: #f6f1e7;
+  --answer-heading: #291e14;
+  --answer-example: #5c4c3c;
+  
+  --toast-background: #fdfbf7;
+  
+  --shadow-sm: 0 1px 2px rgba(56, 44, 32, 0.04), 0 3px 8px rgba(56, 44, 32, 0.02);
+  --shadow-md: 0 4px 16px rgba(56, 44, 32, 0.05), 0 2px 4px rgba(56, 44, 32, 0.03);
+  
+  --select-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%237e6c58' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+}
+
+/* Warm theme SRS Grade Buttons */
+:root[data-theme="warm"] .grade-again { --grade-bg: #ffe4e6; --grade-bg-hover: #fecdd3; --grade-border: #fda4af; --grade-text: #9f1239; --grade-muted: #be123c; --grade-accent: #e11d48; }
+:root[data-theme="warm"] .grade-hard { --grade-bg: #ffedd5; --grade-bg-hover: #fed7aa; --grade-border: #fdba74; --grade-text: #9a3412; --grade-muted: #c2410c; --grade-accent: #ea580c; }
+:root[data-theme="warm"] .grade-good { --grade-bg: #ecfccb; --grade-bg-hover: #d9f99d; --grade-border: #bef264; --grade-text: #3f6212; --grade-muted: #4d7c0f; --grade-accent: #65a30d; }
+:root[data-theme="warm"] .grade-easy { --grade-bg: #e0f2fe; --grade-bg-hover: #bae6fd; --grade-border: #7dd3fc; --grade-text: #075985; --grade-muted: #0369a1; --grade-accent: #0284c7; }
+
+/* Warm Theme Component Overrides */
+:root[data-theme="warm"] body {
+  background-color: var(--background);
+  background-image: none;
+}
+
+:root[data-theme="warm"] .topbar,
+:root[data-theme="warm"] .review-header,
+:root[data-theme="warm"] .floating-filter-content {
+  background: var(--topbar-background);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-color: var(--border);
+  box-shadow: 0 1px 0 rgba(56, 44, 32, 0.03), 0 4px 16px rgba(56, 44, 32, 0.03);
+}
+
+:root[data-theme="warm"] .brand-mark {
+  background: var(--primary);
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--primary) 25%, transparent);
+}
+
+:root[data-theme="warm"] .intro-actions {
+  border-color: var(--border);
+  background: var(--surface);
+  box-shadow: 0 1px 4px rgba(56, 44, 32, 0.03), var(--shadow-sm);
+}
+
+:root[data-theme="warm"] .workspace {
+  background: var(--surface);
+  border-color: var(--border);
+  box-shadow: 0 2px 12px rgba(56, 44, 32, 0.03), var(--shadow-sm);
+}
+
+:root[data-theme="warm"] .toolbar {
+  background: var(--surface);
+}
+
+:root[data-theme="warm"] .add-panel,
+:root[data-theme="warm"] .practice-pack-card,
+:root[data-theme="warm"] .practice-dialog,
+:root[data-theme="warm"] .confirm-dialog {
+  box-shadow: var(--shadow-md);
+}
+
+:root[data-theme="warm"] .review-view {
+  background-color: var(--review-background);
+  background-image: none;
+}
+
+:root[data-theme="warm"] .review-card {
+  box-shadow: var(--shadow-md);
+}
+
+:root[data-theme="warm"] .review-card::before {
+  height: 3px;
+  background: var(--primary);
+}
+
+:root[data-theme="warm"] .button-answer {
+  box-shadow: 0 3px 12px color-mix(in srgb, var(--primary) 20%, transparent);
+}
+
+:root[data-theme="warm"] .button-answer:hover {
+  box-shadow: 0 4px 16px color-mix(in srgb, var(--primary) 30%, transparent);
+}
