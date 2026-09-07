@@ -8,7 +8,13 @@
     return '<svg aria-hidden="true"><use href="#icon-' + name + '"></use></svg>';
   }
 
-  function setStorageStatus(elements, status) {
+  function setStorageStatus(elements, status, label) {
+    const statusLabel = document.getElementById("saveStatusLabel");
+    if (statusLabel) {
+      statusLabel.textContent = label || "";
+      statusLabel.classList.toggle("sr-only", status === "saved");
+    }
+    elements.lastExportStatus.hidden = status !== "saved";
     elements.storageStatus.classList.toggle("saving", status === "saving");
     elements.storageStatus.classList.toggle("error", status === "error");
   }
@@ -50,7 +56,7 @@
 
     const hasOriginalTitle = typeof button.hasAttribute === "function" && button.hasAttribute("data-original-title");
     if (!hasOriginalTitle && typeof button.getAttribute === "function") {
-      const currentTitle = button.getAttribute("title");
+      const currentTitle = button.getAttribute("title") || button.getAttribute("data-tooltip");
       if (currentTitle) button.setAttribute("data-original-title", currentTitle);
     }
 
@@ -257,11 +263,11 @@
           : "";
         return `<tr data-row-id="${id}" class="${selected ? "selected" : ""}">
           <td class="select-column"><input class="checkbox row-checkbox" type="checkbox" data-id="${id}" aria-label="Select ${vocabulary}" ${selected ? "checked" : ""}></td>
-          <td><input class="inline-control word-input" data-field="vocabulary" data-id="${id}" value="${vocabulary}" aria-label="Vocabulary: ${vocabulary}">${practiceMeta}</td>
-          <td>${practicePackCard ? lockedPracticePart() : inlinePartPicker(word.partsOfSpeech || word.partOfSpeech, id, word.vocabulary)}</td>
-          <td><input class="inline-control meaning-input" data-field="meaning" data-id="${id}" value="${e(word.meaning)}" aria-label="Meaning for ${vocabulary}"></td>
-          <td><input class="inline-control" data-field="pronunciation" data-id="${id}" value="${e(word.pronunciation || "")}" placeholder="Add pronunciation" aria-label="Pronunciation for ${vocabulary}"></td>
-          <td><textarea class="inline-control" data-field="example" data-id="${id}" placeholder="Add an example" aria-label="Example for ${vocabulary}">${e(word.example || "")}</textarea></td>
+          <td data-label="Vocabulary"><input class="inline-control word-input" data-field="vocabulary" data-id="${id}" value="${vocabulary}" aria-label="Vocabulary: ${vocabulary}">${practiceMeta}</td>
+          <td data-label="Parts of speech">${practicePackCard ? lockedPracticePart() : inlinePartPicker(word.partsOfSpeech || word.partOfSpeech, id, word.vocabulary)}</td>
+          <td data-label="Meaning"><textarea class="inline-control meaning-input" data-field="meaning" data-id="${id}" rows="3" aria-label="Meaning for ${vocabulary}">${e(word.meaning)}</textarea></td>
+          <td data-label="Pronunciation"><input class="inline-control" data-field="pronunciation" data-id="${id}" value="${e(word.pronunciation || "")}" placeholder="Add pronunciation" aria-label="Pronunciation for ${vocabulary}"></td>
+          <td data-label="Example"><textarea class="inline-control" data-field="example" data-id="${id}" placeholder="Add an example" aria-label="Example for ${vocabulary}">${e(word.example || "")}</textarea></td>
           <td class="actions-cell"><div class="row-actions">
             ${practicePackCard ? '<button class="table-action" type="button" data-action="practice" data-id="' + id + '" title="Edit phrase practice" aria-label="Edit phrase practice for ' + vocabulary + '">' + icon("sparkles") + '</button>' : ""}
             <button class="table-action" type="button" data-action="speak" data-id="${id}" title="Hear pronunciation" aria-label="Hear ${vocabulary}">${icon("volume")}</button>
@@ -380,6 +386,8 @@
       const currentOrder = isAscending ? "A–Z" : "Z–A";
       const nextOrder = isAscending ? "Z–A" : "A–Z";
       const label = "Sorted " + currentOrder + ". Click to sort " + nextOrder + ".";
+      const sortHeading = elements.vocabularySortButton.closest("th");
+      if (sortHeading) sortHeading.setAttribute("aria-sort", isAscending ? "ascending" : "descending");
       elements.vocabularySortButton.dataset.order = isAscending ? "a-z" : "z-a";
       elements.vocabularySortButton.title = label;
       elements.vocabularySortButton.setAttribute("aria-label", label);
@@ -406,15 +414,20 @@
     }
 
     function renderApp() {
+      const active = document.activeElement;
+      const editing = elements.wordsTableBody.contains(active) && active.matches("input[data-field], textarea[data-field]")
+        ? { id: active.dataset.id, field: active.dataset.field, value: active.value, start: active.selectionStart, end: active.selectionEnd }
+        : null;
       elements.totalCount.textContent = String(state.words.length);
-      const vocabularyWords = state.words.filter(function (word) { return !word.lesson; });
+      const vocabularyWords = state.words.filter(function (word) { return !logic.isPracticePackCard(word); });
       const practicePacks = logic.getPracticePacks(state.words);
       const duePacksCount = practicePacks.filter(function (pack) { return !pack.completedToday; }).length;
       renderContentFilters(practicePacks);
+      renderPracticePacks(practicePacks);
       const view = currentView();
       elements.reviewButton.disabled = vocabularyWords.length === 0;
       if (elements.practicePacksButton) {
-        elements.practicePacksButton.disabled = practicePacks.length === 0;
+        elements.practicePacksButton.disabled = !state.ready;
         elements.practicePacksButton.title = duePacksCount > 0
           ? duePacksCount + " practice pack" + (duePacksCount === 1 ? "" : "s") + " left to practise today"
           : (practicePacks.length ? "All practice packs completed today" : "Create a practice pack before starting a practice review");
@@ -442,12 +455,22 @@
         elements.reviewButton.title = vocabularyWords.length ? "Review vocabulary" : "Add a vocabulary card before starting a review";
       }
       renderSortButton();
-      renderPracticePacks(practicePacks);
       syncFloatingFilters();
       renderRows(view.paginated.items);
       renderPagination(view.paginated, view.filtered.length);
       renderEmptyState(view.filtered.length);
       renderSelection();
+      // An earlier field's async save can finish while the user is already
+      // typing in the next field. Keep that unsaved draft and keyboard focus.
+      if (editing) {
+        const replacement = Array.from(elements.wordsTableBody.querySelectorAll("input[data-field], textarea[data-field]"))
+          .find(function (input) { return input.dataset.id === editing.id && input.dataset.field === editing.field; });
+        if (replacement) {
+          replacement.value = editing.value;
+          replacement.focus({ preventScroll: true });
+          if (editing.start !== null) replacement.setSelectionRange(editing.start, editing.end);
+        }
+      }
     }
 
     return { renderApp: renderApp, renderSelection: renderSelection };

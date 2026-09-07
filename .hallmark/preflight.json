@@ -1,0 +1,10 @@
+{
+  "date": "2026-09-07",
+  "framework": "vanilla HTML/CSS/JavaScript",
+  "views": ["Dictionary", "Practice Packs", "Review", "Add word", "Lesson preview", "Phrase editor", "Delete confirmation"],
+  "fonts": "Existing local serif display and system sans body stacks in styles.css:1",
+  "palette": "Existing theme-light.css and theme-dark.css",
+  "motion": "CSS only; no library",
+  "preserved": ["offline runtime", "module ownership", "features", "data schema", "brand palette", "local fonts"],
+  "introduced": ["shared refinement tokens", "mobile entries", "consistent controls and tooltips", "visible focus", "draft validation"]
+}

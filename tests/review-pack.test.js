@@ -34,7 +34,7 @@ function reviewElements() {
   return Object.fromEntries(names.map((name) => [name, element()]));
 }
 
-function createController(words) {
+function createController(words, onGrade = async () => {}) {
   const elements = reviewElements();
   const root = {};
   const context = {
@@ -70,7 +70,7 @@ function createController(words) {
       icon(name) { return `<${name}>`; },
       speakWord() {},
       showToast() {},
-      onGrade: async () => {},
+      onGrade,
     }),
     elements,
     state,
@@ -107,4 +107,40 @@ test("a Practice Pack review includes every card and remains a fixed-size sessio
   assert.match(elements.reviewSummaryStats.innerHTML, /Cards reviewed/);
   assert.equal(elements.reviewCompleteNextAction.hidden, false);
   assert.match(elements.reviewCompleteNextAction.innerHTML, /Start speaking · 3 left/);
+});
+
+
+test("a pending grade cannot advance a newly entered session", async () => {
+  let resolveSave;
+  const words = ["first", "second"].map((vocabulary, index) => ({
+    id: String(index), vocabulary, meaning: vocabulary,
+    lesson: "Direct push vs PR", cardType: "phrase", partsOfSpeech: ["phrase"],
+  }));
+  const { controller, elements, state } = createController(words, () => new Promise(resolve => { resolveSave = resolve; }));
+  controller.enter({ lesson: "Direct push vs PR", scope: "pack" });
+  controller.showAnswer();
+  const pending = controller.grade("good");
+  controller.exit();
+  controller.enter({ lesson: "Direct push vs PR", scope: "pack" });
+  resolveSave();
+  await pending;
+  assert.equal(state.reviewWord.vocabulary, "first");
+  assert.equal(elements.reviewProgressLabel.textContent, "0 / 2");
+  assert.equal(elements.reviewComplete.hidden, true);
+  assert.equal(state.words[0].recognitionReviewCount, 1);
+});
+
+test("a pending grade after Exit saves the word without reopening review UI", async () => {
+  let resolveSave;
+  const words = [{ id: "first", vocabulary: "first", meaning: "first", lesson: "Direct push vs PR" }];
+  const { controller, elements, state } = createController(words, () => new Promise(resolve => { resolveSave = resolve; }));
+  controller.enter({ lesson: "Direct push vs PR", scope: "pack" });
+  controller.showAnswer();
+  const pending = controller.grade("again");
+  controller.exit();
+  resolveSave();
+  await pending;
+  assert.equal(elements.reviewView.hidden, true);
+  assert.equal(state.reviewWord, null);
+  assert.equal(state.words[0].recognitionReviewCount, 1);
 });

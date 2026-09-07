@@ -1,0 +1,209 @@
+/* Hallmark · macrostructure: Workbench · tone: quiet editorial · anchor hue: brown
+ * design-system: design.md · designed-as-app · theme: existing Word Garden
+ * nav: N9 adapted app controls · footer: Ft2 · enrichment: none
+ * Audience: personal English learner · Use: capture, find, practise
+ * Hallmark · pre-emit critique: P4 H4 E4 S5 R5 V4
+ */
+html, body { overflow-x: clip; }
+body { font-family: var(--font-body); min-width: 0; }
+:root:root body, :root:root .review-view { background-image: none; }
+h1, h2, h3 { font-style: normal; overflow-wrap: anywhere; min-width: 0; }
+button, summary, a { touch-action: manipulation; }
+button { white-space: nowrap; }
+:root:root .topbar, :root:root .review-header {
+  width: min(1432px, calc(100% - var(--space-2xl)));
+  min-height: 76px;
+  margin: 0 auto;
+  padding: var(--space-md) 0;
+  border: 0;
+  border-bottom: var(--rule-hairline) solid var(--border);
+  border-radius: 0;
+  background: var(--background);
+  box-shadow: none;
+  backdrop-filter: none;
+}
+.brand { flex-shrink: 0; white-space: nowrap; }
+:root:root .brand-mark { box-shadow: none; }
+:root:root .content-wrap { width: min(1480px, 100%); padding: var(--space-xl) var(--space-lg); }
+.page-intro { align-items: center; margin-bottom: var(--space-lg); padding-bottom: var(--space-xs); }
+.page-intro h1 { font-size: var(--text-display); line-height: 1.18; }
+.page-intro .eyebrow, .add-panel-heading .eyebrow, .practice-pack-header .eyebrow,
+.practice-dialog-header .eyebrow { display: none; }
+.intro-copy { font-size: var(--text-sm); margin-top: var(--space-xs); }
+:root:root .intro-actions { border: 0; background: transparent; box-shadow: none; padding: 0; gap: var(--space-lg); }
+.word-count { padding: 0; min-width: 0; }
+.word-count strong { font-size: 1.75rem; }
+.word-count span { color: var(--muted); }
+:root:root .workspace { border-radius: var(--radius-panel); box-shadow: none; overflow: visible; }
+:root:root .toolbar { padding: var(--space-md); gap: var(--space-md); }
+.toolbar-filters { flex: 1.35; min-width: 0; }
+.compact-field { flex: 1; min-width: 0; text-transform: none; }
+.compact-field > span { font-size: var(--text-xs); font-weight: 550; letter-spacing: 0; margin: 0; }
+.compact-field select { font-size: var(--text-xs); }
+.search-field { min-width: 200px; }
+.search-field-header { min-height: 18px; }
+:root:root .button, :root:root .icon-button, .compact-filters-toggle, .mode-button {
+  min-height: var(--control-size);
+  border-radius: var(--radius-control);
+  transition: transform var(--dur-micro) var(--ease-out);
+}
+:root:root .button, :root:root .button:hover { box-shadow: none; transform: none; }
+:root:root .button-primary, :root:root .button-answer { background: var(--primary); color: var(--primary-foreground); border-color: var(--primary); }
+:root:root .button-primary:hover, :root:root .button-answer:hover { background: var(--primary-hover); border-color: var(--primary-hover); }
+:root:root .button:active:not(:disabled), .icon-button:active:not(:disabled) { transform: translateY(1px); }
+:root:root .button-danger { color: var(--color-on-danger); background: var(--danger); }
+:root:root .button-danger:hover { color: var(--color-on-danger); background: var(--color-danger-hover); border-color: var(--color-danger-hover); }
+:root:root button:disabled { transform: none; box-shadow: none; }
+:root:root .icon-button { width: var(--control-size); height: var(--control-size); flex-basis: var(--control-size); }
+:root:root :is(button, a, summary, input, select, textarea):focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+  box-shadow: none;
+}
+:root:root :is(input, select, textarea, summary) { transition: none; }
+:root:root [aria-invalid="true"] { border-color: var(--danger); }
+.field-error { min-height: 1em; }
+.field > input, .field > select, .form-part-picker .part-picker-trigger { min-height: var(--control-size); }
+.field > textarea { resize: vertical; }
+.add-panel-heading { align-items: flex-start; }
+.add-panel-heading > div { min-width: 0; }
+:root:root .add-panel { border-radius: var(--radius-panel); padding: var(--space-lg); box-shadow: none; }
+:root:root .confirm-dialog, :root:root .practice-dialog { border-radius: var(--radius-panel); max-height: calc(100dvh - var(--space-xl)); overflow-y: auto; }
+.dialog-actions { flex-wrap: wrap; }
+:root:root .table-wrap { overflow-x: auto; border-radius: 0 0 var(--radius-panel) var(--radius-panel); }
+table { min-width: 1080px; }
+th { font-size: var(--text-xs); font-weight: 600; text-transform: none; letter-spacing: 0; }
+:root:root tbody tr, :root:root tbody tr:hover { box-shadow: none; transition: none; }
+:root:root .row-actions { opacity: 1; }
+:root:root .table-action { min-width: 32px; min-height: 36px; transition: none; }
+:root:root .inline-control { font-size: var(--text-sm); }
+:root:root .inline-part-picker[open] .part-picker-menu { position: relative; width: 100%; min-width: 0; left: auto; top: auto; margin-top: var(--space-xs); padding: var(--space-xs); box-shadow: none; }
+.inline-part-picker .part-picker-options { grid-template-columns: minmax(0, 1fr); }
+.inline-part-picker .part-picker-option { padding-inline: var(--space-2xs); }
+.inline-part-picker .part-picker-option small { display: none; }
+:root:root .inline-text-tooltip {
+  position: fixed; z-index: 1000; max-width: min(360px, calc(100% - var(--space-lg)));
+  max-height: min(280px, 45dvh); overflow: auto; pointer-events: auto;
+  padding: var(--space-xs) var(--space-sm); border-radius: var(--radius-control);
+  background: var(--tooltip-background); color: var(--foreground); border: 1px solid var(--tooltip-border);
+  font-size: var(--text-xs); line-height: 1.55; overflow-wrap: anywhere;
+  animation: none; box-shadow: var(--shadow-sm);
+}
+:root:root .practice-pack-list { grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: var(--space-md); }
+:root:root .practice-pack-card { min-height: 220px; padding: var(--space-lg); border-radius: var(--radius-panel); box-shadow: none; transition: none; }
+:root:root .practice-pack-card:hover { transform: none; box-shadow: none; border-color: var(--border-strong); }
+.practice-pack-card h3 { display: block; overflow: visible; font-size: 1.375rem; }
+.practice-pack-header { justify-content: flex-end; margin-bottom: var(--space-sm); }
+.practice-pack-detail-text, .practice-pack-status-line { font-size: var(--text-xs); }
+.practice-pack-actions .button { min-height: var(--control-size); font-size: var(--text-xs); }
+:root:root .review-card { border-radius: var(--radius-panel); box-shadow: none; min-height: 0; padding: var(--space-xl); }
+:root:root .review-card::before { display: none; }
+.review-card-top { gap: var(--space-sm); flex-wrap: wrap; }
+.review-prompt-row h1 { overflow-wrap: anywhere; min-width: 0; }
+.review-prompt-row { min-width: 0; }
+.review-content { padding-bottom: var(--space-xl); }
+:root:root .mode-switch { box-shadow: none; border-radius: var(--radius-control); }
+:root:root .review-complete, :root:root .review-complete-icon { animation: none; }
+.review-complete-icon svg { width: 36px; height: 36px; }
+.confetti-container { display: none; }
+:root:root .review-progress-fill, :root:root .practice-pack-progress-bar { transition: none; }
+.review-pack-context { flex-wrap: wrap; }
+.review-pack-context strong { overflow-wrap: anywhere; min-width: 0; }
+:root:root .floating-filter-content { background: var(--surface); border: 1px solid var(--border-strong); backdrop-filter: none; box-shadow: var(--shadow-sm); }
+:root:root .floating-filter-bar { transition: opacity var(--dur-short) var(--ease-out); }
+.page-buttons { gap: var(--space-2xs); }
+.page-button, .page-ellipsis { font-variant-numeric: tabular-nums; }
+.privacy-note { margin-top: var(--space-lg); font-size: var(--text-xs); }
+:root:root .save-pulse { animation: none !important; }
+@media (max-width: 1100px) {
+  .page-intro { align-items: flex-start; flex-direction: column; gap: var(--space-lg); }
+  :root:root .intro-actions { width: 100%; justify-content: space-between; }
+  .word-count { flex-direction: row; gap: var(--space-xs); align-items: baseline; }
+}
+@media (max-width: 980px) {
+  :root:root .toolbar .toolbar-filters, :root:root .floating-filter-details { max-height: none; padding-top: 0; transition: none; display: none; }
+  :root:root .toolbar.is-filters-open .toolbar-filters { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); padding-top: var(--space-xs); }
+  :root:root .floating-filter-bar.is-filters-open .floating-filter-details { display: block; padding-top: var(--space-xs); }
+  :root:root .compact-filters-toggle { min-height: var(--control-size); }
+}
+@media (max-width: 980px) {
+  :root:root .topbar, :root:root .review-header { width: calc(100% - var(--space-xl)); gap: var(--space-sm); min-height: 76px; padding-block: var(--space-md); }
+  #dictionaryView .topbar { display: grid; grid-template-columns: minmax(0, 1fr); }
+  .topbar-actions { flex-wrap: wrap; gap: var(--space-xs); }
+  #dictionaryView .topbar-actions { display: grid; grid-template-columns: repeat(3, var(--control-size)) minmax(0, 1fr); }
+  .brand small { display: block; }
+  .backup-status { display: none; }
+  :root:root .button-compact { width: var(--control-size); padding: var(--space-xs); }
+  .button-compact > span:not(.review-badge) { display: none; }
+  :root:root .review-entry-points { display: flex; grid-column: 1 / -1; gap: var(--space-xs); border: 0; padding: 0; margin: 0; }
+  .review-entry-label { display: none; }
+  :root:root .topbar #reviewButton, :root:root .topbar #practicePacksButton { flex: 1; width: auto; padding: var(--space-xs) var(--space-sm); }
+  :root:root .topbar #reviewButton > span:not(.review-badge), :root:root .topbar #practicePacksButton > span:not(.review-badge) { display: inline; }
+  :root:root .topbar #reviewButton .review-badge, :root:root .topbar #practicePacksButton .review-badge { display: inline-flex; position: static; flex-shrink: 0; }
+  #dictionaryView .brand { position: absolute; top: 24px; left: var(--space-md); }
+  #dictionaryView .topbar-actions { grid-template-columns: 1fr repeat(3, var(--control-size)); width: 100%; }
+  #themeToggle { grid-column: 2; }
+  .brand strong { font-size: var(--text-sm); }
+  .brand-mark { display: none; }
+  :root:root .content-wrap { padding: var(--space-lg) var(--space-md); }
+  .intro-copy { display: block; }
+  :root:root .intro-actions { flex-direction: column; align-items: stretch; gap: var(--space-md); }
+  .word-count { justify-content: flex-start; }
+  .word-count span { display: inline; }
+  .creation-actions { margin: 0; width: 100%; gap: var(--space-xs); }
+  .creation-actions .button { flex: 1; padding-inline: var(--space-sm); }
+  :root:root .add-panel { padding: var(--space-md); }
+  .add-form-grid, .practice-fields-grid, .lesson-form-grid { grid-template-columns: minmax(0, 1fr); }
+  .field-example, .field-situation { grid-column: 1; }
+  :root:root .table-wrap { overflow: visible; }
+  table { min-width: 0; display: block; }
+  thead { display: block; }
+  thead tr { display: flex; align-items: center; padding-inline: var(--space-md); }
+  thead th.select-column { display: flex; flex: 0 0 var(--control-size); width: var(--control-size); padding: 0; align-items: center; justify-content: center; }
+  thead th:not(.select-column):not(.vocabulary-column) { display: none; }
+  thead th.vocabulary-column { width: auto; display: flex; align-items: center; }
+  .column-sort { min-height: var(--control-size); }
+  tbody { display: block; }
+  tbody tr { display: grid; grid-template-columns: minmax(0, 1fr); padding: var(--space-md); border-top: 1px solid var(--border); gap: var(--space-xs); }
+  tbody td { display: block; min-width: 0; border: 0; padding: 0; }
+  tbody td[data-label]::before { content: attr(data-label); display: block; margin-bottom: var(--space-2xs); color: var(--muted); font-size: var(--text-xs); }
+  tbody td.select-column { width: var(--control-size); padding: 0; text-align: left; }
+  tbody td.actions-cell { width: auto; min-width: 0; }
+  .checkbox { width: 22px; height: 22px; margin: 11px; }
+  :root:root .inline-control { min-height: var(--control-size); background: var(--input-background); border-color: var(--border); font-size: var(--text-md); }
+  :root:root textarea.inline-control { height: auto; min-height: 72px; max-height: none; field-sizing: content; resize: vertical; overflow: auto; color: var(--foreground); }
+  :root:root .inline-part-picker[open] .part-picker-menu { max-width: 100%; }
+  .inline-part-picker .part-picker-options { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .part-picker-option { min-height: var(--control-size); }
+  :root:root .row-actions { width: 100%; justify-content: flex-end; gap: var(--space-xs); margin-top: var(--space-xs); }
+  :root:root .table-action { min-width: var(--control-size); min-height: var(--control-size); border: 1px solid var(--border); }
+  .pagination nav { justify-content: center; gap: var(--space-2xs); flex-wrap: wrap; }
+  .page-button { min-width: 30px; height: var(--control-size); }
+  .page-ellipsis { width: 16px; }
+  .page-buttons { gap: 0; }
+  :root:root .pagination-button { width: 32px; flex-basis: 32px; }
+  .search-shortcut { display: none; }
+  .search-box input { padding-right: var(--control-size); font-size: var(--text-md); }
+  .clear-search { width: 40px; height: 40px; right: 2px; }
+  :root:root .review-card { padding: var(--space-lg) var(--space-md); }
+  .review-content { width: calc(100% - var(--space-xl)); }
+  .mode-switch { display: flex; }
+  .mode-button { flex: 1; white-space: nowrap; }
+  .review-question { min-height: 170px; }
+  .review-prompt-row h1 { font-size: clamp(1.75rem, 7vw, 2.5rem); }
+  .review-summary-stats { gap: var(--space-md); }
+  .review-complete { padding-inline: var(--space-md); }
+}
+@media (prefers-reduced-motion: reduce) {
+  :root:root *, :root:root *::before, :root:root *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+
+@media (min-width: 600px) and (max-width: 980px) {
+  tbody tr { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-md); }
+  tbody td.select-column, tbody td.actions-cell, tbody td[data-label="Meaning"], tbody td[data-label="Pronunciation"], tbody td[data-label="Example"] { grid-column: 1 / -1; }
+}
+@media (max-width: 360px) {
+  :root:root .topbar #reviewButton, :root:root .topbar #practicePacksButton {
+    min-width: 0; font-size: var(--text-xs); padding-inline: var(--space-xs); gap: var(--space-2xs);
+  }
+}

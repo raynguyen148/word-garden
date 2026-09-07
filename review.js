@@ -17,6 +17,7 @@
     var sessionTotal = 0;
     var sessionGraded = 0;
     var isGrading = false;
+    var sessionVersion = 0;
     var sessionLesson = "";
     var sessionScope = "all";
     var sessionPackCardCount = 0;
@@ -67,7 +68,7 @@
         : (englishFirst ? "What does this word mean?" : "What is the English word?");
       elements.reviewPrompt.textContent = prompt;
       promptRow.classList.toggle("long-prompt", prompt.length > 28);
-      elements.reviewSpeakButton.hidden = !englishFirst || production;
+      elements.reviewSpeakButton.hidden = (!englishFirst || production) && !state.answerShown;
       elements.reviewPronunciation.hidden = !englishFirst || production || !word.pronunciation;
       elements.reviewPronunciation.textContent = word.pronunciation || "";
       elements.reviewAnswerText.textContent = answer;
@@ -104,6 +105,10 @@
       // Hide complete screen, show card.
       elements.reviewCard.hidden = false;
       elements.reviewComplete.hidden = true;
+      if (animate && elements.reviewPrompt.focus) {
+        elements.reviewPrompt.setAttribute("tabindex", "-1");
+        elements.reviewPrompt.focus({ preventScroll: true });
+      }
 
       if (animate) {
         elements.reviewCard.classList.remove("card-enter");
@@ -120,6 +125,10 @@
       elements.shortcutGuide.hidden = true;
       elements.reviewCard.hidden = true;
       elements.reviewComplete.hidden = false;
+      if (elements.reviewCompleteTitle.focus) {
+        elements.reviewCompleteTitle.setAttribute("tabindex", "-1");
+        elements.reviewCompleteTitle.focus({ preventScroll: true });
+      }
       elements.reviewProgress.hidden = true;
       var pack = sessionLesson && logic.getPracticePacks(state.words, new Date()).find(function (item) { return item.title === sessionLesson; });
       var packProduction = sessionScope === "pack" && state.reviewMode === "production";
@@ -156,39 +165,12 @@
         "<span><strong>" + stats.learningCount + "</strong><small>Learning</small></span>" +
         "<span><strong>" + stats.newCount + "</strong><small>New</small></span>";
 
-      launchConfetti();
-    }
-
-    function launchConfetti() {
-      if (typeof document === "undefined" || typeof document.createElement !== "function") return;
-      var container = elements.confettiContainer || (elements.reviewComplete && elements.reviewComplete.querySelector ? elements.reviewComplete.querySelector(".confetti-container") : null);
-      if (!container) return;
-      container.innerHTML = "";
-      var colors = ["#e0ad61", "#4aa968", "#4d88ff", "#f07b7b", "#a07652", "#9b51e0", "#ff7849"];
-      var particleCount = 45;
-      for (var i = 0; i < particleCount; i++) {
-        var piece = document.createElement("div");
-        piece.className = "confetti-piece";
-        var left = Math.random() * 96 + 2;
-        var delay = Math.random() * 0.4;
-        var duration = 1.8 + Math.random() * 1.0;
-        var color = colors[Math.floor(Math.random() * colors.length)];
-        var size = 6 + Math.random() * 6;
-        var isRound = Math.random() > 0.6;
-        piece.style.left = left + "%";
-        piece.style.backgroundColor = color;
-        piece.style.width = size + "px";
-        piece.style.height = (isRound ? size : size * 1.6) + "px";
-        piece.style.borderRadius = isRound ? "50%" : "2px";
-        piece.style.animationDelay = delay + "s";
-        piece.style.animationDuration = duration + "s";
-        if (typeof container.appendChild === "function") {
-          container.appendChild(piece);
-        }
-      }
+      // Completion uses the same quiet status language as the rest of the app.
     }
 
     function enter(options) {
+      sessionVersion += 1;
+      setGradeButtonsDisabled(false);
       var settings = options && typeof options === "object" ? options : {};
       if (settings.mode) setMode(settings.mode, true);
       if (!state.words.length) {
@@ -198,12 +180,13 @@
 
       sessionLesson = settings.lesson || "";
       sessionScope = settings.scope || (sessionLesson ? "pack" : "all");
+      if (elements.exitReviewButton) elements.exitReviewButton.innerHTML = icon("arrow-left") + (sessionScope === "pack" ? "Practice packs" : "Dictionary");
       if (sessionScope === "vocabulary" && state.reviewMode === "production") setMode("eng-vie", true);
       var productionMode = document.querySelector('.mode-button[data-mode="production"]');
       if (productionMode) productionMode.hidden = sessionScope === "vocabulary";
       var eligibleWords = state.words.filter(function (word) {
         if (sessionLesson && word.lesson !== sessionLesson) return false;
-        if (sessionScope === "vocabulary" && word.lesson) return false;
+        if (sessionScope === "vocabulary" && logic.isPracticePackCard(word)) return false;
         // Production review is exclusively for configured phrase cards.
         if (state.reviewMode === "production") {
           var phrase = logic.normalizePartsOfSpeech(word.partsOfSpeech || word.partOfSpeech).includes("phrase");
@@ -258,6 +241,7 @@
     }
 
     function exit() {
+      sessionVersion += 1;
       if (root.speechSynthesis) root.speechSynthesis.cancel();
       elements.reviewView.hidden = true;
       var returnToPracticeReview = sessionScope === "pack";
@@ -282,12 +266,15 @@
       if (state.answerShown || !state.reviewWord) return;
       state.answerShown = true;
       render(false);
+      const firstGrade = elements.gradeButtons.querySelector("button");
+      if (firstGrade && firstGrade.focus) firstGrade.focus({ preventScroll: true });
     }
 
     async function grade(level) {
       if (isGrading || !state.reviewWord || !state.answerShown) return;
 
       var word = state.reviewWord;
+      var gradingSession = sessionVersion;
       var now = new Date().toISOString();
       var newSrs;
       try {
@@ -311,6 +298,7 @@
       try {
         if (typeof onGrade === "function") await onGrade(word.id, changes);
       } catch (error) {
+        if (gradingSession !== sessionVersion) return;
         isGrading = false;
         setGradeButtonsDisabled(false);
         showToast("Review progress not saved", "Try that rating again.", "error");
@@ -322,6 +310,10 @@
       if (index >= 0) {
         state.words[index] = Object.assign({}, state.words[index], changes);
       }
+      if (typeof options.onWordsChanged === "function") options.onWordsChanged();
+      // A persisted rating still belongs to its word, but must never advance
+      // a new session or bring a completed card back after Exit.
+      if (gradingSession !== sessionVersion) return;
 
       sessionGraded += 1;
 

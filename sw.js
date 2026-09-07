@@ -1,19 +1,21 @@
 // Word Garden Service Worker — cache-first, offline-only strategy.
 // Bump CACHE_VERSION to invalidate the old cache after changing app files.
-const CACHE_VERSION = "wg-v42";
+const CACHE_VERSION = "wg-v56";
 
 const APP_FILES = [
   "./",
   "./index.html",
-  "./styles.css?v=51",
+  "./styles.css?v=53",
   "./theme-light.css?v=51",
   "./theme-dark.css?v=51",
+  "./tokens.css?v=52",
+  "./refinement.css?v=62",
   "./logic.js",
   "./storage.js",
-  "./view.js",
+  "./view.js?v=4",
   "./backup.js",
-  "./review.js?v=24",
-  "./app.js?v=28",
+  "./review.js?v=39",
+  "./app.js?v=32",
   "./favicon.svg",
   "./manifest.json",
   "./icons/icon-192.png",
@@ -25,7 +27,7 @@ const APP_FILES = [
 self.addEventListener("install", function (event) {
   event.waitUntil(
     caches.open(CACHE_VERSION).then(function (cache) {
-      return cache.addAll(APP_FILES);
+      return cache.addAll(APP_FILES.map(function (url) { return new Request(url, { cache: "reload" }); }));
     })
   );
   self.skipWaiting();
@@ -37,7 +39,7 @@ self.addEventListener("activate", function (event) {
     caches.keys().then(function (keys) {
       return Promise.all(
         keys
-          .filter(function (key) { return key !== CACHE_VERSION; })
+          .filter(function (key) { return key.startsWith("wg-v") && key !== CACHE_VERSION; })
           .map(function (key) { return caches.delete(key); })
       );
     })
@@ -48,7 +50,7 @@ self.addEventListener("activate", function (event) {
 // Fetch: serve from cache first, fall back to network.
 self.addEventListener("fetch", function (event) {
   // Only handle same-origin GET requests (skip POST, external, etc.).
-  if (event.request.method !== "GET") return;
+  if (event.request.method !== "GET" || new URL(event.request.url).origin !== self.location.origin) return;
 
   event.respondWith(
     caches.match(event.request).then(function (cached) {

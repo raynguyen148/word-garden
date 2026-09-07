@@ -30,6 +30,8 @@
     emptyAction: "add",
     lesson: "",
     lessonDrafts: [],
+    savingWord: false,
+    savingLesson: false,
     practiceWordId: null,
   };
   const elements = {};
@@ -39,7 +41,7 @@
   let inlineTextTooltipTimer;
   let inlineTextTooltipTarget;
 
-  const INLINE_TEXT_TOOLTIP_DELAY = 1000;
+  const INLINE_TEXT_TOOLTIP_DELAY = 800;
   const THEME_STORAGE_KEY = "word-garden:theme";
   const LAST_EXPORT_KEY = "word-garden:lastExportAt";
   const BACKUP_WARNING_DAYS = 10;
@@ -60,7 +62,7 @@
     const action = isDark ? "light" : "dark";
     elements.themeToggle.setAttribute("aria-label", "Switch to " + action + " theme");
     elements.themeToggle.title = "Switch to " + action + " theme";
-    document.getElementById("themeColor").content = isDark ? "#101827" : "#f6f3ed";
+    document.getElementById("themeColor").content = isDark ? "#181818" : "#f6f3ed";
 
     if (!shouldPersist) return;
     try {
@@ -88,6 +90,7 @@
     if (!raw) {
       elements.lastExportStatus.textContent = "Never backed up";
       elements.lastExportStatus.classList.add("overdue");
+      elements.storageStatus.classList.add("overdue");
       elements.lastExportStatus.title = "Export a backup to keep your data safe";
       return;
     }
@@ -101,6 +104,7 @@
     else label = "Backed up " + diffDays + "d ago";
     elements.lastExportStatus.textContent = label;
     elements.lastExportStatus.classList.toggle("overdue", overdue);
+    elements.storageStatus.classList.toggle("overdue", overdue);
     elements.lastExportStatus.title = overdue
       ? "It\u2019s been " + diffDays + " days since your last export. Back up now to keep your data safe."
       : "Last export: " + exportDate.toLocaleDateString();
@@ -189,7 +193,9 @@
   }
 
   function closeLessonPanel(reset) {
+    const hadFocus = elements.lessonPanel.contains(document.activeElement);
     elements.lessonPanel.hidden = true;
+    if (hadFocus) elements.openLessonFromHeroButton.focus({ preventScroll: true });
     if (!reset) return;
     elements.lessonForm.reset();
     state.lessonDrafts = [];
@@ -203,6 +209,7 @@
     if (
       elements.dictionaryView.hidden ||
       elements.confirmDialog.open ||
+      elements.practiceDialog.open ||
       event.defaultPrevented ||
       event.isComposing ||
       event.repeat ||
@@ -230,10 +237,13 @@
   function clearFormErrors() {
     elements.addForm.querySelectorAll(".field").forEach(function (field) { field.classList.remove("invalid"); });
     elements.addForm.querySelectorAll(".field-error").forEach(function (error) { error.textContent = ""; });
+    elements.addForm.querySelectorAll('[aria-invalid]').forEach(function (input) { input.removeAttribute("aria-invalid"); });
   }
 
   function closeAddPanel(reset) {
+    const hadFocus = elements.addPanel.contains(document.activeElement);
     elements.addPanel.hidden = true;
+    if (hadFocus) elements.toggleAddButton.focus({ preventScroll: true });
     elements.toggleAddButton.setAttribute("aria-expanded", "false");
     if (reset) {
       elements.addForm.reset();
@@ -266,7 +276,12 @@
       const inputElement = input && typeof input.closest === "function"
         ? input
         : elements.addForm.querySelector('[name="' + fieldName + '"]');
-      if (inputElement) inputElement.closest(".field").classList.add("invalid");
+      if (inputElement) {
+        inputElement.closest(".field").classList.add("invalid");
+        inputElement.setAttribute("aria-invalid", "true");
+        const picker = inputElement.closest("[data-part-picker]");
+        if (picker) picker.open = true;
+      }
       if (error) error.textContent = errors[fieldName];
     });
     const firstInvalid = elements.addForm.querySelector(".field.invalid input");
@@ -275,6 +290,7 @@
 
   async function addWord(event) {
     event.preventDefault();
+    if (state.savingWord) return;
     if (!state.ready) {
       showToast("Storage is unavailable", "The dictionary could not connect to browser storage.", "error");
       return;
@@ -311,6 +327,10 @@
     const now = new Date().toISOString();
     const record = Object.assign({}, draft, { wordKey: wordKey, createdAt: now, updatedAt: now });
     clearFormErrors();
+    state.savingWord = true;
+    const submit = elements.addForm.querySelector('button[type="submit"]');
+    submit.disabled = true;
+    elements.addForm.setAttribute("aria-busy", "true");
     setStatus("saving", "Saving…");
     try {
       const id = await state.storage.insertWord(record);
@@ -320,6 +340,7 @@
       showToast("Word added", draft.vocabulary + " is now in your dictionary.", "success");
       elements.addForm.reset();
       viewModule.syncPartPicker(elements.addForm.querySelector("[data-part-picker]"), ["noun"], "new word");
+      syncAddPracticeDetails();
       if (state.keepAdding) elements.newVocabulary.focus();
       else closeAddPanel(false);
       setStatus("saved", "Saved locally");
@@ -328,6 +349,9 @@
       const duplicate = error && error.name === "ConstraintError";
       showToast("Could not add word", duplicate ? "That vocabulary already exists." : "Please try again.", "error");
     } finally {
+      state.savingWord = false;
+      submit.disabled = false;
+      elements.addForm.setAttribute("aria-busy", "false");
       state.keepAdding = false;
     }
   }
@@ -617,14 +641,31 @@
 
   async function saveLesson(event) {
     event.preventDefault();
+    if (state.savingLesson) return;
     if (!state.lessonDrafts.length) return previewLesson();
     const rawCards = collectLessonCards();
     const prepared = logic.prepareImportedWords(rawCards, new Date().toISOString());
+    if (prepared.invalidCount) {
+      const cards = elements.lessonPreview.querySelectorAll(".lesson-preview-card");
+      rawCards.forEach(function (card, index) {
+        Object.keys(logic.validateWordDraft(card)).forEach(function (field) {
+          const control = cards[index].querySelector('[data-lesson-field="' + field + '"]');
+          control.setAttribute("aria-invalid", "true");
+        });
+      });
+      elements.lessonPreviewSummary.textContent = "Nothing saved. Fill in English and meaning for every card, or remove incomplete cards.";
+      const invalid = elements.lessonPreview.querySelector('[aria-invalid="true"]');
+      if (invalid) invalid.focus();
+      return;
+    }
     if (!prepared.words.length) {
       showToast("No valid cards", "Each card needs English text and a meaning.", "error");
       return;
     }
     setStatus("saving", "Saving lesson…");
+    state.savingLesson = true;
+    elements.saveLessonButton.disabled = true;
+    elements.lessonForm.setAttribute("aria-busy", "true");
     try {
       const result = await state.storage.insertWords(prepared.words, state.words);
       state.words = await state.storage.getAllWords();
@@ -640,6 +681,10 @@
     } catch (error) {
       setStatus("error", "Save failed");
       showToast("Practice pack not saved", "No cards were added. Please try again.", "error");
+    } finally {
+      state.savingLesson = false;
+      elements.saveLessonButton.disabled = false;
+      elements.lessonForm.setAttribute("aria-busy", "false");
     }
   }
 
@@ -681,54 +726,52 @@
 
   function hideInlineTextTooltip() {
     window.clearTimeout(inlineTextTooltipTimer);
-    inlineTextTooltipTimer = undefined;
-    if (inlineTextTooltipTarget) inlineTextTooltipTarget.removeAttribute("aria-describedby");
-    inlineTextTooltipTarget = undefined;
-    if (!inlineTextTooltip) return;
-    inlineTextTooltip.hidden = true;
-    inlineTextTooltip.textContent = "";
-  }
-
-  function positionInlineTextTooltip(target) {
-    const targetRect = target.getBoundingClientRect();
-    const edgeGap = 12;
-    const offset = 8;
-    const tooltipWidth = inlineTextTooltip.offsetWidth;
-    const tooltipHeight = inlineTextTooltip.offsetHeight;
-    const left = Math.max(edgeGap, Math.min(targetRect.left, window.innerWidth - tooltipWidth - edgeGap));
-    const preferredTop = targetRect.bottom + offset;
-    const top = preferredTop + tooltipHeight <= window.innerHeight - edgeGap
-      ? preferredTop
-      : Math.max(edgeGap, targetRect.top - tooltipHeight - offset);
-
-    inlineTextTooltip.style.left = left + "px";
-    inlineTextTooltip.style.top = top + "px";
+    if (inlineTextTooltipTarget) {
+      const descriptions = (inlineTextTooltipTarget.getAttribute("aria-describedby") || "").split(/\s+/).filter(function (id) { return id && id !== "inlineTextTooltip"; });
+      if (descriptions.length) inlineTextTooltipTarget.setAttribute("aria-describedby", descriptions.join(" "));
+      else inlineTextTooltipTarget.removeAttribute("aria-describedby");
+    }
+    inlineTextTooltipTarget = null;
+    if (inlineTextTooltip) inlineTextTooltip.hidden = true;
   }
 
   function showInlineTextTooltip(target) {
-    const text = target.value.trim();
+    if (!target.isConnected || target.closest("[hidden], [inert]")) return;
+    const text = target.getAttribute("data-tooltip") || (target.value || "").trim();
     if (!text) return;
     inlineTextTooltipTarget = target;
     inlineTextTooltip.textContent = text;
     inlineTextTooltip.hidden = false;
-    target.setAttribute("aria-describedby", inlineTextTooltip.id);
-    positionInlineTextTooltip(target);
+    // A dialog's tooltip must be inside its top layer and focus boundary.
+    const host = target.closest("dialog") || document.body;
+    if (inlineTextTooltip.parentNode !== host) host.appendChild(inlineTextTooltip);
+    const descriptions = (target.getAttribute("aria-describedby") || "").split(/\s+/).filter(Boolean);
+    if (!descriptions.includes(inlineTextTooltip.id)) descriptions.push(inlineTextTooltip.id);
+    target.setAttribute("aria-describedby", descriptions.join(" "));
+    const rect = target.getBoundingClientRect();
+    const gap = 12;
+    inlineTextTooltip.style.left = Math.max(gap, Math.min(rect.left, innerWidth - inlineTextTooltip.offsetWidth - gap)) + "px";
+    inlineTextTooltip.style.top = Math.max(gap, rect.bottom + inlineTextTooltip.offsetHeight + gap < innerHeight ? rect.bottom + 8 : rect.top - inlineTextTooltip.offsetHeight - 8) + "px";
+  }
+
+  function tooltipTarget(target) {
+    return target && target.closest && target.closest('[data-tooltip], input.word-input, textarea.meaning-input, textarea[data-field="example"]');
   }
 
   function scheduleInlineTextTooltip(event) {
-    const target = event.target;
-    if (!target.matches || !target.matches('input.word-input[data-field="vocabulary"], input.meaning-input[data-field="meaning"], textarea[data-field="example"]')) return;
-
+    const target = tooltipTarget(event.target);
+    if (!target || target === inlineTextTooltipTarget || event.pointerType === "touch") return;
     hideInlineTextTooltip();
     inlineTextTooltipTarget = target;
     inlineTextTooltipTimer = window.setTimeout(function () {
-      if (inlineTextTooltipTarget === target && target.matches(":hover")) showInlineTextTooltip(target);
+      if (target === inlineTextTooltipTarget && target.matches(":hover")) showInlineTextTooltip(target);
     }, INLINE_TEXT_TOOLTIP_DELAY);
   }
 
   function handleInlineTextTooltipLeave(event) {
-    const target = event.target;
-    if (target.matches && target.matches('input.word-input[data-field="vocabulary"], input.meaning-input[data-field="meaning"], textarea[data-field="example"]')) hideInlineTextTooltip();
+    if (inlineTextTooltipTarget && inlineTextTooltipTarget.contains(event.relatedTarget)) return;
+    if (event.relatedTarget && inlineTextTooltip.contains(event.relatedTarget)) return;
+    if (tooltipTarget(event.target)) hideInlineTextTooltip();
   }
 
   function setupInlineTextTooltip() {
@@ -738,6 +781,28 @@
     inlineTextTooltip.setAttribute("role", "tooltip");
     inlineTextTooltip.hidden = true;
     document.body.appendChild(inlineTextTooltip);
+    function syncTitles() {
+      document.querySelectorAll("[title]").forEach(function (target) {
+        if (!target.title) return;
+        if (target === inlineTextTooltipTarget && inlineTextTooltip) inlineTextTooltip.textContent = target.title;
+        target.setAttribute("data-tooltip", target.title);
+        target.removeAttribute("title");
+      });
+    }
+    syncTitles();
+    new MutationObserver(syncTitles).observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ["title"] });
+    document.addEventListener("pointerover", scheduleInlineTextTooltip);
+    document.addEventListener("pointerout", handleInlineTextTooltipLeave);
+    document.addEventListener("focusin", function (event) {
+      hideInlineTextTooltip();
+      const target = tooltipTarget(event.target);
+      if (target) showInlineTextTooltip(target);
+    });
+    document.addEventListener("focusout", hideInlineTextTooltip);
+    document.addEventListener("input", hideInlineTextTooltip);
+    document.addEventListener("pointerdown", hideInlineTextTooltip);
+    document.addEventListener("keydown", function (event) { if (event.key === "Escape") hideInlineTextTooltip(); });
+    inlineTextTooltip.addEventListener("pointerleave", hideInlineTextTooltip);
   }
 
   function commitInlinePartPicker(picker) {
@@ -842,8 +907,6 @@
     });
     elements.wordsTableBody.addEventListener("click", handleTableClick);
     elements.wordsTableBody.addEventListener("change", handleTableChange);
-    elements.wordsTableBody.addEventListener("pointerover", scheduleInlineTextTooltip);
-    elements.wordsTableBody.addEventListener("pointerout", handleInlineTextTooltipLeave);
     elements.wordsTableBody.addEventListener("toggle", function (event) {
       const picker = event.target;
       if (!picker.matches || !picker.matches(".inline-part-picker")) return;
@@ -899,6 +962,7 @@
       }
     });
     elements.addForm.addEventListener("input", function (event) {
+      event.target.removeAttribute("aria-invalid");
       const field = event.target.closest(".field");
       if (!field) return;
       field.classList.remove("invalid");
@@ -935,6 +999,7 @@
     elements.previewLessonButton.addEventListener("click", previewLesson);
     elements.lessonForm.addEventListener("submit", saveLesson);
     elements.lessonForm.addEventListener("input", function (event) {
+      event.target.removeAttribute("aria-invalid");
       if (!event.target.matches("#lessonTitle, #lessonText, [name=lessonTags]")) return;
       state.lessonDrafts = [];
       elements.lessonSaveActions.hidden = true;
@@ -1041,6 +1106,7 @@
         event.isComposing ||
         elements.dictionaryView.hidden ||
         elements.confirmDialog.open ||
+        elements.practiceDialog.open ||
         (document.activeElement && /^(INPUT|TEXTAREA|SELECT)$/i.test(document.activeElement.tagName)) ||
         (document.activeElement && document.activeElement.isContentEditable)
       ) return;
@@ -1073,6 +1139,9 @@
         return;
       }
       if (elements.reviewView.hidden) return;
+      if (event.defaultPrevented || event.isComposing || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+      if (event.target && (event.target.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(event.target.tagName))) return;
+      if (event.key === " " && event.target && /^(BUTTON|A|SUMMARY)$/.test(event.target.tagName)) return;
       if (event.key === " " && !event.repeat) { event.preventDefault(); review.showAnswer(); }
       if (event.key === "ArrowUp" && !event.repeat) { event.preventDefault(); review.speak(); }
       // Number keys 1-4 for grading.
@@ -1093,6 +1162,7 @@
     if (!shouldShow) setCompactFiltersExpanded(elements.floatingFilterBar, elements.floatingFiltersToggle, false);
     elements.floatingFilterBar.classList.toggle("is-visible", shouldShow);
     elements.floatingFilterBar.setAttribute("aria-hidden", shouldShow ? "false" : "true");
+    elements.floatingFilterBar.inert = !shouldShow;
   }
 
   async function initialize() {
@@ -1110,11 +1180,11 @@
       showToast: showToast,
       speakWord: speakWord,
       icon: viewModule.icon,
+      onWordsChanged: function () { renderer.renderApp(); },
       onGrade: async function (wordId, srsUpdate) {
         setStatus("saving", "Saving review…");
         try {
           await state.storage.updateWord(wordId, srsUpdate);
-          renderer.renderApp();
           setStatus("saved", "Saved locally");
         } catch (error) {
           setStatus("error", "Save failed");

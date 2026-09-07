@@ -23,9 +23,11 @@
         }
       })();
     </script>
-    <link rel="stylesheet" href="./styles.css?v=51" />
+    <link rel="stylesheet" href="./styles.css?v=53" />
     <link rel="stylesheet" href="./theme-light.css?v=51" />
     <link rel="stylesheet" href="./theme-dark.css?v=51" />
+    <link rel="stylesheet" href="./tokens.css?v=52" />
+    <link rel="stylesheet" href="./refinement.css?v=62" />
   </head>
   <body>
     <svg class="icon-sprite" aria-hidden="true">
@@ -101,25 +103,25 @@
           <span><strong>Word Garden</strong><small>Personal dictionary</small></span>
         </a>
         <div class="topbar-actions">
-          <span id="storageStatus" class="backup-status">
-            <svg><use href="#icon-database"></use></svg><span id="lastExportStatus"></span>
+          <span id="storageStatus" class="backup-status" role="status" aria-live="polite">
+            <svg><use href="#icon-database"></use></svg><span id="lastExportStatus"></span><span id="saveStatusLabel" class="sr-only"></span>
           </span>
           <button id="themeToggle" class="button button-ghost button-compact button-theme" type="button" aria-label="Switch to dark theme" title="Switch to dark theme">
             <svg aria-hidden="true"><use id="themeToggleIcon" href="#icon-moon"></use></svg><span id="themeToggleLabel">Dark</span>
           </button>
-          <button id="importButton" class="button button-ghost button-compact" type="button" title="Import JSON backup">
+          <button id="importButton" aria-label="Import backup" class="button button-ghost button-compact" type="button" title="Import JSON backup">
             <svg><use href="#icon-upload"></use></svg><span>Import</span>
           </button>
-          <button id="exportButton" class="button button-ghost button-compact" type="button" title="Export JSON backup">
+          <button id="exportButton" aria-label="Export backup" class="button button-ghost button-compact" type="button" title="Export JSON backup">
             <svg><use href="#icon-download"></use></svg><span>Export</span>
           </button>
           <div class="review-entry-points" role="group" aria-label="Review modes">
             <span class="review-entry-label">Review</span>
-            <button id="practicePacksButton" class="button button-primary button-compact" type="button" title="Practice review for focused work-English packs">
+            <button id="practicePacksButton" aria-label="Practice packs" class="button button-primary button-compact" type="button" title="Practice review for focused work-English packs">
               <svg><use href="#icon-book"></use></svg><span>Practice</span>
               <span id="practicePackBadge" class="review-badge" hidden>0</span>
             </button>
-            <button id="reviewButton" class="button button-primary button-compact" type="button" title="Vocabulary review">
+            <button id="reviewButton" aria-label="Review vocabulary" class="button button-primary button-compact" type="button" title="Vocabulary review">
               <svg><use href="#icon-cards"></use></svg><span>Vocabulary</span>
               <span id="reviewDueBadge" class="review-badge" hidden>0</span>
             </button>
@@ -132,7 +134,7 @@
         <section class="page-intro" aria-labelledby="pageTitle">
           <div>
             <p class="eyebrow">Your learning space</p>
-            <h1 id="pageTitle">A small place for words worth keeping.</h1>
+            <h1 id="pageTitle">Words worth keeping.</h1>
             <p class="intro-copy">Capture new English words, refine their meanings, and make them stick.</p>
           </div>
           <div class="intro-actions">
@@ -162,17 +164,17 @@
             <div class="add-form-grid">
               <label class="field field-word">
                 <span>Vocabulary <b aria-hidden="true">*</b></span>
-                <input id="newVocabulary" name="vocabulary" type="text" placeholder="e.g. resilient" autocomplete="off" />
-                <small class="field-error" data-error-for="vocabulary"></small>
+                <input id="newVocabulary" aria-required="true" aria-describedby="error-vocabulary" name="vocabulary" type="text" placeholder="e.g. resilient" autocomplete="off" />
+                <small id="error-vocabulary" class="field-error" data-error-for="vocabulary"></small>
               </label>
               <label class="field field-meaning">
                 <span>Meaning <b aria-hidden="true">*</b></span>
-                <input name="meaning" type="text" placeholder="Vietnamese translation or meaning" autocomplete="off" />
-                <small class="field-error" data-error-for="meaning"></small>
+                <input aria-required="true" aria-describedby="error-meaning" name="meaning" type="text" placeholder="Vietnamese translation or meaning" autocomplete="off" />
+                <small id="error-meaning" class="field-error" data-error-for="meaning"></small>
               </label>
               <fieldset class="field part-of-speech-field">
                 <legend>Parts of speech</legend>
-                <details class="part-picker form-part-picker" data-part-picker>
+                <details class="part-picker form-part-picker" aria-describedby="error-partsOfSpeech" data-part-picker>
                   <summary class="part-picker-trigger" aria-label="Parts of speech: noun. Click to edit.">
                     <span class="part-picker-tags" data-part-picker-tags><span class="part-tag" title="Noun" aria-label="Noun">(n)</span></span>
                   </summary>
@@ -192,7 +194,7 @@
                     </div>
                   </div>
                 </details>
-                <small class="field-error" data-error-for="partsOfSpeech"></small>
+                <small id="error-partsOfSpeech" class="field-error" data-error-for="partsOfSpeech"></small>
               </fieldset>
               <label class="field">
                 <span>Pronunciation</span>
@@ -237,12 +239,12 @@
           </div>
           <form id="lessonForm" novalidate>
             <div class="lesson-form-grid">
-              <label class="field"><span>Pack name <b aria-hidden="true">*</b></span><input id="lessonTitle" name="lessonTitle" type="text" placeholder="e.g. Safe rollouts" autocomplete="off" /></label>
+              <label class="field"><span>Pack name <b aria-hidden="true">*</b></span><input id="lessonTitle" maxlength="120" aria-required="true" name="lessonTitle" type="text" placeholder="e.g. Safe rollouts" autocomplete="off" /></label>
               <label class="field"><span>Tags</span><input name="lessonTags" type="text" placeholder="e.g. migration, deployment" autocomplete="off" /></label>
-              <label class="field field-lesson-text"><span>Lesson text <b aria-hidden="true">*</b></span><textarea id="lessonText" name="lessonText" rows="9" placeholder="“What’s the downside?” → Điểm bất lợi là gì?&#10;“Small, reversible steps.” → Các bước nhỏ và có thể rollback."></textarea></label>
+              <label class="field field-lesson-text"><span>Lesson text <b aria-hidden="true">*</b></span><textarea id="lessonText" aria-required="true" name="lessonText" rows="9" placeholder="“What’s the downside?” → Điểm bất lợi là gì?&#10;“Small, reversible steps.” → Các bước nhỏ và có thể rollback."></textarea></label>
             </div>
             <div class="lesson-form-footer">
-              <p id="lessonPreviewSummary">Paste your notes, then review the cards before saving.</p>
+              <p id="lessonPreviewSummary" role="status">Paste your notes, then review the cards before saving.</p>
               <div><button id="cancelLessonButton" class="button button-ghost" type="button">Cancel</button><button id="previewLessonButton" class="button button-ghost" type="button">Preview cards</button></div>
             </div>
             <div id="lessonPreview" class="lesson-preview" hidden></div>
@@ -262,7 +264,7 @@
               </div>
               <label class="search-box" for="searchInput">
                 <svg><use href="#icon-search"></use></svg>
-                <input id="searchInput" type="search" placeholder="Search vocabulary or meaning…" autocomplete="off" aria-describedby="searchShortcutDescription" aria-keyshortcuts="Meta+F Control+F" />
+                <input id="searchInput" aria-label="Search vocabulary or meaning" type="search" placeholder="Search vocabulary or meaning…" autocomplete="off" aria-describedby="searchShortcutDescription" aria-keyshortcuts="Meta+F Control+F" />
                 <button id="clearSearchButton" class="clear-search" type="button" aria-label="Clear search" title="Clear search" hidden>
                   <svg><use href="#icon-x"></use></svg>
                 </button>
@@ -355,10 +357,10 @@
             </nav>
           </footer>
         </section>
-        <p class="privacy-note"><svg><use href="#icon-database"></use></svg>Your data is saved privately in this browser — no account or cloud needed. Export a backup regularly so your learning is never lost.</p>
+        <p class="privacy-note"><svg><use href="#icon-database"></use></svg>Stored in this browser. Export a backup to keep a copy or move your words to another device.</p>
       </div>
 
-      <aside id="floatingFilterBar" class="floating-filter-bar" aria-label="Vocabulary filters" aria-hidden="true">
+      <aside id="floatingFilterBar" class="floating-filter-bar" inert aria-label="Vocabulary filters" aria-hidden="true">
         <div class="floating-filter-content">
           <div class="search-field">
             <div class="search-field-header">
@@ -524,7 +526,7 @@
           <p id="reviewCompletePackContext" class="review-pack-context" hidden>
             <svg aria-hidden="true"><use href="#icon-book"></use></svg><span>Practice pack</span><strong id="reviewCompletePackName"></strong>
           </p>
-          <div class="review-complete-icon">🎉</div>
+          <div class="review-complete-icon" aria-hidden="true"><svg><use href="#icon-check"></use></svg></div>
           <h2 id="reviewCompleteTitle">Session complete!</h2>
           <p id="reviewSummaryText">You reviewed 0 words.</p>
           <div id="reviewSummaryStats" class="review-summary-stats"></div>
@@ -543,7 +545,7 @@
       </section>
     </main>
 
-    <dialog id="confirmDialog" class="confirm-dialog">
+    <dialog id="confirmDialog" class="confirm-dialog" aria-labelledby="confirmTitle" aria-describedby="confirmMessage">
       <div class="dialog-icon"><svg><use href="#icon-trash"></use></svg></div>
       <div>
         <h2 id="confirmTitle">Delete word?</h2>
@@ -555,7 +557,7 @@
       </div>
     </dialog>
 
-    <dialog id="practiceDialog" class="confirm-dialog practice-dialog">
+    <dialog id="practiceDialog" class="confirm-dialog practice-dialog" aria-labelledby="practiceDialogTitle">
       <form id="practiceForm" method="dialog">
         <header class="practice-dialog-header">
           <div class="practice-dialog-icon"><svg><use href="#icon-sparkles"></use></svg></div>
@@ -585,9 +587,9 @@
 
     <script src="./logic.js"></script>
     <script src="./storage.js"></script>
-    <script src="./view.js"></script>
+    <script src="./view.js?v=4"></script>
     <script src="./backup.js"></script>
-    <script src="./review.js?v=24"></script>
-    <script src="./app.js?v=28"></script>
+    <script src="./review.js?v=39"></script>
+    <script src="./app.js?v=32"></script>
   </body>
 </html>
