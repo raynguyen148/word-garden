@@ -10,6 +10,7 @@
     var speakWord = options.speakWord;
     var icon = options.icon;
     var onGrade = options.onGrade;
+    var revealView = options.revealView || function (view) { view.hidden = false; };
 
     // Session-local queue and stats.
     var queue = [];
@@ -220,7 +221,7 @@
         state.answerShown = false;
         elements.dictionaryView.hidden = true;
         if (elements.practicePacksView) elements.practicePacksView.hidden = true;
-        elements.reviewView.hidden = false;
+        revealView(elements.reviewView);
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
         elements.reviewCard.hidden = true;
@@ -234,7 +235,7 @@
       state.answerShown = false;
       elements.dictionaryView.hidden = true;
       if (elements.practicePacksView) elements.practicePacksView.hidden = true;
-      elements.reviewView.hidden = false;
+      revealView(elements.reviewView);
       document.body.scrollTop = 0;
       document.documentElement.scrollTop = 0;
       render(true);
@@ -245,8 +246,13 @@
       if (root.speechSynthesis) root.speechSynthesis.cancel();
       elements.reviewView.hidden = true;
       var returnToPracticeReview = sessionScope === "pack";
-      elements.dictionaryView.hidden = returnToPracticeReview;
-      if (elements.practicePacksView) elements.practicePacksView.hidden = !returnToPracticeReview;
+      if (returnToPracticeReview) {
+        elements.dictionaryView.hidden = true;
+        if (elements.practicePacksView) revealView(elements.practicePacksView);
+      } else {
+        if (elements.practicePacksView) elements.practicePacksView.hidden = true;
+        revealView(elements.dictionaryView);
+      }
       elements.reviewPackContext.hidden = true;
       elements.reviewCompletePackContext.hidden = true;
       state.reviewWord = null;

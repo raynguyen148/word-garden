@@ -40,15 +40,87 @@
   let inlineTextTooltip;
   let inlineTextTooltipTimer;
   let inlineTextTooltipTarget;
+  let searchRenderFrame = 0;
+  let floatingFilterFrame = 0;
+  let listMotionFrame = 0;
+  let themeSwitchFrame = 0;
+  let pendingSearchQuery = "";
 
   const INLINE_TEXT_TOOLTIP_DELAY = 800;
   const THEME_STORAGE_KEY = "word-garden:theme";
   const LAST_EXPORT_KEY = "word-garden:lastExportAt";
   const BACKUP_WARNING_DAYS = 10;
 
+  function prefersReducedMotion() {
+    return Boolean(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  }
+
+  function revealView(view) {
+    if (!view) return;
+    view.hidden = false;
+    if (prefersReducedMotion()) return;
+    view.classList.remove("view-enter");
+    window.requestAnimationFrame(function () { view.classList.add("view-enter"); });
+  }
+
+  function closeDialogWithMotion(dialog) {
+    if (!dialog || !dialog.open || prefersReducedMotion()) {
+      if (dialog && dialog.open) dialog.close();
+      return;
+    }
+    dialog.classList.remove("is-closing");
+    window.requestAnimationFrame(function () { dialog.classList.add("is-closing"); });
+    let finished = false;
+    let fallbackTimer;
+    const finish = function () {
+      if (finished) return;
+      finished = true;
+      window.clearTimeout(fallbackTimer);
+      dialog.classList.remove("is-closing");
+      if (dialog.open) dialog.close();
+    };
+    dialog.addEventListener("animationend", function (event) {
+      if (event.target === dialog && event.animationName === "dialog-exit") finish();
+    }, { once: true });
+    fallbackTimer = window.setTimeout(finish, 220);
+  }
+
+  function animateListUpdate() {
+    const tableWrap = elements.tableWrap;
+    if (!tableWrap || tableWrap.hidden || prefersReducedMotion()) return;
+    tableWrap.classList.remove("is-list-updating");
+    if (listMotionFrame) window.cancelAnimationFrame(listMotionFrame);
+    listMotionFrame = window.requestAnimationFrame(function () {
+      tableWrap.classList.add("is-list-updating");
+      listMotionFrame = 0;
+    });
+  }
+
+  function renderListChange() {
+    renderer.renderApp();
+    animateListUpdate();
+  }
+
+  function scheduleSearchUpdate(value) {
+    pendingSearchQuery = value;
+    if (searchRenderFrame) return;
+    searchRenderFrame = window.requestAnimationFrame(function () {
+      searchRenderFrame = 0;
+      state.query = pendingSearchQuery;
+      state.page = 1;
+      renderListChange();
+    });
+  }
+
+  function cancelScheduledSearch() {
+    if (searchRenderFrame) window.cancelAnimationFrame(searchRenderFrame);
+    searchRenderFrame = 0;
+  }
+
   function getTheme() {
     try {
-      return window.localStorage.getItem(THEME_STORAGE_KEY) === "dark" ? "dark" : "light";
+      const storedTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
+      return THEMES.includes(storedTheme) ? storedTheme : "light";
     } catch (error) {
       return "light";
     }
@@ -58,11 +130,21 @@
 
   function applyTheme(theme, shouldPersist) {
     if (!THEMES.includes(theme)) theme = "light";
+    const root = document.documentElement;
+    const currentTheme = root.dataset.theme || "light";
+    const isThemeChange = currentTheme !== theme;
+
+    if (isThemeChange && !prefersReducedMotion()) {
+      if (themeSwitchFrame) window.cancelAnimationFrame(themeSwitchFrame);
+      root.classList.add("is-switching-theme");
+      // Ensure component transitions are disabled before palette variables change.
+      void root.offsetWidth;
+    }
 
     if (theme === "light") {
-      delete document.documentElement.dataset.theme;
+      delete root.dataset.theme;
     } else {
-      document.documentElement.dataset.theme = theme;
+      root.dataset.theme = theme;
     }
 
     const nextTheme = THEMES[(THEMES.indexOf(theme) + 1) % THEMES.length];
@@ -97,6 +179,15 @@
     else if (theme === "dark") metaColor = "#18181b";
     else if (theme === "light") metaColor = "#f9fafb";
     document.getElementById("themeColor").content = metaColor;
+
+    if (isThemeChange && !prefersReducedMotion()) {
+      themeSwitchFrame = window.requestAnimationFrame(function () {
+        themeSwitchFrame = window.requestAnimationFrame(function () {
+          root.classList.remove("is-switching-theme");
+          themeSwitchFrame = 0;
+        });
+      });
+    }
 
     if (!shouldPersist) return;
     try {
@@ -203,7 +294,7 @@
     closeAddPanel(false);
     closeLessonPanel(false);
     elements.dictionaryView.hidden = true;
-    elements.practicePacksView.hidden = false;
+    revealView(elements.practicePacksView);
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
     renderer.renderApp();
@@ -211,7 +302,7 @@
 
   function closePracticePacks() {
     elements.practicePacksView.hidden = true;
-    elements.dictionaryView.hidden = false;
+    revealView(elements.dictionaryView);
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
   }
@@ -219,7 +310,7 @@
   function goDictionaryHome() {
     if (!elements.reviewView.hidden) review.exit();
     elements.practicePacksView.hidden = true;
-    elements.dictionaryView.hidden = false;
+    revealView(elements.dictionaryView);
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
     renderer.renderApp();
@@ -514,7 +605,7 @@
     if (!ids.length) return;
     const idSet = new Set(ids);
     const removed = state.words.filter(function (word) { return idSet.has(word.id); });
-    elements.confirmDialog.close();
+    closeDialogWithMotion(elements.confirmDialog);
     state.pendingDeleteIds = [];
     state.words = state.words.filter(function (word) { return !idSet.has(word.id); });
     ids.forEach(function (id) { state.selectedIds.delete(id); });
@@ -581,7 +672,7 @@
     const word = findWord(id);
     if (!word) return;
     if (!isPhrase(word)) {
-      elements.practiceDialog.close();
+      closeDialogWithMotion(elements.practiceDialog);
       showToast("Phrase practice only", "This entry is no longer marked as a phrase.", "error");
       return;
     }
@@ -599,7 +690,7 @@
       const index = state.words.findIndex(function (item) { return item.id === id; });
       if (index >= 0) state.words[index] = Object.assign({}, word, changes);
       state.practiceWordId = null;
-      elements.practiceDialog.close();
+      closeDialogWithMotion(elements.practiceDialog);
       renderer.renderApp();
       setStatus("saved", "Saved locally");
       showToast("Phrase practice saved", "This phrase is ready for focused review.", "success");
@@ -884,10 +975,11 @@
     function updateQuery(value) {
       state.query = value;
       state.page = 1;
-      renderer.renderApp();
+      renderListChange();
     }
 
     function clearQuery(input) {
+      cancelScheduledSearch();
       updateQuery("");
       input.focus();
     }
@@ -895,7 +987,7 @@
     function updatePartOfSpeech(value) {
       state.partOfSpeech = value;
       state.page = 1;
-      renderer.renderApp();
+      renderListChange();
     }
 
     function updateContentType(value) {
@@ -906,23 +998,23 @@
         state.lesson = "";
       }
       state.page = 1;
-      renderer.renderApp();
+      renderListChange();
     }
 
     function updatePack(value) {
       state.lesson = value;
       state.page = 1;
-      renderer.renderApp();
+      renderListChange();
     }
 
     function updatePageSize(value) {
       state.pageSize = Math.min(100, Number(value) || 25);
       state.page = 1;
-      renderer.renderApp();
+      renderListChange();
     }
 
     [elements.searchInput, elements.floatingSearchInput].forEach(function (input) {
-      input.addEventListener("input", function () { updateQuery(input.value); });
+      input.addEventListener("input", function () { scheduleSearchUpdate(input.value); });
     });
     [[elements.clearSearchButton, elements.searchInput], [elements.floatingClearSearchButton, elements.floatingSearchInput]].forEach(function (pair) {
       pair[0].addEventListener("click", function () { clearQuery(pair[1]); });
@@ -939,7 +1031,7 @@
     elements.vocabularySortButton.addEventListener("click", function () {
       state.sortOrder = state.sortOrder === "a-z" ? "z-a" : "a-z";
       state.page = 1;
-      renderer.renderApp();
+      renderListChange();
     });
     [elements.pageSizeSelect, elements.floatingPageSizeSelect].forEach(function (select) {
       select.addEventListener("change", function () { updatePageSize(select.value); });
@@ -964,12 +1056,12 @@
     });
     elements.deleteSelectedButton.addEventListener("click", function () { openDeleteDialog(Array.from(state.selectedIds)); });
     elements.previousPageButton.addEventListener("click", function () {
-      if (state.page > 1) { state.page -= 1; renderer.renderApp(); }
+      if (state.page > 1) { state.page -= 1; renderListChange(); }
     });
-    elements.nextPageButton.addEventListener("click", function () { state.page += 1; renderer.renderApp(); });
+    elements.nextPageButton.addEventListener("click", function () { state.page += 1; renderListChange(); });
     elements.pageButtons.addEventListener("click", function (event) {
       const button = event.target.closest("button[data-page]");
-      if (button) { state.page = Number(button.dataset.page); renderer.renderApp(); }
+      if (button) { state.page = Number(button.dataset.page); renderListChange(); }
     });
     elements.practicePackList.addEventListener("click", function (event) {
       const button = event.target.closest("button[data-pack]");
@@ -1057,7 +1149,7 @@
     });
     elements.practiceCancelButton.addEventListener("click", function () {
       state.practiceWordId = null;
-      elements.practiceDialog.close();
+      closeDialogWithMotion(elements.practiceDialog);
     });
     elements.practiceForm.addEventListener("submit", savePracticeDetails);
     elements.practiceForm.addEventListener("input", updatePracticePreview);
@@ -1065,8 +1157,8 @@
     document.addEventListener("pointerdown", closePartPickersOutside);
     window.addEventListener("resize", hideInlineTextTooltip);
     window.addEventListener("scroll", hideInlineTextTooltip, true);
-    window.addEventListener("scroll", updateFloatingFilterVisibility, { passive: true });
-    window.addEventListener("resize", updateFloatingFilterVisibility);
+    window.addEventListener("scroll", scheduleFloatingFilterVisibility, { passive: true });
+    window.addEventListener("resize", scheduleFloatingFilterVisibility);
     elements.toolbarFiltersToggle.addEventListener("click", function () {
       setCompactFiltersExpanded(elements.dictionaryToolbar, elements.toolbarFiltersToggle, !elements.dictionaryToolbar.classList.contains("is-filters-open"));
     });
@@ -1074,6 +1166,7 @@
       setCompactFiltersExpanded(elements.floatingFilterBar, elements.floatingFiltersToggle, !elements.floatingFilterBar.classList.contains("is-filters-open"));
     });
     function clearAllFilters() {
+      cancelScheduledSearch();
       state.query = "";
       state.partOfSpeech = "all";
       state.contentType = "all";
@@ -1086,7 +1179,7 @@
       if (elements.packFilter) elements.packFilter.value = "";
       elements.clearSearchButton.hidden = true;
       if (elements.floatingClearSearchButton) elements.floatingClearSearchButton.hidden = true;
-      renderer.renderApp();
+      renderListChange();
     }
 
     if (elements.clearAllFiltersButton) {
@@ -1103,14 +1196,23 @@
 
     elements.confirmCancelButton.addEventListener("click", function () {
       state.pendingDeleteIds = [];
-      elements.confirmDialog.close();
+      closeDialogWithMotion(elements.confirmDialog);
     });
     elements.confirmDeleteButton.addEventListener("click", confirmDelete);
-    elements.confirmDialog.addEventListener("cancel", function () { state.pendingDeleteIds = []; });
+    elements.confirmDialog.addEventListener("cancel", function (event) {
+      event.preventDefault();
+      state.pendingDeleteIds = [];
+      closeDialogWithMotion(elements.confirmDialog);
+    });
     elements.confirmDialog.addEventListener("click", function (event) {
       const rect = elements.confirmDialog.getBoundingClientRect();
       const outside = event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom;
-      if (outside) { state.pendingDeleteIds = []; elements.confirmDialog.close(); }
+      if (outside) { state.pendingDeleteIds = []; closeDialogWithMotion(elements.confirmDialog); }
+    });
+    elements.practiceDialog.addEventListener("cancel", function (event) {
+      event.preventDefault();
+      state.practiceWordId = null;
+      closeDialogWithMotion(elements.practiceDialog);
     });
 
     elements.importButton.addEventListener("click", function () { elements.importInput.click(); });
@@ -1202,10 +1304,20 @@
     if (!elements.dictionaryToolbar || !elements.floatingFilterBar) return;
     const toolbarBottom = elements.dictionaryToolbar.getBoundingClientRect().bottom;
     const shouldShow = !elements.dictionaryView.hidden && toolbarBottom <= 0;
+    const isVisible = elements.floatingFilterBar.classList.contains("is-visible");
+    if (shouldShow === isVisible) return;
     if (!shouldShow) setCompactFiltersExpanded(elements.floatingFilterBar, elements.floatingFiltersToggle, false);
     elements.floatingFilterBar.classList.toggle("is-visible", shouldShow);
     elements.floatingFilterBar.setAttribute("aria-hidden", shouldShow ? "false" : "true");
     elements.floatingFilterBar.inert = !shouldShow;
+  }
+
+  function scheduleFloatingFilterVisibility() {
+    if (floatingFilterFrame) return;
+    floatingFilterFrame = window.requestAnimationFrame(function () {
+      floatingFilterFrame = 0;
+      updateFloatingFilterVisibility();
+    });
   }
 
   async function initialize() {
@@ -1223,6 +1335,7 @@
       showToast: showToast,
       speakWord: speakWord,
       icon: viewModule.icon,
+      revealView: revealView,
       onWordsChanged: function () { renderer.renderApp(); },
       onGrade: async function (wordId, srsUpdate) {
         setStatus("saving", "Saving review…");
