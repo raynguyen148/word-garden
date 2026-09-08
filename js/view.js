@@ -267,7 +267,7 @@
           <td data-label="Parts of speech">${practicePackCard ? lockedPracticePart() : inlinePartPicker(word.partsOfSpeech || word.partOfSpeech, id, word.vocabulary)}</td>
           <td data-label="Meaning"><textarea class="inline-control meaning-input" data-field="meaning" data-id="${id}" rows="3" aria-label="Meaning for ${vocabulary}">${e(word.meaning)}</textarea></td>
           <td data-label="Pronunciation"><input class="inline-control" data-field="pronunciation" data-id="${id}" value="${e(word.pronunciation || "")}" placeholder="Add pronunciation" aria-label="Pronunciation for ${vocabulary}"></td>
-          <td data-label="Example"><textarea class="inline-control" data-field="example" data-id="${id}" placeholder="Add an example" aria-label="Example for ${vocabulary}">${e(word.example || "")}</textarea></td>
+          <td data-label="Example"><textarea class="inline-control example-input" data-field="example" data-id="${id}" rows="1" placeholder="Add an example" aria-label="Example for ${vocabulary}">${e(word.example || "")}</textarea></td>
           <td class="actions-cell"><div class="row-actions">
             ${practicePackCard ? '<button class="table-action" type="button" data-action="practice" data-id="' + id + '" title="Edit phrase practice" aria-label="Edit phrase practice for ' + vocabulary + '">' + icon("sparkles") + '</button>' : ""}
             <button class="table-action" type="button" data-action="speak" data-id="${id}" title="Hear pronunciation" aria-label="Hear ${vocabulary}">${icon("volume")}</button>
@@ -276,6 +276,14 @@
           </div></td>
         </tr>`;
       }).join("");
+
+      if (!window.CSS || !CSS.supports('field-sizing', 'content')) {
+        const textareas = elements.wordsTableBody.querySelectorAll('textarea.meaning-input');
+        for (let i = 0; i < textareas.length; i++) {
+          textareas[i].style.height = 'auto';
+          textareas[i].style.height = textareas[i].scrollHeight + 'px';
+        }
+      }
     }
 
     function renderContentFilters(packs) {
@@ -323,15 +331,15 @@
         '</div>';
 
         return '<article class="practice-pack-card' + (pack.completedToday ? " is-completed" : "") + '">' +
-          '<div>' +
+          '<div class="practice-pack-card-top">' +
             '<div class="practice-pack-header">' +
               '<span class="eyebrow">Practice pack</span>' +
               '<span class="practice-pack-count-pill">' + pack.total + " " + cardWord + '</span>' +
             '</div>' +
             '<h3 title="' + title + '">' + title + '</h3>' +
             (detail ? '<p class="practice-pack-detail-text">' + detail + '</p>' : "") +
-            progressHtml +
           '</div>' +
+          progressHtml +
           '<div class="practice-pack-actions">' +
             '<button class="button button-ghost button-small" type="button" data-action="review-pack" data-pack="' + title + '" title="Review all ' + pack.total + ' cards in this pack" aria-label="Review all ' + pack.total + ' cards in ' + title + '">' +
               '<svg aria-hidden="true"><use href="#icon-cards"></use></svg><span>Review · ' + pack.total + '</span>' +
