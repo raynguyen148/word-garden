@@ -24,7 +24,7 @@
         }
       })();
     </script>
-    <link rel="stylesheet" href="./css/styles.css?v=53" />
+    <link rel="stylesheet" href="./css/styles.css?v=57" />
     <link rel="stylesheet" href="./css/theme-light.css?v=51" />
     <link rel="stylesheet" href="./css/theme-warm.css?v=1" />
     <link rel="stylesheet" href="./css/theme-dark.css?v=51" />
@@ -265,11 +265,14 @@
           <div id="dictionaryToolbar" class="toolbar">
             <div class="search-field">
               <div class="search-field-header">
-                <button id="clearAllFiltersButton" class="clear-filters-text-btn" type="button" aria-label="Clear all active filters" title="Clear all active filters" hidden>
-                  <svg aria-hidden="true"><use href="#icon-x"></use></svg>
-                  <span>Clear filters</span>
-                  <span id="activeFiltersCountBadge" class="filter-count-badge">0</span>
-                </button>
+                <div class="filter-status">
+                  <button id="clearAllFiltersButton" class="clear-filters-text-btn" type="button" aria-label="Clear all active filters" title="Clear all active filters" hidden>
+                    <svg aria-hidden="true"><use href="#icon-x"></use></svg>
+                    <span>Clear filters</span>
+                    <span id="activeFiltersCountBadge" class="filter-count-badge">0</span>
+                  </button>
+                  <span id="filteredResultsCount" class="filtered-results-count" aria-live="polite" hidden>0 matches</span>
+                </div>
               </div>
               <label class="search-box" for="searchInput">
                 <svg><use href="#icon-search"></use></svg>
@@ -297,7 +300,7 @@
                   <option value="verb">Verb</option><option value="adjective">Adjective</option>
                   <option value="adverb">Adverb</option><option value="pronoun">Pronoun</option>
                   <option value="preposition">Preposition</option><option value="conjunction">Conjunction</option>
-                  <option value="interjection">Interjection</option><option value="phrase">Phrase</option><option value="other">Other</option>
+                  <option value="interjection">Interjection</option><option value="phrase">Phrase</option><option value="phrase_not_in_pack">Phrase (not in pack)</option><option value="other">Other</option>
                 </select>
               </label>
               <label class="compact-field"><span>Practice pack</span><select id="packFilter" disabled><option value="">All packs</option></select></label>
@@ -373,11 +376,14 @@
         <div class="floating-filter-content">
           <div class="search-field">
             <div class="search-field-header">
-              <button id="floatingClearAllFiltersButton" class="clear-filters-text-btn" type="button" aria-label="Clear all active filters" title="Clear all active filters" hidden>
-                <svg aria-hidden="true"><use href="#icon-x"></use></svg>
-                <span>Clear filters</span>
-                <span id="floatingActiveFiltersCountBadge" class="filter-count-badge">0</span>
-              </button>
+              <div class="filter-status">
+                <button id="floatingClearAllFiltersButton" class="clear-filters-text-btn" type="button" aria-label="Clear all active filters" title="Clear all active filters" hidden>
+                  <svg aria-hidden="true"><use href="#icon-x"></use></svg>
+                  <span>Clear filters</span>
+                  <span id="floatingActiveFiltersCountBadge" class="filter-count-badge">0</span>
+                </button>
+                <span id="floatingFilteredResultsCount" class="filtered-results-count" hidden>0 matches</span>
+              </div>
             </div>
             <label class="search-box" for="floatingSearchInput">
               <svg><use href="#icon-search"></use></svg>
@@ -405,7 +411,7 @@
                   <option value="verb">Verb</option><option value="adjective">Adjective</option>
                   <option value="adverb">Adverb</option><option value="pronoun">Pronoun</option>
                   <option value="preposition">Preposition</option><option value="conjunction">Conjunction</option>
-                  <option value="interjection">Interjection</option><option value="phrase">Phrase</option><option value="other">Other</option>
+                  <option value="interjection">Interjection</option><option value="phrase">Phrase</option><option value="phrase_not_in_pack">Phrase (not in pack)</option><option value="other">Other</option>
                 </select>
               </label>
               <label class="compact-field"><span>Practice pack</span><select id="floatingPackFilter" disabled><option value="">All packs</option></select></label>
@@ -603,9 +609,9 @@
 
     <script src="./js/logic.js"></script>
     <script src="./js/storage.js"></script>
-    <script src="./js/view.js?v=5"></script>
+    <script src="./js/view.js?v=9"></script>
     <script src="./js/backup.js"></script>
     <script src="./js/review.js?v=40"></script>
-    <script src="./js/app.js?v=35"></script>
+    <script src="./js/app.js?v=37"></script>
   </body>
 </html>

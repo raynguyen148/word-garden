@@ -476,6 +476,9 @@ kbd {
 }
 .search-field { display: flex; flex-direction: column; justify-content: flex-end; min-width: 260px; flex: 1; }
 .search-field-header { display: flex; align-items: center; justify-content: space-between; min-height: 17px; margin-bottom: 4px; }
+.filter-status { display: inline-flex; min-width: 0; min-height: 16px; align-items: center; }
+.filtered-results-count { color: var(--muted); font-size: 11px; font-weight: 650; font-variant-numeric: tabular-nums; line-height: 1; white-space: nowrap; }
+.filtered-results-count:not([hidden])::before { content: "·"; margin: 0 7px; color: var(--muted-2); }
 .search-box { position: relative; display: flex; width: 100%; align-items: center; }
 .search-box > svg { position: absolute; left: 12px; width: 17px; color: var(--muted-2); pointer-events: none; }
 .search-box input { width: 100%; height: 40px; border: 1px solid var(--border); border-radius: 10px; padding: 8px 38px; background: var(--surface-soft); color: var(--foreground); transition: border-color .15s ease, box-shadow .15s ease, background .15s ease; }
@@ -501,7 +504,7 @@ kbd {
   border: none;
   background: transparent;
   padding: 0;
-  margin: 0 0 4px;
+  margin: 0;
   color: var(--primary);
   font-size: 11px;
   font-weight: 700;
@@ -614,6 +617,10 @@ tbody tr.selected { background: var(--table-row-selected); }
 .inline-control.word-input { font-weight: 650; }
 .practice-row-meta { display: flex; flex-wrap: wrap; gap: 4px 7px; margin: 4px 7px 0; color: var(--muted); font-size: 10px; line-height: 1.3; }
 .card-type-chip { border-radius: 999px; padding: 2px 6px; background: var(--primary-soft); color: var(--primary); font-weight: 750; text-transform: capitalize; }
+.practice-pack-row-meta { display: grid; width: 100%; max-width: 100%; grid-template-columns: max-content minmax(0, 1fr) max-content; align-items: center; gap: var(--space-xs); }
+.practice-pack-row-meta .card-type-chip { white-space: nowrap; }
+.practice-pack-name { min-width: 0; overflow: hidden; color: var(--muted); font-size: 11px; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
+.practice-tags-summary { color: var(--muted-2); font-size: 10px; font-weight: 650; white-space: nowrap; }
 .inline-control::placeholder { color: var(--muted-2); font-style: italic; }
 .inline-control[data-field="pronunciation"],
 input[name="pronunciation"] {
@@ -671,7 +678,6 @@ textarea.inline-control:hover::-webkit-scrollbar, textarea.inline-control:focus:
 .locked-practice-part { display: inline-flex; min-height: 34px; align-items: center; gap: 5px; padding: 5px 6px; color: var(--muted); cursor: help; }
 .locked-practice-part svg { width: 13px; height: 13px; color: var(--primary); }
 .locked-practice-part .part-tag { border-color: transparent; padding: 0; background: transparent; color: var(--muted); font-size: 11px; }
-.locked-practice-part small { border-left: 1px solid var(--border); padding-left: 5px; color: var(--muted-2); font-size: 9px; font-weight: 700; letter-spacing: .02em; }
 .actions-cell { width: 156px; min-width: 156px; text-align: right; }
 .row-actions { display: flex; min-width: 132px; justify-content: flex-end; gap: 4px; }
 .table-action { display: grid; width: 30px; height: 30px; flex: 0 0 30px; place-items: center; border: 0; border-radius: 7px; background: transparent; color: var(--muted-2); transition: color .15s ease, background .15s ease; }

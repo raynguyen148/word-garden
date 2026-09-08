@@ -273,13 +273,16 @@
     const selectedPart = cleanText(partOfSpeech).toLowerCase();
     const selectedLesson = cleanText(lesson);
     const selectedContentType = ["vocabulary", "practice"].includes(contentType) ? contentType : "all";
+    const phraseNotInPackFilter = selectedPart === "phrase_not_in_pack";
 
     const filtered = words.filter(function (word) {
       const wordParts = normalizePartsOfSpeech(word.partsOfSpeech || word.partOfSpeech);
       const practiceCard = isPracticePackCard(word);
       if (selectedContentType === "vocabulary" && practiceCard) return false;
       if (selectedContentType === "practice" && !practiceCard) return false;
-      const matchesPart = selectedContentType === "practice" || !selectedPart || selectedPart === "all" || wordParts.includes(selectedPart);
+      const matchesPart = selectedContentType === "practice" || !selectedPart || selectedPart === "all" || (phraseNotInPackFilter
+        ? (wordParts.includes("phrase") && !practiceCard)
+        : wordParts.includes(selectedPart));
       if (!matchesPart) return false;
       if (selectedLesson && (word.lesson !== selectedLesson || !practiceCard)) return false;
       if (!normalizedQuery) return true;

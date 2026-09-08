@@ -252,7 +252,7 @@
       "totalCount", "toggleAddButton", "addPanel", "closeAddButton", "cancelAddButton", "addForm", "newVocabulary",
       "lessonPanel", "closeLessonButton", "cancelLessonButton", "lessonForm", "lessonTitle", "lessonText", "previewLessonButton", "lessonPreview", "lessonPreviewSummary", "lessonSaveActions", "saveLessonButton",
       "practicePacks", "practicePackList", "practicePacksEmpty", "packFilter", "practicePacksCount", "practicePacksCountLabel", "practicePacksAddLessonButton", "practicePacksIntroActions",
-      "dictionaryToolbar", "toolbarFiltersToggle", "toolbarFiltersToggleBadge", "toolbarFilterDetails", "clearAllFiltersButton", "activeFiltersCountBadge", "floatingFilterBar", "floatingFiltersToggle", "floatingFiltersToggleBadge", "floatingFilterDetails", "floatingSearchInput", "floatingClearSearchButton", "floatingClearAllFiltersButton", "floatingActiveFiltersCountBadge", "floatingContentTypeFilter", "floatingPartFilter", "floatingPackFilter", "floatingPageSizeSelect",
+      "dictionaryToolbar", "toolbarFiltersToggle", "toolbarFiltersToggleBadge", "toolbarFilterDetails", "filteredResultsCount", "clearAllFiltersButton", "activeFiltersCountBadge", "floatingFilterBar", "floatingFiltersToggle", "floatingFiltersToggleBadge", "floatingFilterDetails", "floatingSearchInput", "floatingClearSearchButton", "floatingFilteredResultsCount", "floatingClearAllFiltersButton", "floatingActiveFiltersCountBadge", "floatingContentTypeFilter", "floatingPartFilter", "floatingPackFilter", "floatingPageSizeSelect",
       "searchInput", "searchShortcutDescription", "clearSearchButton", "contentTypeFilter", "partFilter", "vocabularySortButton", "pageSizeSelect", "bulkBar", "selectedCount",
       "clearSelectionButton", "deleteSelectedButton", "tableWrap", "wordsTableBody", "selectAllCheckbox", "emptyState",
       "emptyTitle", "emptyMessage", "emptyAddButton", "pagination", "rangeLabel", "previousPageButton", "nextPageButton",
@@ -422,6 +422,7 @@
     const data = new FormData(elements.addForm);
     const selectedParts = data.getAll("partsOfSpeech");
     const partsOfSpeech = logic.normalizePartsOfSpeech(selectedParts);
+    const lesson = String(data.get("lesson") || "").trim();
     const draft = {
       vocabulary: String(data.get("vocabulary") || "").trim(),
       // Store both fields during the transition: the array is canonical and
@@ -431,8 +432,10 @@
       meaning: String(data.get("meaning") || "").trim(),
       pronunciation: String(data.get("pronunciation") || "").trim(),
       example: String(data.get("example") || "").trim(),
-      cardType: logic.normalizeCardType(data.get("cardType")),
-      lesson: String(data.get("lesson") || "").trim(),
+      // A phrase is still an ordinary dictionary record until it is assigned
+      // to a named practice pack. Keep practice-only metadata out of it.
+      cardType: lesson ? logic.normalizeCardType(data.get("cardType")) : "vocabulary",
+      lesson: lesson,
       tags: logic.normalizeTags(data.get("tags")),
       situation: String(data.get("situation") || "").trim(),
     };
@@ -946,6 +949,48 @@
     saveInlineEdit(picker, selectedParts);
   }
 
+  function summarizeImportedWords(words) {
+    var total = Array.isArray(words) ? words.length : 0;
+    var standalonePractice = 0;
+    var inPackPractice = 0;
+    var packSet = new Set();
+
+    (Array.isArray(words) ? words : []).forEach(function (word) {
+      var cardType = logic.normalizeCardType(word && word.cardType);
+      if (cardType !== "phrase" && cardType !== "pattern") return;
+      var parts = logic.normalizePartsOfSpeech(word && (word.partsOfSpeech || word.partOfSpeech));
+      if (!parts.includes("phrase")) return;
+      var lesson = String((word && word.lesson) || "").trim();
+      if (lesson) {
+        inPackPractice += 1;
+        packSet.add(lesson);
+      } else {
+        standalonePractice += 1;
+      }
+    });
+
+    return {
+      total: total,
+      standalonePractice: standalonePractice,
+      inPackPractice: inPackPractice,
+      packCount: packSet.size,
+    };
+  }
+
+  function buildImportSummaryMessage(result, summary, invalidCount) {
+    var added = result.addedCount;
+    var updated = result.updatedCount;
+    var skipped = invalidCount ? invalidCount : 0;
+    var practiceInPackText = summary.inPackPractice ? (", " + summary.inPackPractice + " practice card" + (summary.inPackPractice === 1 ? "" : "s") + " in pack") : "";
+    var standaloneText = summary.standalonePractice ? ", " + summary.standalonePractice + " standalone phrase" + (summary.standalonePractice === 1 ? "" : "s") : "";
+    var packText = summary.packCount ? ", " + summary.packCount + " pack" + (summary.packCount === 1 ? "" : "s") : "";
+    var skippedText = skipped ? ", " + skipped + " skipped" : "";
+    var plural = summary.total === 1 ? "" : "s";
+    return summary.total + " record" + plural + " processed. " +
+      added + " added, " + updated + " updated" + skippedText +
+      practiceInPackText + packText + standaloneText + ".";
+  }
+
   async function importBackup(event) {
     const file = event.target.files && event.target.files[0];
     event.target.value = "";
@@ -956,6 +1001,7 @@
     }
     try {
       const prepared = await backupModule.readBackup(file, logic);
+      const summary = summarizeImportedWords(prepared.words);
       setStatus("saving", "Importing…");
       const result = await state.storage.importWords(prepared.words, state.words);
       state.words = await state.storage.getAllWords();
@@ -963,8 +1009,7 @@
       state.page = 1;
       renderer.renderApp();
       setStatus("saved", "Saved locally");
-      const skipped = prepared.invalidCount ? ", " + prepared.invalidCount + " skipped" : "";
-      showToast("Backup imported", result.addedCount + " added, " + result.updatedCount + " updated" + skipped + ".", "success");
+      showToast("Backup imported", buildImportSummaryMessage(result, summary, prepared.invalidCount), "success");
     } catch (error) {
       setStatus("error", "Import failed");
       showToast("Could not import backup", error && error.message ? error.message : "Choose a valid Word Garden JSON backup.", "error");

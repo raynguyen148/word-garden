@@ -2,7 +2,8 @@
  * design-system: design.md · designed-as-app · theme: existing Word Garden
  * nav: N9 adapted app controls · footer: Ft2 · enrichment: none
  * Audience: personal English learner · Use: capture, find, practise
- * Hallmark · pre-emit critique: P4 H4 E4 S5 R5 V4
+ * Component refinement: practice-pack metadata + filtered-result status
+ * Hallmark · pre-emit critique: P5 H5 E4 S5 R5 V4
  */
 html, body { overflow-x: clip; }
 body { font-family: var(--font-body); min-width: 0; }
@@ -67,17 +68,55 @@ button { white-space: nowrap; }
 :root:root .add-panel { border-radius: var(--radius-panel); padding: var(--space-lg);   }
 :root:root .confirm-dialog, :root:root .practice-dialog { border-radius: var(--radius-panel); max-height: calc(100dvh - var(--space-xl)); overflow-y: auto; }
 .dialog-actions { flex-wrap: wrap; }
-:root:root .table-wrap { overflow-x: auto; border-radius: 0 0 var(--radius-panel) var(--radius-panel); }
+:root:root .table-wrap { overflow: visible; border-radius: 0 0 var(--radius-panel) var(--radius-panel); }
 table { min-width: 0; }
 th { font-size: var(--text-xs); font-weight: 600; text-transform: none; letter-spacing: 0; }
 :root:root tbody tr, :root:root tbody tr:hover { transition: background-color var(--dur-short) var(--ease-out); }
 :root:root .row-actions { opacity: 1; }
 :root:root .table-action { min-width: 32px; min-height: 36px; transition: transform var(--dur-micro) var(--ease-out), background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out); }
 :root:root .inline-control { font-size: var(--text-sm); }
-:root:root .inline-part-picker[open] .part-picker-menu { position: relative; width: 100%; min-width: 0; left: auto; top: auto; margin-top: var(--space-xs); padding: var(--space-xs);   }
-.inline-part-picker .part-picker-options { grid-template-columns: minmax(0, 1fr); }
-.inline-part-picker .part-picker-option { padding-inline: var(--space-2xs); }
-.inline-part-picker .part-picker-option small { display: none; }
+:root:root .inline-part-picker[open] .part-picker-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  z-index: 100;
+  width: max-content;
+  min-width: 276px;
+  max-width: min(320px, calc(100vw - 32px));
+  margin-top: 0;
+  padding: var(--space-xs);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-control);
+  box-shadow: 0 12px 28px rgba(48, 35, 25, .16), var(--shadow-md);
+}
+:root:root tr:has(.inline-part-picker[open]) {
+  z-index: 40;
+  position: relative;
+}
+.inline-part-picker .part-picker-menu > p {
+  white-space: nowrap;
+  margin: 0 0 var(--space-2xs);
+  font-size: var(--text-xs);
+  color: var(--muted);
+}
+.inline-part-picker .part-picker-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px;
+}
+.inline-part-picker .part-picker-option {
+  display: grid;
+  grid-template-columns: 14px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 6px;
+  min-height: 28px;
+  padding: 4px 6px;
+  border-radius: 6px;
+}
+.inline-part-picker .part-picker-option small {
+  display: inline;
+}
 :root:root .inline-text-tooltip {
   position: fixed; z-index: 1000; max-width: min(360px, calc(100% - var(--space-lg)));
   max-height: min(280px, 45dvh); overflow: auto; pointer-events: auto;
@@ -400,22 +439,8 @@ th { font-size: var(--text-xs); font-weight: 600; text-transform: none; letter-s
     padding: 1px 4px;
   }
   :root:root .inline-part-picker[open] .part-picker-menu {
-    position: absolute;
-    top: calc(100% + 4px);
-    left: 0;
-    z-index: 100;
-    width: max-content;
     min-width: 220px;
     max-width: min(300px, calc(100vw - 32px));
-    margin-top: 0;
-    padding: var(--space-xs);
-    background: var(--surface);
-    border: 1px solid var(--border-strong);
-    border-radius: var(--radius-control);
-    box-shadow: var(--shadow-md);
-  }
-  .inline-part-picker .part-picker-options {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .part-picker-option {
     min-height: 36px;

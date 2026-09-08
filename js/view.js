@@ -113,6 +113,8 @@
     other: "other",
   };
 
+  const PART_FILTER_NOT_IN_PACK = "phrase_not_in_pack";
+
   function partLabel(part) {
     return part.charAt(0).toUpperCase() + part.slice(1);
   }
@@ -157,9 +159,10 @@
     '</details>';
   }
 
-  function lockedPracticePart() {
-    return '<span class="locked-practice-part" title="Practice-pack cards stay as phrases." aria-label="Part of speech: Phrase. Locked because this card belongs to a practice pack.">' +
-      icon("lock") + '<span class="part-tag" title="Phrase">(phr)</span><small>Practice card</small></span>';
+  function lockedPracticePart(word) {
+    const isPattern = word && word.cardType === "pattern";
+    return '<span class="locked-practice-part" title="Practice-pack cards stay as phrases." aria-label="Part of speech: Phrase. Locked because this card belongs to a practice pack as ' + (isPattern ? "a pattern" : "a practice phrase") + '.">' +
+      icon("lock") + '<span class="part-tag" title="Phrase">(phr)</span></span>';
   }
 
   function syncPartPicker(picker, selectedParts, vocabulary) {
@@ -183,6 +186,15 @@
   }
 
   function createRenderer(elements, state) {
+    function activeFilterCount() {
+      var count = 0;
+      if (state.query && state.query.trim()) count++;
+      if (state.contentType && state.contentType !== "all") count++;
+      if (state.partOfSpeech && state.partOfSpeech !== "all") count++;
+      if (state.lesson) count++;
+      return count;
+    }
+
     function syncFloatingFilters() {
       const pairs = [
         [elements.contentTypeFilter, elements.floatingContentTypeFilter],
@@ -209,31 +221,26 @@
       elements.clearSearchButton.hidden = !hasQuery;
       elements.floatingClearSearchButton.hidden = !hasQuery;
 
-      var activeFilterCount = 0;
-      if (state.query && state.query.trim()) activeFilterCount++;
-      if (state.contentType && state.contentType !== "all") activeFilterCount++;
-      if (state.partOfSpeech && state.partOfSpeech !== "all") activeFilterCount++;
-      if (state.lesson) activeFilterCount++;
-
-      var hasActiveFilters = activeFilterCount > 0;
+      var filtersApplied = activeFilterCount();
+      var hasActiveFilters = filtersApplied > 0;
       if (elements.clearAllFiltersButton) {
         elements.clearAllFiltersButton.hidden = !hasActiveFilters;
         if (elements.activeFiltersCountBadge) {
-          elements.activeFiltersCountBadge.textContent = String(activeFilterCount);
+          elements.activeFiltersCountBadge.textContent = String(filtersApplied);
         }
       }
       if (elements.floatingClearAllFiltersButton) {
         elements.floatingClearAllFiltersButton.hidden = !hasActiveFilters;
         if (elements.floatingActiveFiltersCountBadge) {
-          elements.floatingActiveFiltersCountBadge.textContent = String(activeFilterCount);
+          elements.floatingActiveFiltersCountBadge.textContent = String(filtersApplied);
         }
       }
       if (elements.toolbarFiltersToggleBadge) {
-        elements.toolbarFiltersToggleBadge.textContent = String(activeFilterCount);
+        elements.toolbarFiltersToggleBadge.textContent = String(filtersApplied);
         elements.toolbarFiltersToggleBadge.hidden = !hasActiveFilters;
       }
       if (elements.floatingFiltersToggleBadge) {
-        elements.floatingFiltersToggleBadge.textContent = String(activeFilterCount);
+        elements.floatingFiltersToggleBadge.textContent = String(filtersApplied);
         elements.floatingFiltersToggleBadge.hidden = !hasActiveFilters;
       }
     }
@@ -246,6 +253,19 @@
       return { filtered: filtered, paginated: paginated };
     }
 
+    function renderFilteredResultsCount(count) {
+      const label = count + " match" + (count === 1 ? "" : "es");
+      const visible = activeFilterCount() > 0;
+      if (elements.filteredResultsCount) {
+        elements.filteredResultsCount.textContent = label;
+        elements.filteredResultsCount.hidden = !visible;
+      }
+      if (elements.floatingFilteredResultsCount) {
+        elements.floatingFilteredResultsCount.textContent = label;
+        elements.floatingFilteredResultsCount.hidden = !visible;
+      }
+    }
+
     function renderRows(items) {
       const e = logic.escapeHtml;
       elements.wordsTableBody.innerHTML = items.map(function (word) {
@@ -254,17 +274,20 @@
         const selected = state.selectedIds.has(word.id);
         const tags = Array.isArray(word.tags) ? word.tags : [];
         const practicePackCard = logic.isPracticePackCard(word);
-        const practiceMeta = word.lesson || word.cardType !== "vocabulary" || tags.length
-          ? '<div class="practice-row-meta">' +
-              '<span class="card-type-chip">' + e(word.cardType || "vocabulary") + '</span>' +
-              (word.lesson ? '<span>' + e(word.lesson) + '</span>' : "") +
-              (tags.length ? '<span>' + e(tags.join(" · ")) + '</span>' : "") +
+        const lesson = String(word.lesson || "").trim();
+        const compactLesson = lesson.replace(/^(speaking patterns?|practice phrases?)\s*[-–—:]\s*/i, "") || lesson;
+        const tagsLabel = tags.length + " tag" + (tags.length === 1 ? "" : "s");
+        const practiceMeta = practicePackCard
+          ? '<div class="practice-row-meta practice-pack-row-meta">' +
+              '<span class="card-type-chip" title="' + e(word.cardType === "pattern" ? "Speaking pattern" : "Practice phrase") + '">' + e(word.cardType === "pattern" ? "Pattern" : "Phrase") + '</span>' +
+              '<span class="practice-pack-name" title="Practice pack: ' + e(lesson) + '">' + e(compactLesson) + '</span>' +
+              (tags.length ? '<span class="practice-tags-summary" title="Tags: ' + e(tags.join(", ")) + '">' + tagsLabel + '</span>' : "") +
             '</div>'
-          : "";
+          : (tags.length ? '<div class="practice-row-meta">' + e(tags.join(" · ")) + '</div>' : "");
         return `<tr data-row-id="${id}" class="${selected ? "selected" : ""}">
           <td class="select-column"><input class="checkbox row-checkbox" type="checkbox" data-id="${id}" aria-label="Select ${vocabulary}" ${selected ? "checked" : ""}></td>
           <td data-label="Vocabulary"><input class="inline-control word-input" data-field="vocabulary" data-id="${id}" value="${vocabulary}" aria-label="Vocabulary: ${vocabulary}">${practiceMeta}</td>
-          <td data-label="Parts of speech">${practicePackCard ? lockedPracticePart() : inlinePartPicker(word.partsOfSpeech || word.partOfSpeech, id, word.vocabulary)}</td>
+          <td data-label="Parts of speech">${practicePackCard ? lockedPracticePart(word) : inlinePartPicker(word.partsOfSpeech || word.partOfSpeech, id, word.vocabulary)}</td>
           <td data-label="Meaning"><textarea class="inline-control meaning-input" data-field="meaning" data-id="${id}" rows="3" aria-label="Meaning for ${vocabulary}">${e(word.meaning)}</textarea></td>
           <td data-label="Pronunciation"><input class="inline-control" data-field="pronunciation" data-id="${id}" value="${e(word.pronunciation || "")}" placeholder="Add pronunciation" aria-label="Pronunciation for ${vocabulary}"></td>
           <td data-label="Example"><textarea class="inline-control example-input" data-field="example" data-id="${id}" rows="1" placeholder="Add an example" aria-label="Example for ${vocabulary}">${e(word.example || "")}</textarea></td>
@@ -300,6 +323,9 @@
       elements.partFilter.title = state.contentType === "practice" ? "Practice cards are always phrases" : "Filter by part of speech";
       elements.packFilter.disabled = state.contentType !== "practice" || packs.length === 0;
       elements.packFilter.title = state.contentType === "practice" ? "Filter by practice pack" : "Choose Practice cards to filter by pack";
+      if (elements.partFilter && elements.partFilter.value === PART_FILTER_NOT_IN_PACK && state.contentType === "practice") {
+        state.partOfSpeech = "all";
+      }
     }
 
     function renderPracticePacks(packs) {
@@ -433,6 +459,7 @@
       renderContentFilters(practicePacks);
       renderPracticePacks(practicePacks);
       const view = currentView();
+      renderFilteredResultsCount(view.filtered.length);
       elements.reviewButton.disabled = vocabularyWords.length === 0;
       if (elements.practicePacksButton) {
         elements.practicePacksButton.disabled = !state.ready;
