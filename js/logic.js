@@ -35,6 +35,20 @@
       .replace(/\s+/g, " ");
   }
 
+  function getAddableSearchTerm(words, query) {
+    const candidate = cleanText(query).replace(/\s+/g, " ");
+    const candidateKey = normalizeWord(candidate);
+    if (!candidateKey) return "";
+
+    const alreadyExists = (Array.isArray(words) ? words : []).some(function (word) {
+      const source = word && typeof word === "object" ? word : {};
+      return [source.wordKey, source.vocabulary, source.word].some(function (value) {
+        return normalizeWord(value) === candidateKey;
+      });
+    });
+    return alreadyExists ? "" : candidate;
+  }
+
   function normalizePartOfSpeech(value) {
     const normalized = cleanText(value).toLowerCase();
     return PARTS_OF_SPEECH.includes(normalized) ? normalized : "other";
@@ -549,6 +563,7 @@
     PARTS_OF_SPEECH: PARTS_OF_SPEECH,
     CARD_TYPES: CARD_TYPES,
     normalizeWord: normalizeWord,
+    getAddableSearchTerm: getAddableSearchTerm,
     normalizePartOfSpeech: normalizePartOfSpeech,
     normalizePartsOfSpeech: normalizePartsOfSpeech,
     formatPartsOfSpeech: formatPartsOfSpeech,

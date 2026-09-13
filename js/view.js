@@ -430,12 +430,29 @@
     function renderEmptyState(filteredCount) {
       const noWords = state.words.length === 0;
       const noMatches = !noWords && filteredCount === 0;
+      const addableSearchTerm = logic.getAddableSearchTerm(state.words, state.query);
+      const canAddSearchTerm = Boolean(addableSearchTerm) && (noWords || noMatches);
       elements.emptyState.hidden = !(noWords || noMatches);
       elements.tableWrap.hidden = noWords || noMatches;
-      if (noWords) {
+      elements.emptyAddSearchButton.hidden = !canAddSearchTerm;
+
+      if (canAddSearchTerm) {
+        state.emptyAction = "clear";
+        elements.emptyTitle.textContent = state.contentType === "practice"
+          ? "No matching practice cards"
+          : (state.contentType === "vocabulary" ? "No matching vocabulary" : "No matching items");
+        elements.emptyMessage.textContent = "No saved entry matches “" + addableSearchTerm + "”.";
+        elements.emptyAddSearchLabel.textContent = "Add “" + addableSearchTerm + "”";
+        elements.emptyAddSearchButton.setAttribute("aria-label", "Add “" + addableSearchTerm + "” as a new word");
+        elements.emptyAddButton.classList.remove("button-primary");
+        elements.emptyAddButton.classList.add("button-ghost");
+        elements.emptyAddButton.innerHTML = icon("x") + "Clear search and filters";
+      } else if (noWords) {
         state.emptyAction = "add";
         elements.emptyTitle.textContent = "Your dictionary is ready";
         elements.emptyMessage.textContent = "Add your first unfamiliar word and start building a vocabulary you can revisit.";
+        elements.emptyAddButton.classList.remove("button-ghost");
+        elements.emptyAddButton.classList.add("button-primary");
         elements.emptyAddButton.innerHTML = icon("plus") + "Add your first word";
       } else if (noMatches) {
         state.emptyAction = "clear";
@@ -443,6 +460,8 @@
           ? "No matching practice cards"
           : (state.contentType === "vocabulary" ? "No matching vocabulary" : "No matching items");
         elements.emptyMessage.textContent = "Try a different search or clear the current filters.";
+        elements.emptyAddButton.classList.remove("button-ghost");
+        elements.emptyAddButton.classList.add("button-primary");
         elements.emptyAddButton.innerHTML = icon("x") + "Clear search and filters";
       }
     }

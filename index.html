@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="./css/theme-warm.css?v=1" />
     <link rel="stylesheet" href="./css/theme-dark.css?v=51" />
     <link rel="stylesheet" href="./css/tokens.css?v=52" />
-    <link rel="stylesheet" href="./css/refinement.css?v=71" />
+    <link rel="stylesheet" href="./css/refinement.css?v=74" />
   </head>
   <body>
     <svg class="icon-sprite" aria-hidden="true">
@@ -351,9 +351,15 @@
             <div class="empty-illustration"><svg><use href="#icon-book"></use></svg></div>
             <h2 id="emptyTitle">Your dictionary is ready</h2>
             <p id="emptyMessage">Add your first unfamiliar word and start building a vocabulary you can revisit.</p>
-            <button id="emptyAddButton" class="button button-primary" type="button">
-              <svg><use href="#icon-plus"></use></svg>Add your first word
-            </button>
+            <div class="empty-actions">
+              <button id="emptyAddSearchButton" class="button button-primary empty-search-add" type="button" hidden>
+                <svg aria-hidden="true"><use href="#icon-plus"></use></svg>
+                <span id="emptyAddSearchLabel">Add searched word</span>
+              </button>
+              <button id="emptyAddButton" class="button button-primary" type="button">
+                <svg aria-hidden="true"><use href="#icon-plus"></use></svg>Add your first word
+              </button>
+            </div>
           </div>
 
           <footer id="pagination" class="pagination" hidden>
@@ -607,11 +613,11 @@
     <div id="toastRegion" class="toast-region" aria-live="polite" aria-atomic="true"></div>
     <noscript><p class="noscript">Word Garden needs JavaScript enabled to store and manage your dictionary.</p></noscript>
 
-    <script src="./js/logic.js"></script>
+    <script src="./js/logic.js?v=1"></script>
     <script src="./js/storage.js"></script>
-    <script src="./js/view.js?v=9"></script>
+    <script src="./js/view.js?v=10"></script>
     <script src="./js/backup.js"></script>
     <script src="./js/review.js?v=40"></script>
-    <script src="./js/app.js?v=37"></script>
+    <script src="./js/app.js?v=38"></script>
   </body>
 </html>

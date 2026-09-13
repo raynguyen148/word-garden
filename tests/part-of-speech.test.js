@@ -2,6 +2,20 @@ const assert = require("node:assert/strict");
 const test = require("node:test");
 const logic = require("../js/logic.js");
 
+test("offers a normalized search term only when it is not already saved", function () {
+  const words = [
+    { vocabulary: "Fixture", wordKey: "fixture" },
+    { word: "fall back", wordKey: "fall back" },
+    { vocabulary: "edge case", wordKey: "stale-key" },
+  ];
+
+  assert.equal(logic.getAddableSearchTerm(words, "  regression   window  "), "regression window");
+  assert.equal(logic.getAddableSearchTerm(words, " FIXTURE "), "");
+  assert.equal(logic.getAddableSearchTerm(words, "Fall Back"), "");
+  assert.equal(logic.getAddableSearchTerm(words, "Edge Case"), "");
+  assert.equal(logic.getAddableSearchTerm(words, "   "), "");
+});
+
 test("normalizes legacy and multi-value parts of speech", function () {
   assert.deepEqual(logic.normalizePartsOfSpeech("verb"), ["verb"]);
   assert.deepEqual(

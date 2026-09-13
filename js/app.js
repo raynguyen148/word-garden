@@ -255,7 +255,7 @@
       "dictionaryToolbar", "toolbarFiltersToggle", "toolbarFiltersToggleBadge", "toolbarFilterDetails", "filteredResultsCount", "clearAllFiltersButton", "activeFiltersCountBadge", "floatingFilterBar", "floatingFiltersToggle", "floatingFiltersToggleBadge", "floatingFilterDetails", "floatingSearchInput", "floatingClearSearchButton", "floatingFilteredResultsCount", "floatingClearAllFiltersButton", "floatingActiveFiltersCountBadge", "floatingContentTypeFilter", "floatingPartFilter", "floatingPackFilter", "floatingPageSizeSelect",
       "searchInput", "searchShortcutDescription", "clearSearchButton", "contentTypeFilter", "partFilter", "vocabularySortButton", "pageSizeSelect", "bulkBar", "selectedCount",
       "clearSelectionButton", "deleteSelectedButton", "tableWrap", "wordsTableBody", "selectAllCheckbox", "emptyState",
-      "emptyTitle", "emptyMessage", "emptyAddButton", "pagination", "rangeLabel", "previousPageButton", "nextPageButton",
+      "emptyTitle", "emptyMessage", "emptyAddSearchButton", "emptyAddSearchLabel", "emptyAddButton", "pagination", "rangeLabel", "previousPageButton", "nextPageButton",
       "pageButtons", "exitReviewButton", "reviewCard", "reviewDirectionLabel", "reviewPart",
       "reviewInstruction", "reviewPrompt", "reviewQuestion", "reviewSpeakButton", "reviewPronunciation", "reviewAnswer",
       "reviewAnswerText", "reviewAnswerMeta", "reviewExample", "showAnswerButton", "confirmDialog",
@@ -277,9 +277,15 @@
     viewModule.setStorageStatus(elements, status, label);
   }
 
-  function openAddPanel() {
+  function openAddPanel(vocabulary) {
     elements.addPanel.hidden = false;
     elements.toggleAddButton.setAttribute("aria-expanded", "true");
+    if (typeof vocabulary === "string") {
+      elements.newVocabulary.value = vocabulary;
+      elements.newVocabulary.removeAttribute("aria-invalid");
+      const vocabularyError = document.getElementById("error-vocabulary");
+      if (vocabularyError) vocabularyError.textContent = "";
+    }
     window.requestAnimationFrame(function () { elements.newVocabulary.focus(); });
   }
 
@@ -1236,6 +1242,10 @@
     elements.emptyAddButton.addEventListener("click", function () {
       if (state.emptyAction === "add") return openAddPanel();
       clearAllFilters();
+    });
+    elements.emptyAddSearchButton.addEventListener("click", function () {
+      const searchTerm = logic.getAddableSearchTerm(state.words, state.query);
+      if (searchTerm) openAddPanel(searchTerm);
     });
     bindListEvents();
 
